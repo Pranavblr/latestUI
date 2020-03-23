@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>Actions / Export / 16px</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M16.1283683,4.0002 L16.1283683,7.97769156 L15.1220536,7.97769156 L15.1220536,4.99457289 L5.00631475,4.99457289 L5.00631475,19.0048267 L15.1220536,19.0048267 L15.1220536,16.0687257 L16.1283683,16.0687257 L16.1283683,20.0002 L4,20.0002 L4,4.0002 L16.1283683,4.0002 Z M16.8101339,8.90573958 L20,12.0579216 L16.9294758,15.0960609 L16.2144361,14.3887957 L18.1228943,12.5000875 L11.7067528,12.5000875 L11.7067528,11.4997123 L18.0045638,11.4997123 L16.0961056,9.61200443 L16.8101339,8.90573958 Z" id="path-1"></path>
+    </defs>
+    <g id="Actions-/-Export-/-16px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="Mask" fill="#303030" xlink:href="#path-1"></use>
+        <g id="*Style*-/-Icon-/-Tint-/-Actionable---Light-Background-/-Interactive" mask="url(#mask-2)" fill="#303030">
+            <g id="*Style*-/-Color-/-Action-/-Secondary">
+                <rect id="Light-Theme" x="0" y="0" width="24" height="24"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

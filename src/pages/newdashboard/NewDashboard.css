@@ -1,0 +1,27 @@
+li {
+    background-color: unset;
+}
+.create-newOrg .button.ui.medium.button.primary{
+    position: absolute !important;
+    right: 18px !important;
+    height: 40px !important ;
+    line-height: 0.5rem !important;
+}
+.ui.card.org-list-data{height: 85vh;border: 1px solid #d0d0d0 !important;}
+.ui.scuf-grid.dashboard-content.media-s{
+    margin-left: 0px !important;
+    margin-top: 10px !important;
+}
+.dashboard-content .title-section h2{
+    font-size: 25px !important;
+    font-family:'Honeywell Sans Extra_Bold' !important;
+}
+.data-table .cell-data-wrap{
+    margin-left: 23px;
+}
+.application-field .cell-data-wrap{color: #1274B7;}
+.health-field .cell-data-wrap{color:#7EB338 !important;font-family:'Honeywell Sans Extra_Bold' ;}
+.common-field .cell-data-wrap{color: #303030 !important; font-family:'Honeywell Sans Extra_Bold';}
+.p-datatable.p-component.p-datatable-resizable.p-datatable-resizable-fit.data-table{
+    margin-right: 5px !important;
+}

@@ -1,0 +1,40 @@
+.table-card {
+    margin-top: 20px !important;
+}
+
+.user-name {
+    color: #1274B7;
+}
+
+.ui.search-wrap .ui.search.ui-search .ui.input {
+    min-width: 285px !important;
+}
+table tr th{
+    font-family: 'Honeywell Sans Extra_Bold';
+    font-size: 12px;
+}
+table tr td{
+    font-family: Helvetica;
+    font-size: 12px;
+}
+table{
+    margin-top:5px;
+}
+.user-field{
+    width: 190px !important;
+    padding: 5px !important;
+}
+.p-datatable-wrapper {
+    margin-left: 5px;
+}
+.ui.card.table-card{height: 85vh;border: 1px solid #d0d0d0 !important;}
+.ui.single-input .input-box {
+    width: 260px;
+    height: 48px !important;
+}
+.ui.single-input .input-wrap{margin: 5px;}
+.cell-data-wrap{font-size: 13px;    font-family: Helvetica;}
+.name-field .cell-data-wrap{color: #1274B7;}
+.filter-icon{position: absolute;right: 0;}
+.ui.forge-datatable-wrap .p-datatable .p-datatable-thead th .p-column-title {font-family: 'Honeywell Sans Extra_Bold' !important;}
+.ui.forge-datatable-wrap .p-datatable tbody.p-datatable-tbody>tr>td .cell-data-wrap{padding: 3px !important;}

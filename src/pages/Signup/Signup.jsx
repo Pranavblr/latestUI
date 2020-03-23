@@ -1,0 +1,308 @@
+import React, { Component } from 'react';
+import { Input, Select, TextArea, Checkbox, Button, Radio } from '@scuf/common';
+
+import { connect } from 'react-redux';
+import { fetchUserDetails, signUpUser,defaultSignUpstate,fetchOrgDetails} from '../../actions/signUp';
+
+import './Signup.css';
+import ErrorMessage from '../../components/Shared/ErrorMessage/ErrorMessage';
+import Loader from '../../components/Shared/Loader/Loader';
+import SuccessFullMessage from '../../components/Shared/successFullMessage/successFullMessage';
+
+const stateOptions = [
+    { "value": 1, "text": 'Org Admin' },
+    { "value": 0, "text": 'Network Admin' },
+];
+const orgOption=[
+    { "value": "hongdt", "text": 'hongdt' },
+    { "value": "honmro", "text": 'honmro' },
+    { "value": "honoem", "text": 'honoem' },
+    { "value": "honhat", "text": 'honhat' }
+]
+class Signup extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            selectedRole: 1,
+            signupPageFrom: '',
+            selectedOrg:'Existing'
+        }
+    }
+    componentDidMount(){
+      this.props.defaultSignUpstate()
+    }
+    handleSelectRole = (value) => {
+        this.setState({
+            selectedRole: value
+        })
+    }
+    handleChangeUserInput = (key, value) => {
+        let userInput = {
+            key: key,
+            value: value
+        }
+        this.props.fetchUserDetails(userInput);
+    }
+    handleClickRegister = () => {
+        this.props.signUpUser(this.props.signUpReducer.userDetails);
+        console.log('signup-reducer', this.props.signUpReducer);
+    }
+    componentDidMount() {
+        const query = new URLSearchParams(this.props.location.search);
+        let signupFrom = query.get('from');
+        this.setState({
+            signupPageFrom: signupFrom
+        })
+        console.log('signup from', query.get('from'))
+    }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.signUpDone && this.state.signupPageFrom === 'landing-page') {
+            console.log('redireced to landing page')
+            // this.props.history.push('/');
+        } else if (nextProps.signUpDone) {
+            console.log('redirected to dashboard Page')
+            // this.props.history.push('/mydashboard/allchannels');
+        }
+    }
+    redirectBasedOnThePage = () => {
+        if (this.props.signUpDone && this.state.signupPageFrom === 'landing-page') {
+            console.log('redireced to landing page')
+            this.props.history.push('/');
+        } else if (this.props.signUpDone && this.state.signupPageFrom === 'auth-page') {
+            console.log('sighn up response', this.props.signUpResponse)
+            if (this.props.signUpResponse.status === 0) {
+                localStorage.setItem('approval-status', 'pending')
+                this.props.history.push('/');
+            } else {
+                this.props.history.push('/mydashboard/allchannels');
+            }
+        }else if(this.props.signUpDone&&this.state.signupPageFrom==='new-request'){
+               this.props.history.push('/mydashboard/allchannels')
+        }
+    }
+    handleChangeOrgType = (type)=>{
+        this.setState({selectedOrg:type})
+    }
+    getOrgName =(orgname,existing)=>{
+     this.props.fetchOrgDetails(orgname,existing);
+    }
+    render() {
+        return (
+            <div className="container-fluid signup-page">
+                
+                {
+                    this.props.loading ?
+                        <Loader /> : ''
+                }
+                {
+                    this.props.signUpDone && this.state.signupPageFrom === 'landing-page' ?
+                        <SuccessFullMessage handleClickRedirect={() => this.redirectBasedOnThePage()}
+                            open={true} title="Success" message=
+                            "An activation link has been sent to the registered email id.Please check." /> :
+                        ''
+                }
+                {
+                    this.props.signUpDone && (this.state.signupPageFrom === 'auth-page'||this.state.signupPageFrom === 'new-request') ?
+                        <SuccessFullMessage handleClickRedirect={() => this.redirectBasedOnThePage()}
+                            open={true} title="Success" message=
+                            "User details has been saved." /> :
+                        ''
+                }
+                {
+                    this.props.errorMessage ?
+                        <ErrorMessage page="signup" open={true} title='Error' message={this.props.errorMessage} />
+                        : ''
+                }
+                <div className="row justify-content-center align-items-center h-100">
+                    <div className="col-11 col-sm-7 col-md-7 col-lg-9">
+                        <div className="row registration-form">
+                            <div className="col-lg-12 col-md-12 col-12 signup-col">
+                                <div className="signup-header">
+                                    <h3>Register</h3>
+                                    <hr />
+                                </div>
+
+                                <div className="row">
+                                    <ul class="list-group list-group-flush">
+                                        <li>
+                                            <div class="list-group-item-fixed">
+                                                <strong class="list-group-left"> First Name:</strong>
+                                                <span class="list-group-right">
+                                                    <Input
+                                                        className={localStorage.getItem('firstName') ? 'disable' : ''}
+                                                        value={localStorage.getItem('firstName') ? localStorage.getItem('firstName') : this.props.firstName}
+                                                        placeholder="firstname" onChange={(data) => this.handleChangeUserInput('firstname', data)} />
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="list-group-item-fixed">
+                                                <strong class="list-group-left"> Last Name:</strong>
+                                                <span class="list-group-right">
+                                                    <Input
+                                                        className={localStorage.getItem('LastName') ? 'disable' : ''}
+                                                        value={localStorage.getItem('LastName') ? localStorage.getItem('LastName') : this.props.lastName}
+                                                        placeholder="lastname" onChange={(data) => this.handleChangeUserInput('lastname', data)} />
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="list-group-item-fixed">
+                                                <strong class="list-group-left">Email ID:</strong>
+                                                <span class="list-group-right">
+                                                    <Input
+                                                        className={localStorage.getItem('user-id') ? 'disable' : ''}
+                                                        value={localStorage.getItem('user-id') ? localStorage.getItem('user-id') : this.props.email}
+                                                        placeholder="email id" onChange={(data) => this.handleChangeUserInput('email', data)} />
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="list-group-item-fixed">
+                                                <strong class="list-group-left">User Display Name:</strong>
+                                                <span class="list-group-right">
+                                                    <Input placeholder="user display name" onChange={(data) => this.handleChangeUserInput('comments', data)} />
+                                                </span>
+
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="list-group-item-fixed">
+                                                <strong class="list-group-left">City:</strong>
+                                                <span class="list-group-right">
+                                                    <Input placeholder="city" onChange={(data) => this.handleChangeUserInput('city', data)} />
+                                                </span>
+
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="list-group-item-fixed">
+                                                <strong class="list-group-left">State:</strong>
+                                                <span class="list-group-right">
+                                                    <Input placeholder="state" onChange={(data) => this.handleChangeUserInput('state', data)} />
+                                                </span>
+
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="list-group-item-fixed">
+                                                <strong class="list-group-left">Country:</strong>
+                                                <span class="list-group-right">
+                                                    <Input placeholder="country" onChange={(data) => this.handleChangeUserInput('country', data)} />
+                                                </span>
+
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="list-group-item-fixed">
+                                                <strong class="list-group-left">Company:</strong>
+                                                <span class="list-group-right">
+                                                    <Input placeholder="company" onChange={(data) => this.handleChangeUserInput('company', data)} />
+                                                </span>
+
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="list-group-item-fixed">
+                                                <strong class="list-group-left">Job Title:</strong>
+                                                <span class="list-group-right">
+                                                    <Input placeholder="job title" onChange={(data) => this.handleChangeUserInput('jobtitle', data)} />
+                                                </span>
+
+                                            </div>
+                                        </li>
+
+                                        {/* <li>
+                                            <div class="list-group-item-fixed">
+                                                <strong class="list-group-left">Select Network:</strong>
+                                                <span class="list-group-right">
+                                                    <Select
+                                                        defaultValue={1}
+                                                        placeholder="Select a State" options={stateOptions}
+                                                        onChange={(value) => (alert(value))} />
+                                                </span>
+
+                                            </div>
+                                        </li> */}
+                                        <li>
+                                            <div class="list-group-item-fixed">
+                                                <strong class="list-group-left">Role:</strong>
+                                                <span class="list-group-right">
+                                                    <Select placeholder="Select a State"
+                                                        defaultValue={1}
+                                                        value={this.props.role}
+                                                        options={stateOptions} onChange={(value) => this.handleChangeUserInput('role', value)} />
+                                                </span>
+
+                                            </div>
+                                        </li>
+                                        {
+                                            this.props.role===1?
+                                            <li>
+                                            <div class="list-group-item-fixed">
+                                                <strong class="list-group-left"></strong>
+                                                <span class="list-group-right">
+                                                    <Radio label="New" 
+                                                    onChange = {()=>this.handleChangeOrgType('New')}
+                                                    checked={this.state.selectedOrg==='New'}/>
+                                                    <Radio label="Existing"
+                                                    onChange = {()=>this.handleChangeOrgType('Existing')}
+                                                    checked={this.state.selectedOrg==='Existing'}/>
+                                                     {
+                                                    this.state.selectedOrg==='New'?
+                                                    <Input placeholder="Organization Name"
+                                                     onChange={(data) => this.getOrgName(data,false)} />:
+                                                     
+                                                     <Select placeholder="Select a State"
+                                                    defaultValue="hongdt"
+                                                    options={orgOption} onChange={(value) => this.getOrgName(value,true)} />
+                                                   }
+                                                </span>
+                                               
+
+                                            </div>
+                                        </li>:''
+                                        }
+                                        
+                                        <li>
+                                            <div class="list-group-item-fixed">
+                                                <strong class="list-group-left">Comments:</strong>
+                                                <span class="list-group-right">
+                                                    <TextArea placeholder='Type...' onChange={(data) => this.handleChangeUserInput('comments', data)} />
+                                                </span>
+
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div className="action-buttons">
+                                    <Button type="secondary" className="error-ok-button" size="small" content="CANCEL" />
+                                    <Button onClick={() => this.handleClickRegister()} type="primary" className="error-ok-button" size="small" content="SUBMIT" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        );
+    }
+}
+export const mapStateToProps = state => {
+    console.log('sigup-reducer', state.signUp);
+    return {
+        signUpReducer: state.signUp,
+        errorMessage: state.signUp.errorMessage,
+        loading: state.signUp.loading,
+        SignUpResponse: state.signUp.SignUpResponse,
+        signUpDone: state.signUp.signUpDone,
+        role: state.signUp.userDetails.role,
+        firstName: state.signUp.userDetails.firstname,
+        lastName: state.signUp.userDetails.lastname,
+        email: state.signUp.userDetails.email,
+
+        signUpResponse: state.signUp.SignUpResponse,
+    }
+}
+export default connect(mapStateToProps, { fetchUserDetails, signUpUser,defaultSignUpstate,fetchOrgDetails})(Signup);

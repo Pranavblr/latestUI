@@ -1,0 +1,414 @@
+.org-setupform.ui.card.raised{
+    /* align-items: center !important; */
+    /* text-align:center !important; */
+    background: #FFFFFF !important;
+    /* height: 100vh; */
+    box-shadow: 0 8px 8px 0 rgba(0,0,0,0.10) !important;
+}
+.org-setupform.ui.card{
+    align-items: center !important;
+}
+.breadcrumb{
+    max-width: 644px !important;
+    margin-left: 200px !important;
+}
+ul{
+    margin-top: 10px !important;
+}
+.disabled{
+    pointer-events: none;
+}
+.button-section .button-section .ui.medium.button.primary{
+    margin-left: 50px !important;
+}
+.ui.button.primary{
+    margin-left: 0px !important;
+}
+.ui.button.primary.disabled{
+    /* margin-left: 80px !important; */
+}
+.steps.ui .link.item .content{
+    margin-left:0px !important;
+    padding: 0px !important;
+}
+.org-setupform.ui.card .content{
+    /* margin-left: 250px !important;  */
+    align-items: center !important;
+}
+.button-section{
+    position: absolute !important;
+    right: 50px !important;
+    bottom: 10px;
+    align-items: none !important;
+   
+}
+label {
+    margin-top: 16px;
+    font-family:'Honeywell Sans Extra_Bold';
+    font-size: 13px !important;
+}
+.form-grid .scuf-col.col-4{
+ padding-bottom: 0px !important;
+}
+.form-grid .scuf-col.col-4{
+    padding-top: 10px !important;
+    padding-left: 0px !important;
+    padding-bottom: 0px !important;
+}
+.form-input.ui.single-input .input-box{
+    width: 350px !important;
+    height: 35px !important;
+}
+.ui.selection.dropdown, .ui.scuf-dropdown-wrapper > .ui.multiple.selection.dropdown, .ui.scuf-dropdown-wrapper > .ui.dropdown.disabled{
+    max-height: 2rem !important;
+}
+.scuf-col .col-3 .ui.button.primary{
+    max-height: 44px !important;
+}
+.image-upload > input {
+    visibility:hidden;
+    width:0;
+    height:0
+  }
+.image-upload img{
+    height: 31px !important;
+}
+.form-grid .ui.scuf-dropdown-wrapper{
+    width: 22rem !important;
+}
+/* .form-stepper.steps.ui .link.item:first-child{
+    max-width: 300px;
+} */
+
+.steps.ui .link.item{
+    max-width: 330px !important;
+}
+.ui.steps .step .title{font-size: 15px !important;}
+.ui.ordered.steps .step:before{
+    font-size: 15px;
+    margin-right: 0.35rem;
+    padding-left: 50px !important;
+    padding-top: 1px !important;
+  }
+.steps.ui .link.item{
+    height: 70px !important;
+}
+.ui.steps .step .title{
+    font-family: 'Honeywell Sans Extra_Bold';
+}
+.scuf-grid.col-12.buttons {
+    position: relative !important;
+    left: 50% !important;
+}
+.form-grid .scuf-col.col-3{
+    text-align: left !important;
+    padding: 0px !important;
+}
+.config-radiotype{
+    text-align: center !important;
+}
+.scuf-grid{
+ margin-left: 25px !important;
+}
+.form-grid h5{
+    font-family: 'Honeywell Sans Web_Medium' !important;
+    font-size:  18px !important;
+}
+div.ui.pointing.secondary.ui.scuf-tab.menu .active.item {
+    font-family: 'Honeywell Sans Extra_Bold' !important;
+}
+h5{
+    text-align: left;
+    margin-left: 10px;
+    margin-top: 25px !important;
+}
+.scuf-col p{
+    text-align: left !important;
+}
+.horizontal-line{
+    margin-top: -1.45rem !important;
+}
+.image-upload label{
+    border: 1px solid #1274B7;
+    margin-top: 12px !important;
+}
+.ui.single-input .input-wrap{
+    margin: 0px !important;
+}
+.ui.button.generate-button{
+    padding-left: 0.9375rem !important;
+    padding-right: 1.9375rem !important;
+    line-height: 0.5rem !important;
+    font-weight: bolder;
+}
+.icons{
+    padding: 10px !important;
+}
+.ui.button.view-top-icons{
+    padding-left: 1.9375rem !important;
+    padding-right: 3.0375rem !important;
+    padding-top: 1.0075rem !important;
+    padding-bottom: 1.0875rem !important;
+    line-height: .5rem !important;
+}
+/* .create-orgsetup p{
+    color: #1274B7 !important;
+    font-size: 14px;
+    font-weight: bold;
+} */
+.form-grid .scuf-col.col-5 {
+    padding-top: 10px !important;
+}
+.create-orgsetup h2{
+    font-family: 'Honeywell Sans Extra_Bold' !important;
+}
+.create-orgsetup h2 span{
+    font-size: 16px !important;
+}
+.forms-homepage .scuf-col.col-12,.forms-homepage .scuf-col.col-12 h5{
+    text-align: center !important;
+}
+.forms-homepage h5{
+    color: #A0A0A0 !important;
+    font-family: 'Honeywell Sans Web_Medium';
+    font-size:24px;
+}
+.forms-homepage h6{
+    font-size: 16px !important;
+    font-family: 'Honeywell Sans Web_Medium';
+}
+.scuf-col.setup-available.col-12{
+    height:100px !important;
+}
+.image-upload {
+    margin-left: 20px !important;
+}
+.scuf-col.icon-div.col-1 {
+    padding-top: 9px !important;
+}
+
+/* toggle switch css starts */
+{
+    user-select: none;
+    -webkit-tap-highlight-color:transparent;
+}
+
+*:focus
+{
+    outline: none;
+}
+
+body
+{
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    background-color: #f1f9f9;
+}
+
+#app-cover
+{
+    display: table;
+    width: 600px;
+    margin: 80px auto;
+    counter-reset: button-counter;
+}
+
+.row
+{
+    display: table-row;
+}
+
+.toggle-button-cover
+{
+    display: table-cell;
+    position: relative;
+    width: 200px;
+    height: 140px;
+    box-sizing: border-box;
+}
+
+.button-cover
+{
+    height: 100px;
+    margin: 20px;
+    background-color: #fff;
+    box-shadow: 0 10px 20px -8px #c5d6d6;
+    border-radius: 4px;
+}
+
+.button-cover:before
+{
+    counter-increment: button-counter;
+    content: counter(button-counter);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    color: #d7e3e3;
+    font-size: 12px;
+    line-height: 1;
+    padding: 5px;
+}
+
+.button-cover, .knobs, .layer
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+#button-18
+{
+    position: absolute;
+    top: 50%;
+    width: 100px;
+    height: 32px;
+    margin: -20px auto 0 auto;
+    overflow: hidden;
+}
+
+.button.r, .button.r .layer
+{
+    border-radius: 100px;
+}
+
+.button.b2
+{
+    border-radius: 2px;
+}
+
+.b2 .checkbox
+{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.knobs
+{
+    z-index: 2;
+}
+
+.layer
+{
+    width: 100%;
+    background-color: white;
+    transition: 0.3s ease all;
+    z-index: 1;
+    border: 1px solid black;
+}
+
+/* Button 1 */
+#button-1 .knobs:before
+{
+    content: 'ON';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 20px;
+    height: 10px;
+    color: #fff;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+    padding: 9px 4px;
+    background-color: #03A9F4;
+    border-radius: 50%;
+    transition: 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
+}
+/* Button 18 */
+#button-18 .knobs:before, #button-18 .knobs span
+{
+    content: 'ON';
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+    background-color:black;
+    border-radius: 2px;
+}
+
+#button-18 .knobs:before
+{
+    top: 50%;
+    left: 8px;
+    width: 21px;
+    height: 10px;
+    margin-top: -5px;
+    background-color: transparent;
+    z-index: 2;
+}
+
+#button-18 .knobs span
+{
+    width: 50px;
+    height: 18px;
+    padding: 9px 4px;
+    transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
+    z-index: 1;
+}
+
+#button-18 .checkbox:active + .knobs:before
+{
+    left: 10px;
+    width: 46px;
+    height: 4px;
+    color: transparent;
+    margin-top: -2px;
+    background-color: white;
+    transition: 0.3s ease all;
+    overflow: hidden;
+}
+
+#button-18 .checkbox:active + .knobs span
+{
+    width: 58px;
+}
+
+#button-18 .checkbox:checked:active + .knobs:before
+{
+    left: auto;
+    right: 10px;
+    background-color: green
+}
+
+#button-18 .checkbox:checked:active + .knobs span
+{
+    margin-left: -38px;
+}
+
+#button-18 .checkbox:checked + .knobs:before
+{
+    content: 'OFF';
+    left: 47px;
+}
+
+#button-18 .checkbox:checked + .knobs span
+{
+    left: 42px;
+    background-color: black;
+    color: white;
+}
+
+#button-18 .checkbox:checked ~ .layer
+{
+    background-color: white;
+    color: white;
+}
+
+#button-18 .knobs:before, #button-18 .knobs span {
+    box-sizing: initial !important;
+}
+/* toggle switch ends */
+

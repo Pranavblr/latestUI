@@ -1,0 +1,90 @@
+.landing-page { 
+    height: 100vh; 
+    background: url(../../assets/login/login-background.png) no-repeat center center fixed important;
+    -webkit-background-size: cover; 
+    -moz-background-size: cover;
+     -o-background-size: cover;
+     background-size: cover; 
+  }
+  .login-col { 
+    background-color: #ffffff;
+    border: 1px solid #F0F0F0; 
+    padding: 40px 40px 46px 40px !important;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.20); 
+    margin-bottom: 2em;
+   }
+   .login-header { 
+     text-align: center; 
+     text-transform: uppercase; 
+   }
+   .login-header h2 {
+     color: #EE3124;
+     font-size:20px;
+     font-weight: bolder;
+    }
+    .login-header h6{
+      color: #303030;
+      font-size: 19px;
+      padding: 10px;
+      font-family: Honeywell Sans Web_Medium;
+    }
+    .login-form label, .or { 
+      margin-bottom: 0; 
+      color: #303030; 
+      font-size:13px;
+      font-family:Honeywell Sans Extra_Bold;
+     }
+     .login-col input[type="text"], .login-col input[type="password"] { 
+       height: 42px; 
+       background: #ffffff;
+       border-radius: 0; 
+       outline: none; 
+       font-family: Honeywell Sans Web_Medium;
+       font-size: 13px;
+       border: 1px solid #D0D0D0; 
+     }
+     button .btn-blue { 
+       margin-top: .5em; 
+       margin-bottom: .5em; 
+       font-family: 'Honeywell Sans Web_Medium' !important; 
+     }
+     .login-form .btn-blue { 
+       margin-top: 20px; 
+       padding-top: 10px; 
+       padding-bottom: 8px;
+       width: 100%;
+      }
+      button.btn-blue{ 
+        background: #1792E5; 
+        padding-top: 6px; 
+        padding-bottom: 6px; 
+        border-radius: 0; 
+        color: #ffffff; 
+        text-transform: uppercase; 
+       }
+       .login-col input[type="text"]:focus, .login-col input[type="password"]:focus { 
+         background: #F0F0F0; 
+         outline: none; 
+         box-shadow: none;
+        border: 1px solid #F0F0F0; 
+       }
+      .forgot-passoword p{
+        text-align: right;
+      }
+      .submit-section{
+        margin-top: 40px;
+      }
+      .ui.button.primary.disabled {
+        margin: 0px !important;
+      }
+      .forgot-passoword{
+        margin-top: 22px;
+      }
+      .forgot-passoword p{
+        color:grey;
+        font-size: 13px;
+        font-family: Honeywell Sans Web_Bold;
+      }
+      .ui.checkbox input.hidden + label{
+        font-size: .8rem;
+      }

@@ -1,0 +1,34 @@
+@media (min-width: 1024px) {
+    
+}
+
+    
+@media (max-width: 650px) {
+    
+}
+    
+@media screen and (max-width: 480px) {
+   
+}
+
+.orgtitle {
+    font-size: 30px;
+    font-family: HoneywellSans-Medium;
+    color: #303030;
+    letter-spacing: 0;
+    line-height: 98px;
+    margin-left: 20px;
+}
+
+.orgsubtitle {
+    font-family: HoneywellSans-Medium;
+    font-size: 20px;
+    color: #303030;
+    letter-spacing: 0;
+    margin-left: 5px;
+}
+
+#orglist > * {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}

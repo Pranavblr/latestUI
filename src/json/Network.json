@@ -1,0 +1,178 @@
+{
+  "success": true,
+  "error": "",
+  "value": [
+    {
+      "channels": [
+        {
+          "name": "gdt-channel",
+          "orgs": [
+            {
+              "participantId": "hongdt",
+			   "_id": "5cf102c6f46df00598359911",
+              "status": 0,
+              "isapproved": true
+            },
+            {
+              "participantId": "honoem",
+			   "_id": "5cf102c6f46df00598359912",
+              "status": 0,
+              "isapproved": true
+            },
+            {
+              "participantId": "honmro",
+			   "_id": "5cf102c6f46df00598359913",
+              "status": 0,
+              "isapproved": true
+            },
+            {
+              "participantId": "ecubeorg",
+			   "_id": "5cf102c6f46df00598359914",
+              "status": 0,
+              "isapproved": true
+            },
+            {
+              "participantId": "honhat",
+			   "_id": "5cf102c6f46df00598359915",
+              "status": 0,
+              "isapproved": true
+            }
+          ]
+        }
+      ],
+      "_id": "qa",
+      "modifiedDate": "2019-05-30T08:26:41.021Z",
+      "createdDate": "2019-05-30T08:26:41.021Z",
+      "__v": 0
+    },
+    {
+      "channels": [
+        {
+          "name": "gdt-channel2",
+          "orgs": [
+            {
+              "participantId": "hongdt2",
+			   "_id": "5cf102c6f46df00598359916",
+              "status": 0,
+              "isapproved": true
+            },
+            {
+              "participantId": "honoem2",
+			   "_id": "5cf102c6f46df00598359917",
+              "status": 0,
+              "isapproved": true
+            },
+            {
+              "participantId": "honmro2",
+			   "_id": "5cf102c6f46df00598359918",
+              "status": 0,
+              "isapproved": true
+            },
+            {
+              "participantId": "ecubeorg2",
+			   "_id": "5cf102c6f46df00598359919",
+              "status": 0,
+              "isapproved": true
+            },
+            {
+              "participantId": "honhat2",
+			   "_id": "5cf102c6f46df00598359910",
+              "status": 0,
+              "isapproved": true
+            }
+          ]
+        }
+      ],
+      "_id": "dev",
+      "modifiedDate": "2019-05-30T08:27:12.313Z",
+      "createdDate": "2019-05-30T08:27:12.313Z",
+      "__v": 0
+    },
+    {
+      "channels": [
+        {
+          "name": "trusttrace",
+          "orgs": [
+            {
+              "participantId": "hongdt3",
+			   "_id": "5cf102c6f46df00598359921",
+              "status": 0,
+              "isapproved": true
+            },
+            {
+              "participantId": "honoem3",
+			  "_id": "5cf102c6f46df00598359922",
+              "status": 0,
+              "isapproved": true
+            },
+            {
+              "participantId": "honmro3",
+			  "_id": "5cf102c6f46df00598359923",
+              "status": 0,
+              "isapproved": true
+            },
+            {
+              "participantId": "ecubeorg3",
+			  "_id": "5cf102c6f46df00598359924",
+              "status": 0,
+              "isapproved": true
+            },
+            {
+              "participantId": "honhat3",
+			  "_id": "5cf102c6f46df00598359925",
+              "status": 0,
+              "isapproved": true
+            }
+          ]
+        }
+      ],
+      "_id": "prod",
+      "modifiedDate": "2019-05-30T08:29:22.246Z",
+      "createdDate": "2019-05-30T08:29:22.246Z",
+      "__v": 0
+    },
+	{
+      "channels": [
+        {
+          "name": "trusttrace",
+          "orgs": [
+            {
+              "participantId": "hongdt3",
+			   "_id": "5cf102c6f46df00598359926",
+              "status": 0,
+              "isapproved": true
+            },
+            {
+              "participantId": "honoem3",
+			  "_id": "5cf102c6f46df00598359927",
+              "status": 0,
+              "isapproved": true
+            },
+            {
+              "participantId": "honmro3",
+			  "_id": "5cf102c6f46df00598359928",
+              "status": 0,
+              "isapproved": true
+            },
+            {
+              "participantId": "ecubeorg3",
+			  "_id": "5cf102c6f46df00598359929",
+              "status": 0,
+              "isapproved": true
+            },
+            {
+              "participantId": "honhat3",
+			  "_id": "5cf102c6f46df00598359960",
+              "status": 0,
+              "isapproved": true
+            }
+          ]
+        }
+      ],
+      "_id": "prod",
+      "modifiedDate": "2019-05-30T08:29:22.246Z",
+      "createdDate": "2019-05-30T08:29:22.246Z",
+      "__v": 0
+    }
+  ]
+}

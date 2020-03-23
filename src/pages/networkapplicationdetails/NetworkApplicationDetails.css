@@ -1,0 +1,51 @@
+.scuf-grid {
+    margin-left: 25px !important;
+}
+
+.page-title {
+    margin-top: 5px;
+    margin-bottom: 0px;
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.back-button {
+    color: #1274B7;
+}
+
+.page-content {
+    background-color: #F7F7F7;
+}
+
+.charts-grid {
+    margin-top: 20px !important;
+    margin-left: -15px !important;
+}
+
+table,
+    th,
+    td {
+        border: 1.5px solid #ddd;
+        border-collapse: collapse;
+    }
+
+    th {
+        text-align: left;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    tr {
+        height: 30px;
+    }
+    td {
+        color: #303030;
+    }
+
+.logs-table {
+    font-size: 14px;
+    margin-left: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

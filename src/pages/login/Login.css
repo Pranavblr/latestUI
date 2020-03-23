@@ -1,0 +1,51 @@
+.landing-page {
+  height: 100%;
+  /* background: url(../../assets/login/login-background.png) no-repeat center center 
+      fixed;*/
+  padding-top: 20px;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.ui.carousel .slide-markers .slide-marker-item {
+  border: none;
+}
+button.ui.medium.button.primary.signin{
+  height: 40px;
+  font-size: 12px;
+}
+.ui.page-header .profile-icon{
+  background: #303030;
+  color: #ffff;
+}
+.ui.carousel .carousel-core.light .carousel-prev, .ui.carousel .carousel-core.light .carousel-next{
+  display: none;
+}
+.ui.carousel .carousel-core.light .carousel-content {
+  background-color:white   !important;
+}
+.ui.carousel .carousel-core.light .slide-marker-item{
+  padding: 0px;
+  height: 9px;
+  width: 9px;
+  background-color: #EE3124 !important;
+  border-color: #EE3124 !important;
+}
+.ui.carousel .slide .call-to-action ,.ui.carousel .slide .content{color: black};
+.ui.page-header .login-header{border: none important;}
+.ui.page-header .page-header-menu.ui.menu{box-shadow: 0 4px 8px 0 rgba(0,0,0,0.10) !important;}
+.register-link{color: grey !important;font-weight: bolder !important;}
+a .approval-status{color: #E02020; font-weight: 600; font-size: 12px !important;}
+button.ui.medium.button.secondary.register {height: 40px !important;font-size: 12px !important;}
+.item.pending{position: absolute !important; top:65% !important;right: 4% !important;
+  margin-top: 1.3rem !important;
+  background: #ffff !important;    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.10) !important;
+  padding: 5px !important;}
+.disable-register-link{
+  pointer-events: none !important;
+}
+.disable .button.ui.medium.button.secondary.register{
+  border-color: #B0B0B0 !important;
+  color: #A0A0A0;
+}

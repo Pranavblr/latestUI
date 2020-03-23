@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="80px" height="64px" viewBox="0 0 80 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59 (86127) - https://sketch.com -->
+    <title>Filter Control</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M13,18 C14.3062521,18 15.4175144,18.8348501 15.8293257,20.0000889 L20,20 L20,22 L15.8289758,22.0009007 C15.4168852,23.1656226 14.3058822,24 13,24 C11.6941178,24 10.5831148,23.1656226 10.1710242,22.0009007 L0,22 L0,20 L10.1706743,20.0000889 C10.5824856,18.8348501 11.6937479,18 13,18 Z M13,20 C12.4477153,20 12,20.4477153 12,21 C12,21.5522847 12.4477153,22 13,22 C13.5522847,22 14,21.5522847 14,21 C14,20.4477153 13.5522847,20 13,20 Z M7,9 C8.30625206,9 9.41751442,9.8348501 9.82932572,11.0000889 L20,11 L20,13 L9.82897577,13.0009007 C9.41688515,14.1656226 8.30588222,15 7,15 C5.69411778,15 4.58311485,14.1656226 4.17102423,13.0009007 L0,13 L0,11 L4.17067428,11.0000889 C4.58248558,9.8348501 5.69374794,9 7,9 Z M7,11 C6.44771525,11 6,11.4477153 6,12 C6,12.5522847 6.44771525,13 7,13 C7.55228475,13 8,12.5522847 8,12 C8,11.4477153 7.55228475,11 7,11 Z M13,0 C14.3062521,0 15.4175144,0.834850101 15.8293257,2.00008893 L20,2 L20,4 L15.8289758,4.00090072 C15.4168852,5.16562257 14.3058822,6 13,6 C11.6941178,6 10.5831148,5.16562257 10.1710242,4.00090072 L0,4 L0,2 L10.1706743,2.00008893 C10.5824856,0.834850101 11.6937479,0 13,0 Z M13,2 C12.4477153,2 12,2.44771525 12,3 C12,3.55228475 12.4477153,4 13,4 C13.5522847,4 14,3.55228475 14,3 C14,2.44771525 13.5522847,2 13,2 Z" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="View-Logbook" transform="translate(-1360.000000, -209.000000)">
+            <g id="Table:-Action-Bar" transform="translate(0.000000, 209.000000)">
+                <g id="Data-Table-/-Web-/-Action-Bar-/-*Element*-/-Filter-/-Interactive" transform="translate(1360.000000, 0.000000)">
+                    <g id="*Style*-/-Layers-+-No-Shadows-/-1---Flat" fill="#FFFFFF">
+                        <rect id="Light-Theme" x="0" y="0" width="80" height="64"></rect>
+                    </g>
+                    <g id="Icon-/-Filter-/-24px" transform="translate(24.000000, 16.000000)" stroke-width="1">
+                        <g id="Shape" transform="translate(6.000000, 4.000000)">
+                            <mask id="mask-2" fill="white">
+                                <use xlink:href="#path-1"></use>
+                            </mask>
+                            <use id="Mask" fill="#707070" xlink:href="#path-1"></use>
+                            <g id="Icon-/-Tint-/-Actionable---Light-Background-/-Interactive" mask="url(#mask-2)">
+                                <g transform="translate(-7.000000, -5.000000)" id="*Style*-/-Color-/-Action-/-Secondary">
+                                    <g>
+                                        <rect id="Light-Theme" fill="#303030" x="0" y="0" width="34" height="34"></rect>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

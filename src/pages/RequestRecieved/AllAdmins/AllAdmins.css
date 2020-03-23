@@ -1,0 +1,86 @@
+.user-img img {
+    width: 100px;
+}
+.admin-details,.user-img{
+    text-align: center;
+}
+.admin-details .username{
+    font-family: 'Honeywell Sans Extra_Bold';
+    font-size: 15px;
+}
+.admin-details .role{
+    font-family: 'Honeywell Sans Web_Medium';
+    font-size: 13px;
+}
+.admin-details .ui.button.secondary{
+    font-size: 12px;
+    padding: 0px;
+    width: 85px;
+}
+
+.nav{
+    background-color: #FFFFFF;
+    box-shadow: 0px 1px 1px 1px #ddd;    
+}
+
+.nav .nav-item a {
+    color: #606060 !important;
+}
+
+.nav-item :first{
+    margin-left: 25px;
+}
+.request-recieved-conatiner .ui.scuf-grid{
+    margin: 0 !important;
+}
+.ui.small.modal {
+   position: relative !important;
+   width: 540px;
+    height: auto;
+}
+.view-admin-details-content ul li{
+    list-style: none;
+}
+.view-admin-details-content .image{
+    text-align: center;
+    margin-bottom: 15px;
+}
+.view-admin-details-content .image img{
+    width: 100px;
+    height: 100px;
+}
+.view-admin-details-content {
+    overflow-x: hidden;
+}
+p.edit-profile {
+    position: absolute;
+    right: 65px;
+    color: #10659F ;
+    font-family: 'Helvetica';
+    cursor: pointer;
+    font-size: 12x;
+}
+p.header-title {
+    font-size: 14px;
+    font-family: 'Honeywell Sans Extra_Bold';
+}
+.view-admin-popup.ui.modal .close-icon-wrap .modal-close {
+    margin: 0;
+    position: absolute;
+    right: -15px;
+    top: -20px;
+    width: 35px;
+    height: 35px;
+    color: black;
+}
+.keys .logbook-key{
+    font-family: 'Honeywell Sans Extra_Bold';
+    font-size: 13px;
+}
+.values .logbook_value{
+    font-family: 'Honeywell Sans Web_Medium' ;
+    font-size: 13px;
+}
+.nav-link.active {
+    border-bottom: 3px solid #0B4872;
+}

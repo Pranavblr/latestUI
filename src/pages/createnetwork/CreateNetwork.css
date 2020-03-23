@@ -1,0 +1,23 @@
+.Clr {
+  clear: both;
+}
+
+.CreateNetwork-network-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+}
+
+#CreateNetwork-label {
+  margin-right: 3%;
+  vertical-align: middle;
+  padding: 1% 0;
+}
+
+.CreateNetwork-table-container {
+  margin: 5% 10% 0 10%;
+}
+
+.CreateNetwork-table-container p {
+  text-align: center;
+}

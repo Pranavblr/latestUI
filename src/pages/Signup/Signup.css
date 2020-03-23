@@ -1,0 +1,81 @@
+.signup-col{ 
+    background-color: #ffffff;
+    border: 1px solid #F0F0F0; 
+    padding: 40px 40px 46px 40px !important;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.20); 
+    margin-bottom: 2em;
+   }
+.signup-header{
+    text-align: center;
+}
+.signup-header h3{
+  font-family: 'Honeywell Sans Extra_Bold';
+}
+.list-group-item-fixed {
+    width: auto;
+  }
+  .list-group-left {
+    text-align: right;
+    width: 150px;
+    display: inline-block;
+    font-family: 'Honeywell Sans Extra_Bold';
+  }
+  .list-group-right {
+    text-align: left;
+    width: 200px;
+    display: inline-block;
+    margin-left: 15px;
+  }
+  ul li{
+      list-style: none;
+      padding: 8px;
+  }
+  .signup-page{
+    height: 100vh;  
+    -webkit-background-size: cover; 
+    -moz-background-size: cover;
+     -o-background-size: cover;
+     background-size: cover; 
+  }
+  .ui.single-input .input-box{
+    width: 260px;
+    height: 35px;
+  }
+  strong.list-group-left{
+    font-size: 13px;
+    position: relative;
+    top: 11px;
+  }
+  .scuf-textarea-wrapper textarea{
+    min-width: 300px;
+  }
+  .ui.scuf-dropdown-wrapper{
+    width: 260px;
+  }
+  .action-buttons{
+    position: absolute;
+    right: 23%;
+  }
+  li::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -100%;
+    width: 600%;
+    height: 1px;
+    background:unset;
+    z-index: -1;
+  }
+  .registration-form{
+    max-height: 530px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  ::-webkit-scrollbar 
+{
+    width: 10px;
+    background-color:white;
+}
+.disable{
+  pointer-events: none !important;
+}

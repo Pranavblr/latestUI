@@ -1,0 +1,22 @@
+.success-popup.ui.modal{
+    height: 169px !important;
+  }
+  .success-popup.ui.modal .actions{
+    position: absolute;
+    right: 13px;
+    bottom: 10px;
+  } 
+  .ui.modal .actions .success-ok-button{
+    width: 135px;
+    height: 40px;
+  } 
+  .success-message-title{
+    padding-left: 0px;
+    font-size: 16px;
+    font-family:Honeywell Sans Extra_Bold ;
+  }
+  .success-content p{
+    font-family: Honeywell Sans Web_Medium;
+    font-size: 14px;
+    margin-top: 15px;
+  }

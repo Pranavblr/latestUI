@@ -1,0 +1,11 @@
+@font-face { font-family: 'Honeywell Sans Web_Medium'; src: url(assets/fonts/HoneywellSansWeb-Medium.woff2) format('woff2'), url(assets/fonts/HoneywellSansWeb-Medium.woff) format('woff'), url(assets/fonts/HoneywellSansWeb-Medium.eot) format('eot'), url(assets/fonts/HoneywellSansWeb-Medium.svg) format('svg'), url(assets/fonts/HoneywellSansWeb-Medium.ttf) format('truetype'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'Honeywell Sans Web_Black'; src: url(assets/fonts/HoneywellSansWeb-Black.woff2) format('woff2'), url(assets/fonts/HoneywellSansWeb-Black.woff) format('woff'), url(assets/fonts/HoneywellSansWeb-Black.eot) format('eot'), url(assets/fonts/HoneywellSansWeb-Black.svg) format('svg'), url(assets/fonts/HoneywellSansWeb-Black.ttf) format('truetype'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'Honeywell Sans Web_Bold'; src: url(assets/fonts/HoneywellSansWeb-Bold.woff2) format('woff2'), url(assets/fonts/HoneywellSansWeb-Bold.woff) format('woff'), url(assets/fonts/HoneywellSansWeb-Bold.eot) format('eot'), url(assets/fonts/HoneywellSansWeb-Bold.svg) format('svg'), url(assets/fonts/HoneywellSansWeb-Bold.ttf) format('truetype'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'Honeywell Sans Extra_Bold'; src: url(assets/fonts/HoneywellSansWeb-ExtraBold.woff2) format('woff2'), url(assets/fonts/HoneywellSansWeb-ExtraBold.woff) format('woff'), url(assets/fonts/HoneywellSansWeb-ExtraBold.eot) format('eot'), url(assets/fonts/HoneywellSansWeb-ExtraBold.svg) format('svg'), url(assets/fonts/HoneywellSansWeb-Extrabold.ttf) format('truetype'); font-weight: normal; font-style: normal; }
+
+.request-recieved-conatiner{
+    margin-top: 10px;
+}
+.container-fluid{
+    padding: 0 !important;
+}

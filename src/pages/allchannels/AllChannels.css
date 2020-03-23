@@ -1,0 +1,67 @@
+.crictical {
+    border-bottom: 5px solid #BE271C !important;
+}
+.block-items {
+    margin-left: 142px;
+    font-weight: bold;
+}
+
+.card-title {
+    font-weight: bold;
+}
+
+.card-label {
+    font-size: 14px;
+    padding-bottom: 0px;
+}
+
+.card-content {
+    font-weight: bold;
+}
+
+.block-items-label {
+    margin-left: 120px;
+    color: #606060;
+    font-size: 14px;
+}
+
+.card-content-label {
+    color: #606060;
+    font-size: 14px;
+}
+
+.ui.card .header + .content, .ui.card .meta + .content {
+    padding: 1.5rem 1.5rem 0.5rem;
+}
+
+.ui.cards > .card > .content p, .ui.card > .content p {
+    margin-bottom: 0px;
+}
+.nav{
+    background-color: #FFFFFF;
+    box-shadow: 0px 1px 1px 1px #ddd;    
+}
+
+.nav .nav-item a {
+    color: #606060 !important;
+}
+
+.nav-item :first{
+    margin-left: 25px;
+}
+
+.page-heading {
+    margin: 15px 0px 15px 15px;
+    font-size: 18px;
+}
+
+.nav-link.active {
+    border-bottom: 2px solid #0B4872;
+}
+
+.scuf-grid {
+    margin-left: 0px !important;
+}
+.scuf-grid {
+    margin-left: 0px !important;
+}

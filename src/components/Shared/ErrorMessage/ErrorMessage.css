@@ -1,0 +1,21 @@
+.error-popup.ui.modal{
+    height: 213px !important;
+  }
+  .error-popup.ui.modal .actions{
+    position: absolute;
+    right: 13px;
+  } 
+  .ui.modal .actions .error-ok-button{
+    width: 135px;
+    height: 40px;
+  } 
+  .error-message-title{
+    padding-left: 15px;
+    font-size: 16px;
+    font-family:Honeywell Sans Extra_Bold ;
+  }
+  .error-content p{
+    font-family: Honeywell Sans Web_Medium;
+    font-size: 14px;
+    margin-top: 15px;
+  }

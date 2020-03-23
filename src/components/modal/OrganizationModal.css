@@ -1,0 +1,10 @@
+.OrganizationModal-input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.OrganizationModal-input {
+  display: flex !important;
+  justify-content: space-evenly;
+  margin: 3% 0;
+}

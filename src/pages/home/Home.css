@@ -1,0 +1,32 @@
+.sidebar-layout {
+  height: -webkit-fill-available;
+}
+.sidebar-layout > .content{
+  background-color: #F7F7F7;
+}
+.collapse:not(.show) {
+  display: flex !important;
+}
+.selectedItem{
+  border-left: 3px solid #1274B7 !important;
+  background-color: #E0E0E0 !important;
+}
+/* .sidebar-layout>.sidebar .ui.menu  .selectedItem .item {
+  border-left: 3px solid #1274B7 !important;
+  background-color: #E0E0E0 !important;
+} */
+a{
+  text-decoration: none !important;
+}
+/* .sidebar-layout > .sidebar .ui.menu .item .Selected{
+  font-weight: bolder !important;
+} */
+.sidebar-layout>.sidebar .ui.menu .item.Selected{
+  border-left: 3px solid #1274B7 !important;
+}
+.sidebar-layout>.sidebar .ui.menu .item.Selected>.sidebar-label{
+  font-weight: bolder !important;
+  color: #303030 !important;
+  font-family: 'Honeywell Sans Extra_Bold';
+}
+.content {height: 100%;}

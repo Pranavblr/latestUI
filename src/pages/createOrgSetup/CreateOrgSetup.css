@@ -1,0 +1,36 @@
+.create-org-setup .ui.raised.card.card{
+   top: 30% !important;
+   height: 50vh !important;
+   background: #FFFFFF !important;
+   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.10) !important;
+   align-items: center !important;
+}
+.second-line{
+    text-align: center !important;
+}
+.card.button-section{
+    margin-top: 40px !important;
+    text-align: center !important;
+}
+.button-section .ui.medium.button.primary{
+    height: 40px !important;
+    line-height: 0.5rem !important;
+}
+.ui.card .header{
+margin-top: 35px !important;
+font-family:'Honeywell Sans Web_Medium' !important;
+font-size: 20px !important;
+color: #A0A0A0 !important;
+letter-spacing: 0;
+text-align: center;
+line-height: 26px;
+}
+.ui.card .header + .content{
+    font-family:'Honeywell Sans Web_Medium' !important; 
+}
+.scuf-grid {
+ margin: 0px !important;
+}
+.create-org-setup .ui.card .content{
+    margin-left: 0px !important;
+}
