@@ -18,7 +18,8 @@ import OrdererForm from './Orderer/OrdererForm';
 import ConfigurationParameterForm from './ConfigurationParameterForm';
 import { navigateBetweenFormType } from '../../actions/orgSetUpMultipartFormNavigation';
 import { createOrgMSP,exportOrgMSPdetails} from '../../actions/OrgSetUp/orgMSP';
-import { createOrgCA,defaultOrgCAstate,exportOrgCA} from '../../actions/OrgSetUp/orgCA';
+import { createOrgCA,defaultOrgCAstate,exportOrgCA,getCAList,getCADetailsById,
+    addNewCA} from '../../actions/OrgSetUp/orgCA';
 import { createPeersOfOrg } from '../../actions/OrgSetUp/orgConfiguration/orgPeer';
 import { createOrderer } from '../../actions/OrgSetUp/orgConfiguration/orgOrderer';
 
@@ -31,21 +32,23 @@ class CreateOrgSetUpForms extends Component {
     constructor(props){
         super(props);
         this.state={
-            currentFormHomepage:'orgCA'
+            currentFormHomepage:'orgCA',
         }
     }
+    
     redirectHome = ()=>{
         this.props.history.push('/dashboard');
     }
     renderByFormType = () => {
-        if (this.props.currentFormType === 0&& this.state.currentFormHomepage==='orgCA') {
+        if (this.props.currentFormType === 0&& this.state.currentFormHomepage==='orgCA'
+        &&this.props.mspReducer.caList&&this.props.mspReducer.caList.length===0) {
             return <OrgCAhome handleClickAddCA={()=>this.handleClickShowForm()}/>
-        }else if (this.props.currentFormType === 0&& this.props.caReducer.orgCARequestResponse===''&&
+        }else if (this.props.currentFormType === 0&&this.props.caReducer.orgCARequestResponse===''&& 
                   this.state.currentFormHomepage==='') {
             return <OrgCaForm />
-        }else if(this.props.caReducer.orgCARequestResponse&&this.props.currentFormType===0&&
-            this.state.currentFormHomepage===''){
-                return <ViewOrgCAform response ={this.props.caReducer.orgCARequestResponse}/>
+        }else if(this.props.caReducer.getCAByIdresponse&&this.props.currentFormType===0&&this.props.mspReducer.caList&&this.props.mspReducer.caList.length>0){
+                return <ViewOrgCAform 
+                response ={this.props.caReducer.getCAByIdresponse}/>
         }
         else if(this.props.currentFormType===1&&this.state.currentFormHomepage==='orgMSP'){
             return <OrgMSPhomePage handleClickAddMSP={()=>this.handleClickShowForm()}/>
@@ -71,9 +74,9 @@ class CreateOrgSetUpForms extends Component {
         }
     }
     componentWillReceiveProps(nextProps){
-        if(nextProps.caReducer.orgCARequestResponse&&nextProps.currentFormType===0){
+        if((nextProps.caReducer.getCAByIdresponse||nextProps.caReducer.orgCARequestResponse)&&nextProps.currentFormType===0){
             this.renderByFormType();
-        }else if(this.props.mspReducer.orgMSPRequestResponse&&this.props.currentFormType === 1){
+          }else if(this.props.mspReducer.orgMSPRequestResponse&&this.props.currentFormType === 1){
             this.renderByFormType();
         }
         else if(this.props.orgPeerReducer.requestResponse&&this.props.currentFormType === 2){
@@ -85,7 +88,7 @@ class CreateOrgSetUpForms extends Component {
     }
     handleClickSave =()=>{
       if(this.props.currentFormType===0){
-        this.props.defaultOrgCAstate()
+        // this.props.defaultOrgCAstate()
         let caDetails = this.props.caReducer.CAinputDetails;
         this.props.createOrgCA(caDetails);
       }
@@ -145,8 +148,9 @@ class CreateOrgSetUpForms extends Component {
         this.props.navigateBetweenFormType(currentFormType - 1);
     }
     handleClickShowForm = ()=>{
+       this.props.addNewCA();
        this.setState({
-        currentFormHomepage:''
+        currentFormHomepage:'',
        })
     }
     navigateBetweenForms = (formType)=>{
@@ -156,23 +160,62 @@ class CreateOrgSetUpForms extends Component {
     }
     handleClickExportOrgDetails = ()=>{
         if(this.props.currentFormType===0){
-            this.props.exportOrgCA(this.props.caReducer.orgCARequestResponse);
+            this.props.exportOrgCA(this.props.caReducer.getCAByIdresponse);
         }else if(this.props.currentFormType===1){
            this.props.exportOrgMSPdetails();
         }
     }
+    handleCAselectionChange = (Id) =>{
+        this.props.getCADetailsById(Id)
+    }
+    handleRenderTheIcons = ()=>{
+        // let currentFormType = this.props.currentFormType;
+        //     this.setTheHomePageForForm(currentFormType)
+        let caList = this.props.mspReducer.caList;
+        var caListOptions = [];
+        if(caList&&caList.length>0){
+            caList.map((ca)=>{
+                caListOptions.push({value:ca._id,text:ca.name})
+            })
+        }
+        if((this.props.caReducer.getCAByIdresponse||this.props.caReducer.orgCARequestResponse)&&this.state.currentFormHomepage==='orgCA'&&
+            this.props.mspReducer.caList&&this.props.mspReducer.caList.length>0){
+                return (
+                    <React.Fragment>
+                    <Grid.Column width={3}>
+                    <Select placeholder="Select a State" defaultValue={this.props.caReducer.getCAByIdresponse._id} options={caListOptions} 
+                    onChange = {(value)=>this.handleCAselectionChange(value)}/>
+                    </Grid.Column>
+                    <Grid.Column width={1} className="icon-div">
+                            <span className="icons">
+                            <img src={editIcon} alt=""/>
+                          </span>
+                        
+                    </Grid.Column>
+                    <Grid.Column width={1} className="icon-div">
+                            
+                          <span className="icons" onClick={()=>this.handleClickExportOrgDetails()}>
+                            <img src={exportIcon} alt=""/>
+                          </span>
+                    </Grid.Column>
+                    </React.Fragment>
+                )
+            }
+      
+    }
     render() {
+        let caList = this.props.mspReducer.caList;
         return (
             <div>
                 <Grid className="create-orgsetup">
                     <Grid.Row>
                         <Grid.Column>
-                            <h2>Boeing  <span>Setup</span></h2>
+                            <h2>{this.props.orgName?this.props.orgName:localStorage.getItem('current-orgName')}  <span>Setup</span></h2>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
                     <Grid.Column>
-                      <p onClick={()=>this.redirectHome()}>Home</p>
+                      <p className="home-redirection" onClick={()=>this.redirectHome()}>&#x2190; Home</p>
                     </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -199,12 +242,13 @@ class CreateOrgSetUpForms extends Component {
                                     </Tab>
                                     </Grid.Column>
                                     {
-                                        this.state.currentFormHomepage?'':
+                                        // this.state.currentFormHomepage?'':
                                         <React.Fragment>
                                             {
-                                                this.props.caReducer.orgCARequestResponse&&this.props.currentFormType===0?
+                                                
                                                 <React.Fragment>
-                                                <Grid.Column width={3}>
+                                                    {this.handleRenderTheIcons()}
+                                                {/* <Grid.Column width={3}>
                                                 <Select placeholder="Select a State" options={CAList} onChange = {(value)=> (alert(value))}/>
                                                 </Grid.Column>
                                                 <Grid.Column width={1} className="icon-div">
@@ -218,16 +262,19 @@ class CreateOrgSetUpForms extends Component {
                                                       <span className="icons" onClick={()=>this.handleClickExportOrgDetails()}>
                                                         <img src={exportIcon} alt=""/>
                                                       </span>
-                                                </Grid.Column>
-                                                </React.Fragment>:'' 
+                                                </Grid.Column> */}
+                                                </React.Fragment> 
                                             }
                                            
                                     <Grid.Column width={2}>
                                           
                                           
-                                           { this.props.caReducer.orgCARequestResponse&&this.props.currentFormType===0? 
+                                           { (this.props.caReducer.getCAByIdresponse||this.props.caReducer.orgCARequestResponse)&&
+                                           this.props.currentFormType===0&&this.state.currentFormHomepage==='orgCA'&&
+                                           this.props.mspReducer.caList&&this.props.mspReducer.caList.length>0? 
                                             <Button type="primary" className="view-top-icons" content="ADD CA" 
-                                            onClick={()=>this.handleClickShowForm()} />:""}
+                                            onClick={()=>this.handleClickShowForm()} />
+                                            :""}
                                         
 {/*                                       
                                       <Button type="primary" content="ADD PEER" />
@@ -304,11 +351,13 @@ export const mapStateToprops = state => {
         caReducer: state.orgCA,
         orgPeerReducer: state.orgPeer,
         orgOrdererReducer: state.orgOrderer,
-        currentFormType: state.orgSetUpMultipartFormReducer.currentFormType
+        currentFormType: state.orgSetUpMultipartFormReducer.currentFormType,
+        orgName:state.authenticate.currentOrgName
     }
 }
 export default connect(mapStateToprops,
     {
         navigateBetweenFormType, createOrgMSP, defaultOrgCAstate, createOrgCA, createPeersOfOrg,
-        createOrderer,exportOrgMSPdetails,exportOrgCA
+        createOrderer,exportOrgMSPdetails,exportOrgCA,getCAList,getCADetailsById,
+        addNewCA
     })(CreateOrgSetUpForms);

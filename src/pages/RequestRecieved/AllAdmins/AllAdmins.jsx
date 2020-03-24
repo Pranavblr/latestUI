@@ -89,7 +89,9 @@ class AllAdmins extends Component {
                                                    <img src={userImage} alt="Avatar" />
                                                 </div>
                                                 <div className="admin-details">
-                                                    <p className="username">{admin.request.firstname}</p>
+                                                    <p className="username">{admin.request.firstname} 
+                                                      <span>{admin.request.lastname}</span>
+                                                    </p>
                                                     <p className="role">{admin.role}</p>
                                                     <Button type="secondary"
                                                     onClick={()=>this.handleClickOpenViewDetails(admin)} content="View" />

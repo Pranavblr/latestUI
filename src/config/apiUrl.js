@@ -12,7 +12,7 @@ const config = {
     signUpNewUser:`${baseUrl.endpoint}/auth/signup`,
 
     //get user info api
-    userInformation:'http://localhost:8010/proxy/idp/userinfo.openid',
+    userInformation:`${baseUrl.endpoint}/user/info/name`,
 
     //Request Sent API URL
     requestSentUser:`${baseUrl.endpoint}/user/`,
@@ -48,7 +48,10 @@ const config = {
     exportorgMSP:`${baseUrl.endpoint}/organization/`,
 
     //get CAlist
-    getCAlist:`${baseUrl.endpoint}/organization/`
+    getCAlist:`${baseUrl.endpoint}/organization/`,
+
+    //get CA by ID
+    getCAById:`${baseUrl.endpoint}/organization/`
 
 }
 export default{

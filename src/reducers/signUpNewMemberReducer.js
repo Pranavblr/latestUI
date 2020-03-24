@@ -1,12 +1,13 @@
 import {FETCH_USER_DETAILS,DEFAULT_SIGNUP_STATE,
     SIGN_UP_REQUEST_STARTS,SIGN_UP_REQUEST_SUCCESS,SIGN_UP_REQUEST_FAILED,
-    RESET_SIGNUP_ERROR_POPUP,FETCH_USER_ORG_DETAILS} from '../constants/actiontypes';
+    RESET_SIGNUP_ERROR_POPUP,FETCH_USER_ORG_DETAILS,
+    UPDATE_NAME} from '../constants/actiontypes';
 
 let initialState={
     userDetails:{
         email:localStorage.getItem('user-id')?localStorage.getItem('user-id'): "",
-        lastname:localStorage.getItem('LastName')?localStorage.getItem('LastName'):"",
-        firstname:localStorage.getItem('firstName')?localStorage.getItem('firstName'):"",
+        lastname:localStorage.getItem('LastName')?localStorage.getItem('LastName'):'',
+        firstname:localStorage.getItem('firstName')?localStorage.getItem('firstName'):'',
         role: 1,
         comments: "",
         company: "",
@@ -29,7 +30,6 @@ let initialState={
    
 }
 export default function signUpNewMemberReducer(state=initialState,action){
-
     switch(action.type){
         case DEFAULT_SIGNUP_STATE:
             return initialState
@@ -40,6 +40,17 @@ export default function signUpNewMemberReducer(state=initialState,action){
                     ...state.userDetails,
                    [action.userData.key]:action.userData.value
                 }
+            }
+        case UPDATE_NAME:
+            return {
+                ...state,
+                userDetails:{
+                    ...state.userDetails,
+                    lastname:action.res.data.family_name,
+                    firstname:action.res.data.given_name,
+                    email:action.res.data.email
+                }
+
             }
         case FETCH_USER_ORG_DETAILS:
             return {

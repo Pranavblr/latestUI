@@ -31,7 +31,7 @@ export const getAllActiveUsers =()=>{
        dispatch(getActiveUsersListRequestStarts())
     AbstractHttpService.generic_Api_call("get",activeUsersListUrl,{}).
     then((res)=>{
-        if(res.status===200){
+        if(res.status===200||res.status===204){
            dispatch(getActiveUsersListRequestSuccess(res.data))
         }else if(res.status===401||res.status===403){
             dispatch({

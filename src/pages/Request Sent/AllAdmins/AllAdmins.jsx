@@ -57,8 +57,8 @@ class AllAdmins extends Component {
                                                    <img src={userImage} alt="Avatar" />
                                                 </div>
                                                 <div className="admin-details">
-                                                    <p className="username">{admin.request.firstname}</p>
-                                                    <p className="role">Role</p>
+                                <p className="username">{admin.request.firstname} {admin.request.lastname}</p>
+                                <p className="role">{admin.request.role===1?'Org Admin':'Network Admin'}</p>
                                                     <Button type="secondary"
                                                      content="View" />
                                                 </div>

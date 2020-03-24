@@ -6,17 +6,63 @@ import ErrorMessage from '../../../components/Shared/ErrorMessage/ErrorMessage';
 import Loader from '../../../components/Shared/Loader/Loader';
 import cloudUploadIcon from '../../../assets/images/orgSetup/cloud_uplod.svg';
 
-import {getUserInput,getUserSelectedFile} from '../../../actions/OrgSetUp/orgCA';
+import {getUserInput,getUserSelectedFile,getSelectedCheckBoxStatus} from '../../../actions/OrgSetUp/orgCA';
 
 const stateOptions = [ { value: 'AL', text: 'Alabama' }, {value: 'GA', text:'Georgia' }, {value:'HI', text:'Hawaii'} ];
 let fileReader;
 class OrgCaForm extends Component {
-    handleChangeCheckBox = (event) => {
+    constructor(props){
+        super(props);
+        this.state={
+            enableTLS:false,
+            enableClientTLSAuth:false,
+            enableOpTLSAuth:false,
+            enableOpClientTLSAuth:false
+        }
+    }
+    handleChangeCheckBox = (key,event) => {
+        if(key==='enableTLSAuth'&&event.target.value==='on'){
+            this.setState({
+                enableTLS:!this.state.enableTLS
+            },function(){
+                let enableTLS = this.state.enableTLS;
+             this.props.getSelectedCheckBoxStatus(
+                 {key:'enableTLSAuth',value:enableTLS}
+             )
+            });
+        }
+        else if(key==='enableClientTLSAuth'&&event.target.value==='on'){
+            this.setState({
+                enableClientTLSAuth:!this.state.enableClientTLSAuth
+            },function(){
+                let enableClientTLSAuth = this.state.enableClientTLSAuth;
+                this.props.getSelectedCheckBoxStatus(
+                    {key:'enableClientTLSAuth',value:enableClientTLSAuth}
+                )
+            });
+        }else if(key==='enableOpTLSAuth'&&event.target.value==='on'){
+            this.setState({
+                enableOpTLSAuth:!this.state.enableOpTLSAuth
+            },function(){
+                let enableOpTLSAuth = this.state.enableOpTLSAuth;
+                this.props.getSelectedCheckBoxStatus(
+                    {key:'enableOpTLSAuth',value:enableOpTLSAuth}
+                )
+            });
+        }else if(key==='enableOpClientTLSAuth'&&event.target.value==='on'){
+            this.setState({
+                enableOpClientTLSAuth:!this.state.enableOpClientTLSAuth
+            },function(){
+                let enableOpClientTLSAuth = this.state.enableOpClientTLSAuth;
+                this.props.getSelectedCheckBoxStatus(
+                    {key:'enableOpClientTLSAuth',value:enableOpClientTLSAuth}
+                )
+            });
+        }
     }
     getOrgSelectedFile=(key,file)=>{
         fileReader = new FileReader();
-        // fileReader.onloadend=this.handleReadFileEnd(key);
-        fileReader.onload = ()=>{
+        fileReader.onloadend = ()=>{
             var content = fileReader.result;
             
             console.log('file-content',content);
@@ -24,19 +70,10 @@ class OrgCaForm extends Component {
                 key:key,
                 value:fileReader.result
             }
-            
-            this.props.getUserSelectedFile(inputFileDetails);
+           this.props.getUserSelectedFile(inputFileDetails);
              
         }
        fileReader.readAsText(file);
-    }
-    handleReadFileEnd = (key)=>{
-        var inputFileDetails = {
-            key:key,
-            value:fileReader.result
-        }
-        
-        this.props.getUserSelectedFile(inputFileDetails);
     }
     readFileData (fileData){
         this.props.getUserSelectedFile(fileData);
@@ -49,6 +86,13 @@ class OrgCaForm extends Component {
         this.props.getUserInput(inputObject);
     }
     render() {
+        let caList = this.props.caList;
+        var CaListOptions=[]
+        if(caList&&caList.length>0){
+            caList.map((ca)=>[
+                CaListOptions.push({value:ca._id,text:ca.name})
+            ])
+        }
         return (
             <div>
                 <Grid className="form-grid">
@@ -89,7 +133,7 @@ class OrgCaForm extends Component {
                             <label>Select RCA</label>
                         </Grid.Column>
                         <Grid.Column width={4}>
-                           <Select placeholder="Select a State" options={stateOptions} onChange = {(value)=> (alert(value))}/>
+                           <Select placeholder="Select a State" defaultValue={0} options={CaListOptions} onChange = {(value)=>this.getOrgCAInput("rootCA",value)}/>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -119,10 +163,10 @@ class OrgCaForm extends Component {
                         </Grid.Column>
                         <Grid.Column width={3}>
                             <div class="image-upload">
-                                <label for="file-input">
+                                <label for="file-input1">
                                     <img src={cloudUploadIcon} alt="" />
                                 </label>
-                                 <input onChange={(e)=>this.getOrgSelectedFile("serverKey",e.target.files[0])} id="file-input" type="file" />
+                                 <input onChange={(e)=>this.getOrgSelectedFile("serverKey",e.target.files[0])} id="file-input1" type="file" />
                             </div>
                         </Grid.Column> 
                     </Grid.Row>
@@ -166,10 +210,10 @@ class OrgCaForm extends Component {
                         </Grid.Column>
                         <Grid.Column width={3}>
                             <div class="image-upload">
-                                <label for="file-input">
+                                <label for="file-input2">
                                     <img src={cloudUploadIcon} alt="" />
                                 </label>
-                                 <input onChange={(e)=>this.getOrgSelectedFile("adminCert",e.target.files[0])} id="file-input" type="file" />
+                                 <input onChange={(e)=>this.getOrgSelectedFile("adminCert",e.target.files[0])} id="file-input2" type="file" />
                             </div>
                         </Grid.Column> 
                     </Grid.Row>
@@ -182,10 +226,10 @@ class OrgCaForm extends Component {
                         </Grid.Column>
                         <Grid.Column width={3}>
                             <div class="image-upload">
-                                <label for="file-input">
+                                <label for="file-input3">
                                     <img src={cloudUploadIcon} alt="" />
                                 </label>
-                                 <input onChange={(e)=>this.getOrgSelectedFile("adminKey",e.target.files[0])}  id="file-input" type="file" />
+                                 <input onChange={(e)=>this.getOrgSelectedFile("adminKey",e.target.files[0])}  id="file-input3" type="file" />
                             </div>
                         </Grid.Column> 
                     </Grid.Row>
@@ -237,7 +281,7 @@ class OrgCaForm extends Component {
                         </Grid.Column>
                         <Grid.Column width={4}>
                             <div className="button b2" id="button-18">
-                                <input type="checkbox" className="checkbox" />
+                                <input type="checkbox" onChange={(event) => this.handleChangeCheckBox("enableTLSAuth",event)} className="checkbox" />
                                 <div className="knobs">
                                     <span></span>
                                 </div>
@@ -246,13 +290,53 @@ class OrgCaForm extends Component {
 
                         </Grid.Column>
                     </Grid.Row>
+                    {
+                        this.state.enableTLS?
+                        <React.Fragment>
+                        <Grid.Row>
+                        <Grid.Column width={3}>
+                            <label>TLS Server Certificate</label>
+                        </Grid.Column>
+                        <Grid.Column width={4}>
+                            <Input value={this.props.CAInputDeatils.tlsServerCert}  className="form-input" placeholder="TLS Server Certificate" />
+                        </Grid.Column>
+                        <Grid.Column width={3}>
+                            <div class="image-upload">
+                                <label for="file-input4">
+                                    <img src={cloudUploadIcon} alt="" />
+                                </label>
+                                 <input onChange={(e)=>this.getOrgSelectedFile("tlsServerCert",e.target.files[0])}  id="file-input4" type="file" />
+                            </div>
+                        </Grid.Column> 
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column width={3}>
+                            <label>TLS Server Key</label>
+                        </Grid.Column>
+                        <Grid.Column width={4}>
+                            <Input value={this.props.CAInputDeatils.tlsServerKey}  className="form-input" placeholder="TLS Server Key" />
+                        </Grid.Column>
+                        <Grid.Column width={3}>
+                            <div class="image-upload">
+                                <label for="file-input5">
+                                    <img src={cloudUploadIcon} alt="" />
+                                </label>
+                                 <input onChange={(e)=>this.getOrgSelectedFile("tlsServerKey",e.target.files[0])}  id="file-input5" type="file" />
+                            </div>
+                        </Grid.Column> 
+                    </Grid.Row>
+                    </React.Fragment>:''
+
+                    }
+                    
                     <Grid.Row>
                         <Grid.Column width={3}>
                             <label>Enable Client TLS Authentication</label>
                         </Grid.Column>
                         <Grid.Column width={4}>
                             <div className="button b2" id="button-18">
-                                <input type="checkbox" className="checkbox" />
+                                <input 
+                                onChange={(event) => this.handleChangeCheckBox("enableClientTLSAuth",event)} type="checkbox" className="checkbox" />
                                 <div className="knobs">
                                     <span></span>
                                 </div>
@@ -267,7 +351,8 @@ class OrgCaForm extends Component {
                         </Grid.Column>
                         <Grid.Column width={4}>
                             <div className="button b2" id="button-18">
-                                <input type="checkbox" className="checkbox" />
+                                <input
+                                 onChange={(event) => this.handleChangeCheckBox("enableOpTLSAuth",event)}  type="checkbox" className="checkbox" />
                                 <div className="knobs">
                                     <span></span>
                                 </div>
@@ -284,7 +369,9 @@ class OrgCaForm extends Component {
                         </Grid.Column>
                         <Grid.Column width={4}>
                             <div className="button b2" id="button-18">
-                                <input type="checkbox" onChange={(event) => this.handleChangeCheckBox(event)} className="checkbox" />
+                                <input 
+                                onChange={(event) => this.handleChangeCheckBox("enableOpClientTLSAuth",event)}
+                                type="checkbox"  className="checkbox" />
                                 <div className="knobs">
                                     <span></span>
                                 </div>
@@ -293,14 +380,19 @@ class OrgCaForm extends Component {
 
                         </Grid.Column>
                     </Grid.Row>
-                    <Grid.Row>
+                    {
+                        this.state.enableOpClientTLSAuth?
+                        <Grid.Row>
                         <Grid.Column width={3}>
                             <label>TLS Ops Client Root Certificate</label>
                         </Grid.Column>
                         <Grid.Column width={4}>
-                           <Select placeholder="Select a State" options={stateOptions} onChange = {(value)=> (alert(value))}/>
+                           <Select placeholder="Select a State" defaultValue={0} options={CaListOptions} onChange = {(value)=>this.getOrgCAInput("tlsOpsRootCertId",value)}/>
                         </Grid.Column>
-                    </Grid.Row>
+                    </Grid.Row>:''
+
+                    }
+                    
 
                 </Grid>
             </div>
@@ -309,10 +401,13 @@ class OrgCaForm extends Component {
 }
 export const mapStateToProps = state => {
     console.log('orgCA-user input',state.orgCA.CAinputDetails);
+    console.log('org-ca-list',state.orgMSP.caList);
     return {
         loading:state.orgCA.loading,
         errorResponse:state.orgCA.errorResponse,
-        CAInputDeatils:state.orgCA.CAinputDetails
+        CAInputDeatils:state.orgCA.CAinputDetails,
+        caList:state.orgMSP.caList
     }
 }
-export default connect(mapStateToProps, {getUserInput,getUserSelectedFile})(OrgCaForm);
+export default connect(mapStateToProps, {getUserInput,getUserSelectedFile,
+    getSelectedCheckBoxStatus})(OrgCaForm);

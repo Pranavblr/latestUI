@@ -129,8 +129,8 @@ class Signup extends Component {
                                                 <strong class="list-group-left"> First Name:</strong>
                                                 <span class="list-group-right">
                                                     <Input
-                                                        className={localStorage.getItem('firstName') ? 'disable' : ''}
-                                                        value={localStorage.getItem('firstName') ? localStorage.getItem('firstName') : this.props.firstName}
+                                                        className={(this.props.firstName||localStorage.getItem('firstName'))? 'disable' : ''}
+                                                        value={this.props.firstName?this.props.firstName:localStorage.getItem('firstName')}
                                                         placeholder="firstname" onChange={(data) => this.handleChangeUserInput('firstname', data)} />
                                                 </span>
                                             </div>
@@ -140,8 +140,8 @@ class Signup extends Component {
                                                 <strong class="list-group-left"> Last Name:</strong>
                                                 <span class="list-group-right">
                                                     <Input
-                                                        className={localStorage.getItem('LastName') ? 'disable' : ''}
-                                                        value={localStorage.getItem('LastName') ? localStorage.getItem('LastName') : this.props.lastName}
+                                                        className={(this.props.lastName||localStorage.getItem('LastName'))? 'disable' : ''}
+                                                        value={this.props.lastName?this.props.lastName:localStorage.getItem('LastName')}
                                                         placeholder="lastname" onChange={(data) => this.handleChangeUserInput('lastname', data)} />
                                                 </span>
                                             </div>
@@ -152,20 +152,20 @@ class Signup extends Component {
                                                 <span class="list-group-right">
                                                     <Input
                                                         className={localStorage.getItem('user-id') ? 'disable' : ''}
-                                                        value={localStorage.getItem('user-id') ? localStorage.getItem('user-id') : this.props.email}
+                                                        value={this.props.email?this.props.email:localStorage.getItem('user-id')}
                                                         placeholder="email id" onChange={(data) => this.handleChangeUserInput('email', data)} />
                                                 </span>
                                             </div>
                                         </li>
-                                        <li>
+                                        {/* <li>
                                             <div class="list-group-item-fixed">
                                                 <strong class="list-group-left">User Display Name:</strong>
                                                 <span class="list-group-right">
-                                                    <Input placeholder="user display name" onChange={(data) => this.handleChangeUserInput('comments', data)} />
+                                                    <Input placeholder="user display name" onChange={(data) => this.handleChangeUserInput('display', data)} />
                                                 </span>
 
                                             </div>
-                                        </li>
+                                        </li> */}
                                         <li>
                                             <div class="list-group-item-fixed">
                                                 <strong class="list-group-left">City:</strong>

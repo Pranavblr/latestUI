@@ -143,6 +143,7 @@ h5{
 }
 .icons{
     padding: 10px !important;
+    cursor: pointer !important;
 }
 .ui.button.view-top-icons{
     padding-left: 1.9375rem !important;
@@ -307,7 +308,7 @@ body
 /* Button 1 */
 #button-1 .knobs:before
 {
-    content: 'ON';
+    content: 'OFF';
     position: absolute;
     top: 4px;
     left: 4px;
@@ -326,7 +327,7 @@ body
 /* Button 18 */
 #button-18 .knobs:before, #button-18 .knobs span
 {
-    content: 'ON';
+    content: 'OFF';
     position: absolute;
     top: 0px;
     left: 0px;
@@ -390,7 +391,7 @@ body
 
 #button-18 .checkbox:checked + .knobs:before
 {
-    content: 'OFF';
+    content: 'ON';
     left: 47px;
 }
 

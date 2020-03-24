@@ -4,6 +4,8 @@ import { Grid, Card, Button, Input } from '@scuf/common';
 import { DataTable } from '@scuf/datatable';
 import { Switch, Route, Link, Redirect } from 'react-router-dom';
 
+import {getCAList} from '../../actions/OrgSetUp/orgCA';
+
 import "./NewDashboard.css";
 import Applications from "../applications/Applications";
 import Organisations from "../organisations/Organisations";
@@ -24,8 +26,21 @@ class NewDashboard extends Component {
             value: 3
         };
     }
+    componentDidMount(){
+      }
     handleClickCreate=()=>{
-        this.props.history.push('/create-orgSetup');
+        Promise.resolve(
+            this.props.getCAList()
+        ).
+        then(()=>{
+            if(this.props.mspReducer.caList&&this.props.mspReducer.caList.length>0){
+                this.props.history.push('/create-form-org-setup');
+            }else{
+                this.props.history.push('/create-orgSetup');
+            }
+        });
+       
+        
     }
     render() {
         return (
@@ -33,7 +48,8 @@ class NewDashboard extends Component {
                 <Grid className="dashboard-content">
                     <Grid.Row className="title-section">
                         <Grid.Column width={6} className="title">
-                            <h2>Boeing</h2>
+                            <h2>{this.props.orgName?this.props.orgName.toUpperCase():
+                            (localStorage.getItem('current-orgName')?localStorage.getItem('current-orgName').toUpperCase():'')}</h2>
                         </Grid.Column>
                         <Grid.Column width={6} className="create-newOrg">
                             <Button type="primary" content="VIEW"  onClick={()=>{this.handleClickCreate()}}/>
@@ -96,7 +112,12 @@ class NewDashboard extends Component {
 }
 
 const mapStateToProps = state => {
-
+    console.log('current-orgname', state.authenticate.currentOrgName)
+    return {
+        orgName:state.authenticate.currentOrgName,
+        mspReducer: state.orgMSP,
+    }
+ 
 }
 
-export default connect(mapStateToProps)(NewDashboard);
+export default connect(mapStateToProps,{getCAList})(NewDashboard);

@@ -22,7 +22,8 @@ const generic_Api_call=(method,url,data)=>{
                 'Content-Type': 'application/json; charset=utf-8',
                 'Authorization':`Bearer ${access_token}`,
                 'Access-Control-Allow-Origin': '*',
-                'role_token':role_token
+                'role_token':role_token,
+                'token':access_token
             },
             method:method,
             url:url,

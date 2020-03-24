@@ -7,6 +7,7 @@ import "./Home.css";
 
 import {getSelectedSideNav,getSelectedSubmenuItem} from '../../actions/navigation';
 import {openManageRolesPopUp} from '../../actions/manageRoles';
+import {getCAList} from '../../actions/OrgSetUp/orgCA';
 import ManageRoles from "../manageRoles/ManageRoles";
 const UserProfile = Header.UserProfile;
 const Sidebar = SidebarLayout.Sidebar;
@@ -20,13 +21,14 @@ class home extends Component {
       setuporgsubmenucollapsed: false
     };
   }
+  
   extractTheFirstName = ()=>{
-    let currentUserName = localStorage.getItem('firstName')?localStorage.getItem('firstName'):'';
+    let currentUserName = this.props.firstName?this.props.firstName:localStorage.getItem('firstName');
     let SplittedName = currentUserName?currentUserName.split(" "):[];
     return SplittedName.length>0?SplittedName[0].charAt(0).toUpperCase():"";
   }
   extractTheLastName = ()=>{
-    let currentUserName = localStorage.getItem('LastName')?localStorage.getItem('LastName'):'';
+    let currentUserName = this.props.lastName?this.props.lastName:localStorage.getItem('LastName');
     let SplittedName = currentUserName?currentUserName.split(" "):[];
     return SplittedName.length>1?SplittedName[0][0].toUpperCase():"";
   }
@@ -213,8 +215,10 @@ export const mapStateToProps=state=>{
   return {
     selectedItem:state.navigation.selectedItem,
     subMenu:state.navigation.subMenu,
-    mangeRolesPopUpOpen:state.manageRoles.openManageRolesPopup
+    mangeRolesPopUpOpen:state.manageRoles.openManageRolesPopup,
+    firstName: state.signUp.userDetails.firstname,
+    lastName: state.signUp.userDetails.lastname,
   }
 }
 export default connect(mapStateToProps,
-  {getSelectedSideNav,getSelectedSubmenuItem,openManageRolesPopUp})(home);
+  {getSelectedSideNav,getSelectedSubmenuItem,openManageRolesPopUp,getCAList})(home);

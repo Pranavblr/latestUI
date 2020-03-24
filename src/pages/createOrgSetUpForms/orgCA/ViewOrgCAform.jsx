@@ -25,7 +25,7 @@ class ViewOrgCAform extends Component {
                             {/* </div> */}
                         </Grid.Column>
                         <Grid.Column width={5}>
-                          <p>{requestResponse.name}</p>
+                          <p>{requestResponse.name?requestResponse.name:''}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -33,7 +33,7 @@ class ViewOrgCAform extends Component {
                             <label>FQDN</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                           <p>{requestResponse.fqdn}</p>
+                           <p>{requestResponse.fqdn?requestResponse.fqdn:''}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -41,7 +41,7 @@ class ViewOrgCAform extends Component {
                             <label>Select RCA</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                              <p>{requestResponse.rootCA}</p>
+                              <p>{requestResponse.rootCA?requestResponse.rootCA:''}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -49,7 +49,8 @@ class ViewOrgCAform extends Component {
                             <label>CA Certificate</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                            <p>Certficate Name</p>
+                            <p>{requestResponse.serverCert?requestResponse.serverCert.substring(0,100)+"..."
+                            :''}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -57,7 +58,7 @@ class ViewOrgCAform extends Component {
                             <label>CA Key</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                            <p>Key Value</p>
+                            <p>{requestResponse.serverKey?requestResponse.serverKey.substring(0,100)+"...":''}</p>
                         </Grid.Column>
                     </Grid.Row>
                     {/* <hr/> */}
@@ -71,7 +72,7 @@ class ViewOrgCAform extends Component {
                             <label>Enroll Id</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                           <p>{requestResponse.enrollId}</p>
+                           <p>{requestResponse.enrollId?requestResponse.enrollId:''}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -79,7 +80,7 @@ class ViewOrgCAform extends Component {
                             <label>Enroll Secret</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                           <p>{requestResponse.enrollSecret}</p>
+                           <p>{requestResponse.enrollSecret?requestResponse.enrollSecret:''}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -87,7 +88,7 @@ class ViewOrgCAform extends Component {
                             <label>CA Admin Certificate</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                           <p>Certificate Name</p>
+                           <p>{requestResponse.adminCert?requestResponse.adminCert.substring(0,100)+"...":''}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -95,7 +96,7 @@ class ViewOrgCAform extends Component {
                             <label>CA Admin Key</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                           <p>Key Value</p>
+                           <p>{requestResponse.adminKey?requestResponse.adminKey.substring(0,100)+"...":''}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -108,7 +109,7 @@ class ViewOrgCAform extends Component {
                             <label>CA Server IP Address</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                           <p>{requestResponse.ipAddress}</p>
+                           <p>{requestResponse.ipAddress?requestResponse.ipAddress:''}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -116,7 +117,7 @@ class ViewOrgCAform extends Component {
                             <label>CA Server Port</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                            <p>{requestResponse.serverPort}</p>
+                            <p>{requestResponse.serverPort?requestResponse.serverPort:''}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -124,7 +125,7 @@ class ViewOrgCAform extends Component {
                             <label>Operations Service Port</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                           <p>{requestResponse.opServicePort}</p>
+                           <p>{requestResponse.opServicePort?requestResponse.opServicePort:''}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -137,7 +138,7 @@ class ViewOrgCAform extends Component {
                             <label>Enable TLS Authentication</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                           <p>{requestResponse.enableTLSAuth}</p>
+                           <p>{requestResponse.enableTLSAuth===true?'ON':'OFF'}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -145,7 +146,7 @@ class ViewOrgCAform extends Component {
                             <label>TLS Server Certificate</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                           <p>Certificate Name</p>
+                           <p>{requestResponse.tlsServerCert?requestResponse.tlsServerCert.substring(0,100)+"...":''}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -153,7 +154,7 @@ class ViewOrgCAform extends Component {
                             <label>TLS Server Key</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                           <p>Key Value</p>
+                           <p>{requestResponse.tlsServerKey?requestResponse.tlsServerKey.substring(0,100)+"...":''}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -161,7 +162,7 @@ class ViewOrgCAform extends Component {
                             <label>Enable Client TLS Authentication</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                            <p>{requestResponse.enableClientTLSAuth}</p>
+                            <p>{requestResponse.enableClientTLSAuth?'ON':'OFF'}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -169,7 +170,7 @@ class ViewOrgCAform extends Component {
                             <label>Enable Operations TLS Authentication</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                        <p>{requestResponse.enableOpTLSAuth}</p>
+                        <p>{requestResponse.enableOpTLSAuth?'ON':'OFF'}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -179,19 +180,23 @@ class ViewOrgCAform extends Component {
                         {/* </div> */}
                         </Grid.Column>
                         <Grid.Column width={5}>
-                        <p>{requestResponse.enableOpClientTLSAuth}</p>
+                        <p>{requestResponse.enableOpClientTLSAuth?'ON':'OFF'}</p>
                         </Grid.Column>
                     </Grid.Row>
-                    <Grid.Row>
+                    {
+                        requestResponse.enableOpClientTLSAuth?
+                        <Grid.Row>
                         <Grid.Column width={3}>
                         {/* <div className="label-text"> */}
                             <label>TLS Ops Client Root Certificate</label>
                         {/* </div> */}
                         </Grid.Column>
                         <Grid.Column width={5}>
-                        <p>ON</p>
+                       <p>{requestResponse.tlsOpsRootCertId}</p>
                         </Grid.Column>
-                    </Grid.Row>
+                    </Grid.Row>:''
+                    }
+                    
                     
                 </Grid>
                 

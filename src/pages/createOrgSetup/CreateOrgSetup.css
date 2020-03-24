@@ -34,3 +34,8 @@ line-height: 26px;
 .create-org-setup .ui.card .content{
     margin-left: 0px !important;
 }
+.home-redirection{
+    cursor: pointer;
+    color: #1274B7 !important;
+    font-size:12px !important
+}
