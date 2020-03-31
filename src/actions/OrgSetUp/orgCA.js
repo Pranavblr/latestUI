@@ -80,7 +80,7 @@ export const exportOrgCA = (CAdetails)=>{
     let orgName = localStorage.getItem('current-orgName');
     let orgCAUrl = config.config.exportOrgCA+orgName+'/'+CAdetails._id + '/ca/export';
     return(dispatch)=>{
-        AbstractHttpService.generic_Api_call("get",orgCAUrl,{})
+        AbstractHttpService.generic_Export_Api_call("get",orgCAUrl,{})
         .then(res => {
             console.log('res', res)
           return res.data;

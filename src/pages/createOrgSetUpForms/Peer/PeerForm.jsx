@@ -596,6 +596,21 @@ class peerForm extends Component {
                             className="form-input" placeholder="CouchDB Password" />
                         </Grid.Column>
                     </Grid.Row>
+                    <Grid.Row className="buttons">
+                        <Grid.Column width={2}>
+                            <Button
+                                className={`view-top-icons ${this.props.currentFormType <= 0 ? 'disabled' : ''}`}
+                                type="secondary" content="BACK" onClick={() =>
+                                    this.props.handleClickBack()
+                                } />
+                        </Grid.Column>
+                        <Grid.Column width={2}>
+                            <Button
+                                className="view-top-icons"
+                                type="primary" content="SAVE" onClick={() => this.props.handleClickSave()} />
+                        </Grid.Column>
+
+                    </Grid.Row>
                 </Grid>
             </div>
         );

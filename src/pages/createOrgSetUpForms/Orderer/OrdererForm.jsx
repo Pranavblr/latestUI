@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Card, Select, Input, Tab } from '@scuf/common';
+import { Grid, Card, Select, Input, Tab,Button } from '@scuf/common';
 import {connect} from 'react-redux';
 
 import {navigateBetweenFormType} from '../../../actions/orgSetUpMultipartFormNavigation';
@@ -506,6 +506,21 @@ class OrdererForm extends Component {
                     </Grid.Row>:''
 
                     }
+                    <Grid.Row className="buttons">
+                        <Grid.Column width={2}>
+                            <Button
+                                className={`view-top-icons ${this.props.currentFormType <= 0 ? 'disabled' : ''}`}
+                                type="secondary" content="BACK" onClick={() =>
+                                    this.props.handleClickBack()
+                                } />
+                        </Grid.Column>
+                        <Grid.Column width={2}>
+                            <Button
+                                className="view-top-icons"
+                                type="primary" content="SAVE" onClick={() => this.props.handleClickSave()} />
+                        </Grid.Column>
+
+                    </Grid.Row>
                     
                 </Grid>
             </div>

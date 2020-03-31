@@ -50,6 +50,8 @@ class CreateOrgSetUpForms extends Component {
         } else if (this.props.currentFormType === 0 && this.props.caReducer.orgCARequestResponse === '' &&
             this.state.currentFormHomepage === '') {
             return <OrgCaForm 
+            handleClickBack = {this.handleClickBack}
+            handleClickSave  = {this.handleClickSave}
              setCurrentHomePage = {this.setTheHomePageForForm}/>
         } else if (this.props.caReducer.getCAByIdresponse && this.props.currentFormType === 0 && this.props.mspReducer.caList && this.props.mspReducer.caList.length > 0) {
             return <ViewOrgCAform
@@ -70,6 +72,8 @@ class CreateOrgSetUpForms extends Component {
             && this.props.mspReducer.currentOrgDetails && this.props.mspReducer.currentOrgDetails[0].adminWids
             && this.props.mspReducer.currentOrgDetails[0].adminWids.length===0) {
             return <OrgMSPform
+            handleClickBack = {this.handleClickBack}
+            handleClickSave  = {this.handleClickSave}
             setCurrentHomePage = {this.setTheHomePageForForm}/>
         } else if ( this.props.mspReducer.currentOrgDetails && this.props.mspReducer.currentOrgDetails[0].adminWids
             && this.props.mspReducer.currentOrgDetails[0].adminWids.length>0&& this.props.currentFormType === 1) {
@@ -91,6 +95,8 @@ class CreateOrgSetUpForms extends Component {
         else if (this.props.currentFormType === 2 &&this.state.currentFormHomepage===''
             && this.props.orgPeerReducer.requestResponse === "") {
             return <PeerForm 
+            handleClickBack = {this.handleClickBack}
+            handleClickSave  = {this.handleClickSave}
             setCurrentHomePage = {this.setTheHomePageForForm}/>
         }
         else if(this.props.currentFormType === 2&&
@@ -113,6 +119,8 @@ class CreateOrgSetUpForms extends Component {
         else if (this.props.currentFormType === 3 && this.state.currentFormHomepage===''
             &&this.props.orgOrdererReducer.requestResponse === '') {
             return <OrdererForm 
+            handleClickBack = {this.handleClickBack}
+            handleClickSave  = {this.handleClickSave}
             setCurrentHomePage = {this.setTheHomePageForForm}/>
         } 
         else if(this.props.getOrdererByIdrequestResponse&&this.props.currentFormType === 3&&this.props.mspReducer.currentOrgDetails && 
@@ -138,6 +146,7 @@ class CreateOrgSetUpForms extends Component {
         }
     }
     handleClickSave = () => {
+        debugger
         if (this.props.currentFormType === 0) {
             let caDetails = this.props.caReducer.CAinputDetails;
             if (caDetails.rootCA === null) {
@@ -357,7 +366,7 @@ class CreateOrgSetUpForms extends Component {
                                      
 
                                     <br />
-                                    {
+                                    {/* {
                                         this.state.currentFormHomepage ? '' :
                                             <React.Fragment>
                                                 <Grid>
@@ -388,12 +397,12 @@ class CreateOrgSetUpForms extends Component {
                                                                             type="primary" content="NEXT" onClick={() => this.handleClickNext()} />
                                                                     </Grid.Column>
                                                                 </React.Fragment>
-                                                        }
+                                                        } */}
 
-                                                    </Grid.Row>
-                                                </Grid>
-                                            </React.Fragment>
-                                    }
+                                                    {/* </Grid.Row> */}
+                                                {/* </Grid> */}
+                                            {/* </React.Fragment> */}
+                                    {/* } */}
 
                                 </Card.Content>
 

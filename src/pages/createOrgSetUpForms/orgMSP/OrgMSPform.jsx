@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Card, Tab, Input,Select } from '@scuf/common';
+import { Grid, Card, Tab, Input,Select,Button} from '@scuf/common';
 import {connect} from  'react-redux';
 
 import ErrorMessage from '../../../components/Shared/ErrorMessage/ErrorMessage';
@@ -174,6 +174,21 @@ class OrgMSPform extends Component {
                         //    value={this.props.mspInputDeatils.ca}
                             options={newCAlist} onChange={(value)=> this.getSelectedCa("tlsCA",value)}/>
                         </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row className="buttons">
+                        <Grid.Column width={2}>
+                            <Button
+                                className={`view-top-icons ${this.props.currentFormType <= 0 ? 'disabled' : ''}`}
+                                type="secondary" content="BACK" onClick={() =>
+                                    this.props.handleClickBack()
+                                } />
+                        </Grid.Column>
+                        <Grid.Column width={2}>
+                            <Button
+                                className="view-top-icons"
+                                type="primary" content="SAVE" onClick={() => this.props.handleClickSave()} />
+                        </Grid.Column>
+
                     </Grid.Row>
                 </Grid>
             </div>

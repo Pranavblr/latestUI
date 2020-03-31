@@ -84,7 +84,7 @@ export const exportOrgMSPdetails =()=>{
     let orgName = localStorage.getItem('current-orgName');
     let orgMSPUrl = config.config.exportorgMSP+orgName+'/msp/export';
     return (dispatch)=>{
-        AbstractHttpService.generic_Api_call("GET",orgMSPUrl,{})
+        AbstractHttpService.generic_Export_Api_call("GET",orgMSPUrl,{})
         .then(res => {
             console.log('res', res)
           return res.data;
