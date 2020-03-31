@@ -15,16 +15,17 @@ const login=(method,url,code)=>{
 }
 const generic_Api_call=(method,url,data)=>{
     let access_token = localStorage.getItem('access_token')?localStorage.getItem('access_token'):'';
-    let role_token = localStorage.getItem('role_token')?localStorage.getItem('role_token'):'';
+    let roletoken = localStorage.getItem('roletoken')?localStorage.getItem('roletoken'):'';
     return(
         axios({
             headers:{
                 'Content-Type': 'application/json; charset=utf-8',
                 'Authorization':`Bearer ${access_token}`,
                 'Access-Control-Allow-Origin': '*',
-                'role_token':role_token,
+                'roletoken':roletoken,
                 'token':access_token
             },
+            responseType: "blob",
             method:method,
             url:url,
             data:data,

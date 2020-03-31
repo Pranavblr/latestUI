@@ -5,6 +5,7 @@ import { DataTable } from '@scuf/datatable';
 import { Switch, Route, Link, Redirect } from 'react-router-dom';
 
 import {getCAList} from '../../actions/OrgSetUp/orgCA';
+import {getOrgnizationDetails} from '../../actions/OrgSetUp/orgMSP';
 
 import "./NewDashboard.css";
 import Applications from "../applications/Applications";
@@ -29,19 +30,10 @@ class NewDashboard extends Component {
     componentDidMount(){
       }
     handleClickCreate=()=>{
-        Promise.resolve(
-            this.props.getCAList()
-        ).
-        then(()=>{
-            if(this.props.mspReducer.caList&&this.props.mspReducer.caList.length>0){
-                this.props.history.push('/create-form-org-setup');
-            }else{
-                this.props.history.push('/create-orgSetup');
-            }
-        });
-       
-        
-    }
+            this.props.getCAList();
+            this.props.getOrgnizationDetails();
+            this.props.history.push('/create-orgSetup');
+      }
     render() {
         return (
             <div>
@@ -55,6 +47,7 @@ class NewDashboard extends Component {
                             <Button type="primary" content="VIEW"  onClick={()=>{this.handleClickCreate()}}/>
                         </Grid.Column>
                     </Grid.Row>
+                    <br/><br/>
                     <Grid.Row className="org-list">
                         <Grid.Column width={12}>
                             <Card className="org-list-data">
@@ -120,4 +113,4 @@ const mapStateToProps = state => {
  
 }
 
-export default connect(mapStateToProps,{getCAList})(NewDashboard);
+export default connect(mapStateToProps,{getCAList,getOrgnizationDetails})(NewDashboard);

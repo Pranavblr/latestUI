@@ -3,7 +3,7 @@ li {
 }
 .create-newOrg .button.ui.medium.button.primary{
     position: absolute !important;
-    right: 18px !important;
+    right: 41px !important;
     height: 40px !important ;
     line-height: 0.5rem !important;
 }
@@ -24,4 +24,8 @@ li {
 .common-field .cell-data-wrap{color: #303030 !important; font-family:'Honeywell Sans Extra_Bold';}
 .p-datatable.p-component.p-datatable-resizable.p-datatable-resizable-fit.data-table{
     margin-right: 5px !important;
+}
+.dashboard-content .title{
+    padding-left:0px !important;
+    padding-top: 10px !important;
 }

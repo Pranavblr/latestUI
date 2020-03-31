@@ -35,7 +35,7 @@ function App(props) {
         <Route path="/signup-test" component={SignUptest} />
         <Route path="/signin" component={Signin}/>
         <Route path="/auth" component={Auth} exact/>
-        <Route path="/home" component={Home} />
+        <Route path="/home" component={Home} {...props} />
         <Route path="/create-orgSetup" component={CreateOrgSetup} />
         <Route path="/create-form-org-setup" component={CreateOrgSetUpForms} />
         <Route path="/network-application/details/:id" component={NetworkApplicationDetails}/>

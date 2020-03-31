@@ -1,13 +1,33 @@
 import React, { Component } from 'react';
-import { Grid, Button } from '@scuf/common';
+import { Grid, Button,Tab} from '@scuf/common';
+import {connect} from 'react-redux';
 
+import {navigateBetweenFormType} from '../../../actions/orgSetUpMultipartFormNavigation';
 class PeerHomePage extends Component {
+    navigateBetweenForms = formType =>{
+        this.props.setCurrentHomePage(formType);
+        this.props.navigateBetweenFormType(formType);
+     }
     render() {
         return (
             <div>
             <Grid className="forms-homepage">
                     
                     <Grid.Row>
+                    <Grid.Column width={5}>
+                            <Tab defaultActiveIndex={0} onTabChange={(activeIndex) => this.navigateBetweenForms(activeIndex)} activeIndex={this.props.currentFormType} >
+                                <Tab.Pane title="Org CA" >
+                                </Tab.Pane>
+                                <Tab.Pane title="Org MSP" >
+                                </Tab.Pane>
+                                <Tab.Pane title="Peer" >
+                                </Tab.Pane>
+                                <Tab.Pane title="Orderer" >
+                                </Tab.Pane>
+                            </Tab>
+                        </Grid.Column>
+                     </Grid.Row>
+                     <Grid.Row>
                         <Grid.Column width={3}>
                         </Grid.Column>
                         <Grid.Column width={6}>
@@ -30,7 +50,7 @@ class PeerHomePage extends Component {
                                 <Grid.Column width={12}>
                                 <div className="home-page-buttons">
                                         <Button type="primary" content="ADD PEER"
-                                        onClick={()=>this.props.handleClickAddPeer()} />
+                                        onClick={()=>this.props.handleClickAddPeer('orgPeer')} />
                                     </div>
                                 </Grid.Column>
                             </Grid.Row>
@@ -45,5 +65,10 @@ class PeerHomePage extends Component {
         );
     }
 }
+export const mapStateToProps = state=>{
+    return {
+        currentFormType: state.orgSetUpMultipartFormReducer.currentFormType,
+    }
+}
 
-export default PeerHomePage;
+export default connect(mapStateToProps,{navigateBetweenFormType})(PeerHomePage);

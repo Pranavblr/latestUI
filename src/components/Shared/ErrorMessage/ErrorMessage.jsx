@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import NotificationAlert from '../../../assets/Error/notification-alert.svg';
 import {RESET_AUTH_ERROR_POPUP,RESET_SIGNUP_ERROR_POPUP,CLOSE_CA_ERROR_POPUP,
-    CLOSE_ORG_MSP_ERROR_POPUP} from '../../../constants/actiontypes';
+    CLOSE_ORG_MSP_ERROR_POPUP,CLOSE_ORG_PEER_ERROR_POPUP,CLOSE_ORG_ODERER_ERROR_POPUP} from '../../../constants/actiontypes';
 
 class ErrorMessage extends Component {
     handleClose  = ()=>{
@@ -16,6 +16,10 @@ class ErrorMessage extends Component {
             this.props.closeCAErrorPopUp();
         }else if(this.props.page==='org-MSP'){
             this.props.closeMSPErrorPopUp();
+        }else if(this.props.page ==='org-peer'){
+            this.props.closePeerErrorPopUp();
+        }else if(this.props.page==="org-Orderer"){
+            this.props.closeOrdererErrorPopup()
         }
     }
     render() {
@@ -47,7 +51,9 @@ const mapDispatchToProps = dispatch =>{
         closeAuthPopup:()=>dispatch({type:RESET_AUTH_ERROR_POPUP}),
         closeSignUpPopUp:()=>dispatch({type:RESET_SIGNUP_ERROR_POPUP}),
         closeCAErrorPopUp:()=>dispatch({type:CLOSE_CA_ERROR_POPUP}),
-        closeMSPErrorPopUp:()=>dispatch({type:CLOSE_ORG_MSP_ERROR_POPUP})
+        closeMSPErrorPopUp:()=>dispatch({type:CLOSE_ORG_MSP_ERROR_POPUP}),
+        closePeerErrorPopUp:()=>dispatch({type:CLOSE_ORG_PEER_ERROR_POPUP}),
+        closeOrdererErrorPopup:()=>dispatch({type:CLOSE_ORG_ODERER_ERROR_POPUP})
     }
 }
 

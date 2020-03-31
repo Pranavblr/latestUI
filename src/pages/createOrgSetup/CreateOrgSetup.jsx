@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import {getCAList} from '../../actions/OrgSetUp/orgCA';
 
 import './CreateOrgSetup.css';
+import Loader from '../../components/Shared/Loader/Loader';
+import CreateOrgSetUpForms from '../../pages/createOrgSetUpForms/CreateOrgSetUpForms';
 
 const UserProfile = Header.UserProfile;
 class CreateOrgSetup extends Component {
@@ -15,7 +17,8 @@ class CreateOrgSetup extends Component {
         this.props.history.push('/create-form-org-setup');
      }
     handlClickDashboard = () => {
-        this.props.history.push('/dashboard');
+        window.location.href = '/dashboard';
+        // this.props.history.push('/dashboard');   
     }
     extractTheFirstName = ()=>{
         let currentUserName = this.props.firstName?this.props.firstName:localStorage.getItem('firstName');
@@ -25,12 +28,18 @@ class CreateOrgSetup extends Component {
       extractTheLastName = ()=>{
         let currentUserName = this.props.lastName?this.props.lastName:localStorage.getItem('LastName');
         let SplittedName = currentUserName?currentUserName.split(" "):[];
-        return SplittedName.length>1?SplittedName[0][0].toUpperCase():"";
+        return SplittedName.length>0?SplittedName[0][0].toUpperCase():"";
       }
     render() {
+        
         return (
             <div>
-                <Grid className="create-org-setup">
+                {this.props.caListLoading?
+                <Loader/>:''}
+                {
+                  this.props.caList&&this.props.caList.length===0?
+                  <React.Fragment>
+                       <Grid className="create-org-setup">
                     <Grid.Row>
                         <Header menu={false}
                             title="TrustFlow"
@@ -77,6 +86,11 @@ class CreateOrgSetup extends Component {
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
+                  </React.Fragment>
+                  :<CreateOrgSetUpForms {...this.props}/>
+
+                }
+               
             </div>
         );
     }
@@ -86,6 +100,8 @@ export const mapStateToProps = state => {
         orgName: state.authenticate.currentOrgName,
         firstName: state.signUp.userDetails.firstname,
         lastName: state.signUp.userDetails.lastname,
+        caListLoading:state.orgMSP.caListLoading,
+        caList:state.orgMSP.caList
     }
 }
 

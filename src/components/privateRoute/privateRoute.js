@@ -19,12 +19,12 @@ export default function privateRoute(ComposedComponent) {
             }
         }
          checkRoleTokenValidity(){
-            let role_token = localStorage.getItem('role_token')?localStorage.getItem('role_token'):'';
-            if(role_token===null||role_token===""){
+            let roletoken = localStorage.getItem('roletoken')?localStorage.getItem('roletoken'):'';
+            if(roletoken===null||roletoken===""){
                 console.log('localstorage is null')
                 return false
             }else{
-                let decoded_token = role_token?JWT.decode(role_token):'';
+                let decoded_token = roletoken?JWT.decode(roletoken):'';
                 console.log('private-route-decoded-roleToken',decoded_token);
                 if(decoded_token&&decoded_token.role){
                   return true
@@ -43,7 +43,7 @@ export default function privateRoute(ComposedComponent) {
         //     let requestSentUrl = config.config.requestSentUser+uid;
         //     await AbstractHttpService.generic_Api_call("get",requestSentUrl,{})
         //     .then((res)=>{
-        //       debugger
+        //       
         //       console.log('response-came')
         //       if(res.status===200||res.status===201){
         //         this.setState({tokenExpired:false},function(){
@@ -52,14 +52,14 @@ export default function privateRoute(ComposedComponent) {
                 
         //       }
         //    }).catch(error=>{
-        //        debugger
+        //        
         //        if(error&&error.response&&error.response.status===401||error.response.status===403||error.response.status===404){
         //         this.setState({tokenExpired:true },function(){
         //             return true
         //         })
                 
         //        }
-        //     debugger
+        //     
         // })
         }
         RedirectToHome = ()=>{

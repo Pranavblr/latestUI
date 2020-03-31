@@ -14,7 +14,7 @@ const Login = props => {
     const qParams = [
       `client_id=Client_44659`,
       // `redirect_uri=http://localhost:9999/auth`,
-      `redirect_uri=https://admindashboard.blockchain.honeywell.com/auth`,
+      `redirect_uri=https://devadmindashboard.blockchain.honeywell.com/auth`,
       `response_type=code`,
       `scope=profile+openid+email+https://admindashboard.service.blockchain.honeywell.com/auth/service`
     ].join("&");

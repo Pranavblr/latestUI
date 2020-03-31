@@ -1,13 +1,14 @@
 import {REQUEST_FOR_SIGN_IN,
    REQUEST_SIGNIN_SUCCESS,REQUEST_SIGNIN_FAILED,DEFAULT_SIGNIN_STATE,
-   RESET_AUTH_ERROR_POPUP,FETCH_ORGNAME} from '../constants/actiontypes';
+   RESET_AUTH_ERROR_POPUP,FETCH_ORGNAME,SIGN_OUT_USER_SUCCESS} from '../constants/actiontypes';
 
 let initialState={
   loading:false,
   signinResponse:{},
   errorMessage:'',
   authenticationDone:false,
-  currentOrgName:''
+  currentOrgName:'',
+  signoutDone:false
 }
 export default function authenticationReducer(state=initialState,action){
    switch(action.type){
@@ -39,6 +40,11 @@ export default function authenticationReducer(state=initialState,action){
              ...state,
              errorMessage:''
           }
+      case SIGN_OUT_USER_SUCCESS:
+         return {
+            ...state,
+            signoutDone:true
+         }
        default:
           return state
    }

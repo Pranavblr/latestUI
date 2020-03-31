@@ -39,8 +39,8 @@ class ManageRoles extends Component {
     }
   
     render() {
-        let role_token = localStorage.getItem('role_token')?localStorage.getItem('role_token'):'';
-        const decodedJwt = role_token?JWT.decode(role_token):"";
+        let roletoken = localStorage.getItem('roletoken')?localStorage.getItem('roletoken'):'';
+        const decodedJwt = roletoken?JWT.decode(roletoken):"";
         console.log('decoded jwt',decodedJwt);
         roleListOption.length=0;
         let roleList = [];

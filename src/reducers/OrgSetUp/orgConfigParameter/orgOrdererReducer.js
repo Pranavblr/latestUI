@@ -1,62 +1,111 @@
+import {ADD_NEW_ORDERER,FETCH_ORG_ORDERER_INPUT_DETAILS,
+    SELECTED_ORDERER_FILE,ORDERER_SELECTED_CHECKBOX,
+    GET_ORG_ORDERER_BY_ID_STARTS,GET_ORG_ORDERER_BY_ID_SUCCESS,
+    CREATE_ORDERER_REQUEST_STARTS,CREATE_ORDERER_REQUEST_SUCCESS,
+    CREATE_ORDERER_REQUEST_FAILED,CLOSE_ORG_ODERER_ERROR_POPUP} from '../../../constants/actiontypes';
+
 let initialState={
     loading:false,
-    ordererInputDetails:[{
-        name: "hongdtorderer1",
-        fqdn: "hongdtorderer1.blockchain.honeywell.com",
+    ordererInputDetails:{
+        name: "",
+        fqdn: "",
         nodeType: 0,
-        enrollId: "hongdtorderer1-admin",
-        enrollSecret: "hongdtorderer1-adminpw",
-        ipAddress: "10.10.1.198",
-        gossipPort: 7053,
-        enableTLSAuth: true,
-        enableClientTLSAuth: true,
-        enableOpTLSAuth: true,
-        enableOpClientTLSAuth: true,
-        eventHubPort: 7054,
-        opServicePort: 7443,
-        adminCert:"-----BEGIN CERTIFICATE-----\nMIICGjCCAcCgAwIBAgIRAIPRwJHVLhHK47XK0BbFZJswCgYIKoZIzj0EAwIwczEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzIuZXhhbXBsZS5jb20xHDAaBgNVBAMTE2Nh\nLm9yZzIuZXhhbXBsZS5jb20wHhcNMTcwNjIzMTIzMzE5WhcNMjcwNjIxMTIzMzE5\nWjBbMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN\nU2FuIEZyYW5jaXNjbzEfMB0GA1UEAwwWVXNlcjFAb3JnMi5leGFtcGxlLmNvbTBZ\nMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBd9SsEiFH1/JIb3qMEPLR2dygokFVKW\neINcB0Ni4TBRkfIWWUJeCANTUY11Pm/+5gs+fBTqBz8M2UzpJDVX7+2jTTBLMA4G\nA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMCsGA1UdIwQkMCKAIKfUfvpGproH\ncwyFD+0sE3XfJzYNcif0jNwvgOUFZ4AFMAoGCCqGSM49BAMCA0gAMEUCIQC8NIMw\ne4ym/QRwCJb5umbONNLSVQuEpnPsJrM/ssBPvgIgQpe2oYa3yO3USro9nBHjpM3L\nKsFQrpVnFO6hoHOYZQ=\n-----END CERTIFICATE-----",
-        adminKey:"-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgmHG6n4ZvwUeV4jCp\nkvAmGSQKZ+vOYsyzRZgYwORO+vChRANCAAQXfUrBIhR9fySG96jBDy0dncoKJBVS\nlniDXAdDYuEwUZHyFllCXggDU1GNdT5v/uYLPnwU6gc/DNlM6SQ1V+/t\n-----END PRIVATE KEY-----",
-        serverCert:"-----BEGIN CERTIFICATE-----\nMIICGjCCAcCgAwIBAgIRAIPRwJHVLhHK47XK0BbFZJswCgYIKoZIzj0EAwIwczEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzIuZXhhbXBsZS5jb20xHDAaBgNVBAMTE2Nh\nLm9yZzIuZXhhbXBsZS5jb20wHhcNMTcwNjIzMTIzMzE5WhcNMjcwNjIxMTIzMzE5\nWjBbMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN\nU2FuIEZyYW5jaXNjbzEfMB0GA1UEAwwWVXNlcjFAb3JnMi5leGFtcGxlLmNvbTBZ\nMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBd9SsEiFH1/JIb3qMEPLR2dygokFVKW\neINcB0Ni4TBRkfIWWUJeCANTUY11Pm/+5gs+fBTqBz8M2UzpJDVX7+2jTTBLMA4G\nA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMCsGA1UdIwQkMCKAIKfUfvpGproH\ncwyFD+0sE3XfJzYNcif0jNwvgOUFZ4AFMAoGCCqGSM49BAMCA0gAMEUCIQC8NIMw\ne4ym/QRwCJb5umbONNLSVQuEpnPsJrM/ssBPvgIgQpe2oYa3yO3USro9nBHjpM3L\nKsFQrpVnF8O6hoHOYZQ=\n-----END CERTIFICATE-----",
-        serverKey:"-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgmHG6n4ZvwUeV4jCp\nkvAmGSQKZ+vOYsyzRZgYwORO+vChRANCAAQXfUrBIhR9fySG96jBDy0dncoKJBVS\nlniDXAdDYuEwUZHyFllCXggDU1GNdT5v/uYLPnwU6gc/DNlM6Q1V+/t\n-----END PRIVATE KEY-----",
-        tlsServerCert:"-----BEGIN CERTIFICATE-----\nMIICGjCCAcCgAwIBAgIRAIPRwJH7LhHK47XK0BbFzJswCgYIKoZIzj0EAwIwczEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzIuZXhhbXBsZS5jb20xHDAaBgNVBAMTE2Nh\nLm9yZzIuZXhhbXBsZS5jb20wHhcNMTcwNjIzMTIzMzE5WhcNMjcwNjIxMTIzMzE5\nWjBbMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN\nU2FuIEZyYW5jaXNjbzEfMB0GA1UEAwwWVXNlcjFAb3JnMi5leGFtcGxlLmNvbTBZ\nMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBd9SsEiFH1/JIb3qMEPLR2dygokFVKW\neINcB0Ni4TBRkfIWWUJeCANTUY11Pm/+5gs+fBTqBz8M2UzpJDVX7+2jTTBLMA4G\nA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMCsGA1UdIwQkMCKAIKfUfvpGproH\ncwyFD+0sE3XfJzYNcif0jNwvgOUFZ4AFMAoGCCqGSM49BAMCA0gAMEUCIQC8NIMw\ne4ym/QRwCJb5umbONNLSVQuEpnPsJrM/ssBPvgIgQpe2oYa3yO3USro9nBHjpM3L\nKsFQrpVnF8O6hoHOYZQ=\n-----END CERTIFICATE-----",
-        tlsServerKey:"-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgmHG6n4ZvwUeV4jCp\nkvAmGSQKZ+vOYsyzRZgYwORO+vChRANCAAQXfUrBIhR9fySG96jBDy0dncoKJBVS\nlniDXAdDYuEwUZHyFllCXggDU1GNdT5v/uYLPnwU6gc/DNlM6SQ1V+/t\n-----END PRIVATE KEY-----",
-        tlsClientCert:"-----BEGIN CERTIFICATE-----\nMIICGjCCAcCgAwIBAgIRAIPRwJH7LhHK47XK0BbFzJswCgYIKoZIzj0EAwIwczEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzIuZXhhbXBsZS5jb20xHDAaBgNVBAMTE2Nh\nLm9yZzIuZXhhbXBsZS5jb20wHhcNMTcwNjIzMTIzMzE5WhcNMjcwNjIxMTIzMzE5\nWjBbMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN\nU2FuIEZyYW5jaXNjbzEfMB0GA1UEAwwWVXNlcjFAb3JnMi5leGFtcGxlLmNvbTBZ\nMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBd9SsEiFH1/JIb3qMEPLR2dygokFVKW\neINcB0Ni4TBRkfIWWUJeCANTUY11Pm/+5gs+fBTqBz8M2UzpJDVX7+2jTTBLMA4G\nA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMCsGA1UdIwQkMCKAIKfUfvpGproH\ncwyFD+0sE3XfJzYNcif0jNwvgOUFZ4AFMAoGCCqGSM49BAMCA0gAMEUCIQC8NIMw\ne4ym/QRwCJb5umbONNLSVQuEpnPsJrM/ssBPvgIgQpe2oYa3yO3USro9nBHjpM3L\nKsFQrpVnF8O6hoHOYZQ=\n-----END CERTIFICATE-----",
-        tlsClientKey:"-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgmHG6n4ZvwUeV4jCp\nkvAmGSQKZ+vOYsyzRZgYwORO+vChRANCAAQXfUrBIhR9fySG96jBDy0dncoKJBVS\nlniDXAdDYuEwUZHyFllCXgDU1GNdT5v/uYLPnwU6gc/DNlMQ1V+/t\n-----END PRIVATE KEY-----",
-        tlsOpsServerCert:"-----BEGIN CERTIFICATE-----\nMIICGjCCAcCgAwIBAgIRAIPRwJH7LhHK47XK0BbFzJswCgYIKoZIzj0EAwIwczEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzIuZXhhbXBsZS5jb20xHDAaBgNVBAMTE2Nh\nLm9yZzIuZXhhbXBsZS5jb20wHhcNMTcwNjIzMTIzMzE5WhcNMjcwNjIxMTIzMzE5\nWjBbMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN\nU2FuIEZyYW5jaXNjbzEfMB0GA1UEAwwWVXNlcjFAb3JnMi5leGFtcGxlLmNvbTBZ\nMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBd9SsEiFH1/JIb3qMEPLR2dygokFVKW\neINcB0Ni4TBRkfIWWUJeCANTUY11Pm/+5gs+fBTqBz8M2UzpJDVX7+2jTTBLMA4G\nA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMCsGA1UdIwQkMCKAIKfUfvpGproH\ncwyFD+0sE3XfJzYNcif0jNwvgOUFZ4AFMAoGCCqGSM49BAMCA0gAMEUCIQC8NIMw\ne4ym/QRwCJb5umbONNLSVQuEpnPsJrM/ssBPvgIgQpe2oYa3yO3USro9nBHjpM3L\nKsFQrpVnF8O6hoHO=\n-----END CERTIFICATE-----",
-        tlsOpsServerKey:"-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgmHG6n4ZvwUeV4jCp\nkvAmGSQKZ+vOYsyzRZgYwORO+vChRANCAAQXfUrBIhR9fySG96jBDy0dncoKJBVS\nlniDXAdDYuEwUZHyFllCXggDU1GNdT5v/uYLPnwU6gc/DNlM61V+/t\n-----END PRIVATE KEY-----",
-        tlsServerRootCAId: "5e54eb5fc4e9336a6bcd84bd",
-        tlsClientRootCAId: "5e54eb8cc4e9336a6bcd84be",
-        tlsOpsServerRootCAId: "5e54eb5fc4e9336a6bcd84bd",
-        tlsOpsClientRootCAId: "5e54eb8cc4e9336a6bcd84be"
-    },{
-        name: "hongdtorderer2",
-        fqdn: "hongdtorderer2.blockchain.honeywell.com",
-        nodeType: 0,
-        enrollId: "hongdtorderer2-admin",
-        enrollSecret: "hongdtorderer2-adminpw",
-        ipAddress: "10.10.1.198",
-        enableTLSAuth: true,
-        enableClientTLSAuth: true,
-        enableOpTLSAuth: true,
-        enableOpClientTLSAuth: true,
-        opServicePort: 7443,
-        adminCert:"-----BEGIN CERTIFICATE-----\nMIICGjCCAcCgAwIBAgIRAIPRwJHVLhHK47XK0BbFZJswCgYIKoZIzj0EAwIwczEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzIuZXhhbXBsZS5jb20xHDAaBgNVBAMTE2Nh\nLm9yZzIuZXhhbXBsZS5jb20wHhcNMTcwNjIzMTIzMzE5WhcNMjcwNjIxMTIzMzE5\nWjBbMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN\nU2FuIEZyYW5jaXNjbzEfMB0GA1UEAwwWVXNlcjFAb3JnMi5leGFtcGxlLmNvbTBZ\nMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBd9SsEiFH1/JIb3qMEPLR2dygokFVKW\neINcB0Ni4TBRkfIWWUJeCANTUY11Pm/+5gs+fBTqBz8M2UzpJDVX7+2jTTBLMA4G\nA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMCsGA1UdIwQkMCKAIKfUfvpGproH\ncwyFD+0sE3XfJzYNcif0jNwvgOUFZ4AFMAoGCCqGSM49BAMCA0gAMEUCIQC8NIMw\ne4ym/QRwCJb5umbONNLSVQuEpnPsJrM/ssBPvgIgQpe2oYa3yO3USro9nBHjpM3L\nKsFQrpVnFO6hoHOYZQ=\n-----END CERTIFICATE-----",
-        adminKey:"-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgmHG6n4ZvwUeV4jCp\nkvAmGSQKZ+vOYsyzRZgYwORO+vChRANCAAQXfUrBIhR9fySG96jBDy0dncoKJBVS\nlniDXAdDYuEwUZHyFllCXggDU1GNdT5v/uYLPnwU6gc/DNlM6SQ1V+/t\n-----END PRIVATE KEY-----",
-        serverCert:"-----BEGIN CERTIFICATE-----\nMIICGjCCAcCgAwIBAgIRAIPRwJHVLhHK47XK0BbFZJswCgYIKoZIzj0EAwIwczEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzIuZXhhbXBsZS5jb20xHDAaBgNVBAMTE2Nh\nLm9yZzIuZXhhbXBsZS5jb20wHhcNMTcwNjIzMTIzMzE5WhcNMjcwNjIxMTIzMzE5\nWjBbMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN\nU2FuIEZyYW5jaXNjbzEfMB0GA1UEAwwWVXNlcjFAb3JnMi5leGFtcGxlLmNvbTBZ\nMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBd9SsEiFH1/JIb3qMEPLR2dygokFVKW\neINcB0Ni4TBRkfIWWUJeCANTUY11Pm/+5gs+fBTqBz8M2UzpJDVX7+2jTTBLMA4G\nA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMCsGA1UdIwQkMCKAIKfUfvpGproH\ncwyFD+0sE3XfJzYNcif0jNwvgOUFZ4AFMAoGCCqGSM49BAMCA0gAMEUCIQC8NIMw\ne4ym/QRwCJb5umbONNLSVQuEpnPsJrM/ssBPvgIgQpe2oYa3yO3USro9nBHjpM3L\nKsFQrpVnF8O6hoHOYZQ=\n-----END CERTIFICATE-----",
-        serverKey:"-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgmHG6n4ZvwUeV4jCp\nkvAmGSQKZ+vOYsyzRZgYwORO+vChRANCAAQXfUrBIhR9fySG96jBDy0dncoKJBVS\nlniDXAdDYuEwUZHyFllCXggDU1GNdT5v/uYLPnwU6gc/DNlM6Q1V+/t\n-----END PRIVATE KEY-----",
-        tlsServerCert:"-----BEGIN CERTIFICATE-----\nMIICGjCCAcCgAwIBAgIRAIPRwJH7LhHK47XK0BbFzJswCgYIKoZIzj0EAwIwczEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzIuZXhhbXBsZS5jb20xHDAaBgNVBAMTE2Nh\nLm9yZzIuZXhhbXBsZS5jb20wHhcNMTcwNjIzMTIzMzE5WhcNMjcwNjIxMTIzMzE5\nWjBbMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN\nU2FuIEZyYW5jaXNjbzEfMB0GA1UEAwwWVXNlcjFAb3JnMi5leGFtcGxlLmNvbTBZ\nMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBd9SsEiFH1/JIb3qMEPLR2dygokFVKW\neINcB0Ni4TBRkfIWWUJeCANTUY11Pm/+5gs+fBTqBz8M2UzpJDVX7+2jTTBLMA4G\nA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMCsGA1UdIwQkMCKAIKfUfvpGproH\ncwyFD+0sE3XfJzYNcif0jNwvgOUFZ4AFMAoGCCqGSM49BAMCA0gAMEUCIQC8NIMw\ne4ym/QRwCJb5umbONNLSVQuEpnPsJrM/ssBPvgIgQpe2oYa3yO3USro9nBHjpM3L\nKsFQrpVnF8O6hoHOYZQ=\n-----END CERTIFICATE-----",
-        tlsServerKey:"-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgmHG6n4ZvwUeV4jCp\nkvAmGSQKZ+vOYsyzRZgYwORO+vChRANCAAQXfUrBIhR9fySG96jBDy0dncoKJBVS\nlniDXAdDYuEwUZHyFllCXggDU1GNdT5v/uYLPnwU6gc/DNlM6SQ1V+/t\n-----END PRIVATE KEY-----",
-        tlsClientCert:"-----BEGIN CERTIFICATE-----\nMIICGjCCAcCgAwIBAgIRAIPRwJH7LhHK47XK0BbFzJswCgYIKoZIzj0EAwIwczEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzIuZXhhbXBsZS5jb20xHDAaBgNVBAMTE2Nh\nLm9yZzIuZXhhbXBsZS5jb20wHhcNMTcwNjIzMTIzMzE5WhcNMjcwNjIxMTIzMzE5\nWjBbMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN\nU2FuIEZyYW5jaXNjbzEfMB0GA1UEAwwWVXNlcjFAb3JnMi5leGFtcGxlLmNvbTBZ\nMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBd9SsEiFH1/JIb3qMEPLR2dygokFVKW\neINcB0Ni4TBRkfIWWUJeCANTUY11Pm/+5gs+fBTqBz8M2UzpJDVX7+2jTTBLMA4G\nA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMCsGA1UdIwQkMCKAIKfUfvpGproH\ncwyFD+0sE3XfJzYNcif0jNwvgOUFZ4AFMAoGCCqGSM49BAMCA0gAMEUCIQC8NIMw\ne4ym/QRwCJb5umbONNLSVQuEpnPsJrM/ssBPvgIgQpe2oYa3yO3USro9nBHjpM3L\nKsFQrpVnF8O6hoHOYZQ=\n-----END CERTIFICATE-----",
-        tlsClientKey:"-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgmHG6n4ZvwUeV4jCp\nkvAmGSQKZ+vOYsyzRZgYwORO+vChRANCAAQXfUrBIhR9fySG96jBDy0dncoKJBVS\nlniDXAdDYuEwUZHyFllCXgDU1GNdT5v/uYLPnwU6gc/DNlMQ1V+/t\n-----END PRIVATE KEY-----",
-        tlsOpsServerCert:"-----BEGIN CERTIFICATE-----\nMIICGjCCAcCgAwIBAgIRAIPRwJH7LhHK47XK0BbFzJswCgYIKoZIzj0EAwIwczEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzIuZXhhbXBsZS5jb20xHDAaBgNVBAMTE2Nh\nLm9yZzIuZXhhbXBsZS5jb20wHhcNMTcwNjIzMTIzMzE5WhcNMjcwNjIxMTIzMzE5\nWjBbMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN\nU2FuIEZyYW5jaXNjbzEfMB0GA1UEAwwWVXNlcjFAb3JnMi5leGFtcGxlLmNvbTBZ\nMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBd9SsEiFH1/JIb3qMEPLR2dygokFVKW\neINcB0Ni4TBRkfIWWUJeCANTUY11Pm/+5gs+fBTqBz8M2UzpJDVX7+2jTTBLMA4G\nA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMCsGA1UdIwQkMCKAIKfUfvpGproH\ncwyFD+0sE3XfJzYNcif0jNwvgOUFZ4AFMAoGCCqGSM49BAMCA0gAMEUCIQC8NIMw\ne4ym/QRwCJb5umbONNLSVQuEpnPsJrM/ssBPvgIgQpe2oYa3yO3USro9nBHjpM3L\nKsFQrpVnF8O6hoHO=\n-----END CERTIFICATE-----",
-        tlsOpsServerKey:"-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgmHG6n4ZvwUeV4jCp\nkvAmGSQKZ+vOYsyzRZgYwORO+vChRANCAAQXfUrBIhR9fySG96jBDy0dncoKJBVS\nlniDXAdDYuEwUZHyFllCXggDU1GNdT5v/uYLPnwU6gc/DNlM61V+/t\n-----END PRIVATE KEY-----",
-        tlsServerRootCAId: "5e54eb5fc4e9336a6bcd84bd",
-        tlsClientRootCAId: "5e54eb8cc4e9336a6bcd84be",
-        tlsOpsServerRootCAId: "5e54eb5fc4e9336a6bcd84bd",
-        tlsOpsClientRootCAId: "5e54eb8cc4e9336a6bcd84be"
-    }],
-    requestResponse:''
+        enrollId: "",
+        enrollSecret: "",
+        ipAddress: "",
+        gossipPort: '',
+        enableTLSAuth: false,
+        enableClientTLSAuth: false,
+        enableOpTLSAuth: false,
+        enableOpClientTLSAuth: false,
+        eventHubPort: '',
+        opServicePort: '',
+        adminCert:"",
+        adminKey:"",
+        serverCert:"",
+        serverKey:"",
+        tlsServerCert:"",
+        tlsServerKey:"",
+        tlsClientCert:"",
+        tlsClientKey:"",
+        tlsOpsServerKey:"",
+        tlsServerRootCAId: "",
+        tlsClientRootCAId: "",
+        tlsOpsServerRootCAId: "",
+        tlsOpsClientRootCAId: ""
+    },
+    requestResponse:'',
+    createOrgOrderererrorMessage:'',
+    creatOrgOrdererLoading:false,
+    getOrderbyIdLoading:false,
+    getOrdererbyIdResponse:''
 }
 export default function orgOrdererReducer(state=initialState,action){
-    return state;
+    switch(action.type){
+        case ADD_NEW_ORDERER:
+            return {
+                ...state,
+                requestResponse:''
+            }
+        case FETCH_ORG_ORDERER_INPUT_DETAILS:
+            return{
+                ...state,
+                ordererInputDetails:{
+                    ...state.ordererInputDetails,
+                    [action.inputObject.key]:action.inputObject.value
+                }
+               }
+        case SELECTED_ORDERER_FILE:
+            return {
+                ...state,
+                ordererInputDetails:{
+                    ...state.ordererInputDetails,
+                    [action.inputFileObject.key]:action.inputFileObject.value  
+                }
+            }
+        case ORDERER_SELECTED_CHECKBOX:
+            return {
+                ...state,
+                ordererInputDetails:{
+                    ...state.ordererInputDetails,
+                    [action.inputObject.key]:action.inputObject.value  
+                }
+            }
+        case GET_ORG_ORDERER_BY_ID_STARTS:
+            return {
+                ...state,
+                getOrderbyIdLoading:true
+            }
+        case GET_ORG_ORDERER_BY_ID_SUCCESS:
+            return {
+                ...state,
+                getOrdererbyIdResponse:action.response,
+                getOrderbyIdLoading:false
+            }
+        case CREATE_ORDERER_REQUEST_STARTS:
+            return {
+                ...state,
+                creatOrgOrdererLoading:true
+            }
+        case CREATE_ORDERER_REQUEST_SUCCESS:
+            return {
+                ...state,
+                requestResponse:action.response,
+                creatOrgOrdererLoading:false
+            }
+        case CREATE_ORDERER_REQUEST_FAILED:
+            return {
+                ...state,
+                creatOrgOrdererLoading:false,
+                createOrgOrderererrorMessage:action.error
+            }
+        case CLOSE_ORG_ODERER_ERROR_POPUP:{
+            return {
+                ...state,
+                createOrgOrderererrorMessage:''
+            }
+        }
+        default:
+            return state
+    }
 }

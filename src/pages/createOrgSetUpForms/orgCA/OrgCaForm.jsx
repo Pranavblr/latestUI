@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Input, Select,Button} from '@scuf/common';
+import { Grid, Input, Select,Button,Tab} from '@scuf/common';
 import { connect } from 'react-redux';
 
 import ErrorMessage from '../../../components/Shared/ErrorMessage/ErrorMessage';
@@ -7,8 +7,8 @@ import Loader from '../../../components/Shared/Loader/Loader';
 import cloudUploadIcon from '../../../assets/images/orgSetup/cloud_uplod.svg';
 
 import {getUserInput,getUserSelectedFile,getSelectedCheckBoxStatus} from '../../../actions/OrgSetUp/orgCA';
+import {navigateBetweenFormType} from '../../../actions/orgSetUpMultipartFormNavigation';
 
-const stateOptions = [ { value: 'AL', text: 'Alabama' }, {value: 'GA', text:'Georgia' }, {value:'HI', text:'Hawaii'} ];
 let fileReader;
 class OrgCaForm extends Component {
     constructor(props){
@@ -85,6 +85,10 @@ class OrgCaForm extends Component {
         }
         this.props.getUserInput(inputObject);
     }
+    navigateBetweenForms = (formType)=>{
+        // this.props.navigateBetweenForms(formType);
+        this.props.navigateBetweenFormType(formType);
+    }
     render() {
         let caList = this.props.caList;
         var CaListOptions=[]
@@ -104,9 +108,22 @@ class OrgCaForm extends Component {
                         this.props.loading?
                         <Loader/>:''
                     }
-                   
                     <Grid.Row>
-                        <Grid.Column width={6}>
+                    <Grid.Column width={5}>
+                            <Tab defaultActiveIndex={0} onTabChange={(activeIndex) => this.navigateBetweenForms(activeIndex)} activeIndex={this.props.currentFormType} >
+                                <Tab.Pane title="Org CA" >
+                                </Tab.Pane>
+                                <Tab.Pane title="Org MSP" >
+                                </Tab.Pane>
+                                <Tab.Pane title="Peer" >
+                                </Tab.Pane>
+                                <Tab.Pane title="Orderer" >
+                                </Tab.Pane>
+                            </Tab>
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                        <Grid.Column>
                             <h5>CA Node Configuration</h5>
                         </Grid.Column>
                     </Grid.Row>
@@ -133,7 +150,7 @@ class OrgCaForm extends Component {
                             <label>Select RCA</label>
                         </Grid.Column>
                         <Grid.Column width={4}>
-                           <Select placeholder="Select a State" defaultValue={0} options={CaListOptions} onChange = {(value)=>this.getOrgCAInput("rootCA",value)}/>
+                           <Select placeholder="Select RCA" defaultValue={CaListOptions&&CaListOptions.length>0?CaListOptions[0].value:0} options={CaListOptions} onChange = {(value)=>this.getOrgCAInput("rootCA",value)}/>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -190,7 +207,7 @@ class OrgCaForm extends Component {
                             <label>Enroll Id</label>
                         </Grid.Column>
                         <Grid.Column width={4}>
-                            <Input onChange={(value)=>this.getOrgCAInput("enrollId",value)} className="form-input" placeholder="CA Admin Certificate" />
+                            <Input onChange={(value)=>this.getOrgCAInput("enrollId",value)} className="form-input" placeholder="Enroll Id" />
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -198,7 +215,7 @@ class OrgCaForm extends Component {
                             <label>Enroll Secret</label>
                         </Grid.Column>
                         <Grid.Column width={4}>
-                            <Input onChange={(value)=>this.getOrgCAInput("enrollSecret",value)} className="form-input" placeholder="CA Admin Key" />
+                            <Input onChange={(value)=>this.getOrgCAInput("enrollSecret",value)} className="form-input" placeholder="Enroll Secret" />
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -206,7 +223,7 @@ class OrgCaForm extends Component {
                             <label>CA Admin Certificate</label>
                         </Grid.Column>
                         <Grid.Column width={4}>
-                            <Input  value={this.props.CAInputDeatils.adminCert} className="form-input" placeholder="CA Admin Enroll Id" />
+                            <Input  value={this.props.CAInputDeatils.adminCert} className="form-input" placeholder="CA Admin Certificate" />
                         </Grid.Column>
                         <Grid.Column width={3}>
                             <div class="image-upload">
@@ -222,7 +239,7 @@ class OrgCaForm extends Component {
                             <label>CA Admin Key</label>
                         </Grid.Column>
                         <Grid.Column width={4}>
-                            <Input value={this.props.CAInputDeatils.adminKey}  className="form-input" placeholder="CA Admin Secret" />
+                            <Input value={this.props.CAInputDeatils.adminKey}  className="form-input" placeholder="CA Admin Key" />
                         </Grid.Column>
                         <Grid.Column width={3}>
                             <div class="image-upload">
@@ -387,7 +404,7 @@ class OrgCaForm extends Component {
                             <label>TLS Ops Client Root Certificate</label>
                         </Grid.Column>
                         <Grid.Column width={4}>
-                           <Select placeholder="Select a State" defaultValue={0} options={CaListOptions} onChange = {(value)=>this.getOrgCAInput("tlsOpsRootCertId",value)}/>
+                           <Select placeholder="Select TLS Certificate" defaultValue={CaListOptions&&CaListOptions.length>0?CaListOptions[0].value:0} options={CaListOptions} onChange = {(value)=>this.getOrgCAInput("tlsOpsRootCertId",value)}/>
                         </Grid.Column>
                     </Grid.Row>:''
 
@@ -406,8 +423,9 @@ export const mapStateToProps = state => {
         loading:state.orgCA.loading,
         errorResponse:state.orgCA.errorResponse,
         CAInputDeatils:state.orgCA.CAinputDetails,
-        caList:state.orgMSP.caList
+        caList:state.orgMSP.caList,
+        currentFormType: state.orgSetUpMultipartFormReducer.currentFormType,
     }
 }
 export default connect(mapStateToProps, {getUserInput,getUserSelectedFile,
-    getSelectedCheckBoxStatus})(OrgCaForm);
+    getSelectedCheckBoxStatus,navigateBetweenFormType})(OrgCaForm);

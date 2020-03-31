@@ -1,31 +1,53 @@
 import React, { Component } from 'react';
-import { Grid, Card, Button, Input,Select } from '@scuf/common';
+import { Grid, Card, Tab, Input,Select } from '@scuf/common';
 import {connect} from  'react-redux';
 
 import ErrorMessage from '../../../components/Shared/ErrorMessage/ErrorMessage';
 import Loader from '../../../components/Shared/Loader/Loader';
 import cloudUploadIcon from '../../../assets/images/orgSetup/cloud_uplod.svg';
 
-import {getUserInputs,getCAList,getSelectedCAcertificate} from '../../../actions/OrgSetUp/orgMSP';
+import {getUserInputs,getSelectedCAcertificate,getSelectedMSPFile} from '../../../actions/OrgSetUp/orgMSP';
+import {navigateBetweenFormType} from '../../../actions/orgSetUpMultipartFormNavigation';
 
-const stateOptions = [ { value: 'AL', text: 'Alabama' }, {value: 'GA', text:'Georgia' }, {value:'HI', text:'Hawaii'} ];
+let fileReader;
 class OrgMSPform extends Component {
-    componentDidMount(){
-        // this.props.getCAList();
-    }
-    getUserInputs = (key,value)=>{
+    getUserInput = (key,value)=>{
         let InputObject = {
             key:key,
             value:value
         }
         this.props.getUserInputs(InputObject)
     }
-    getSelectedCa = (value)=>{
-       this.props.getSelectedCAcertificate(value)
+    getSelectedCa = (key,value)=>{
+        var inputFileDetails = {
+            key:key,
+            value:value
+        }
+       this.props.getSelectedCAcertificate(inputFileDetails)
+    }
+    getOrgSelectedFile=(key,file)=>{
+        fileReader = new FileReader();
+        fileReader.onloadend = ()=>{
+            var content = fileReader.result;
+            
+            console.log('file-content',content);
+            var inputFileDetails = {
+                key:key,
+                value:fileReader.result
+            }
+        this.props.getSelectedMSPFile(inputFileDetails);
+             
+        }
+       fileReader.readAsText(file);
+    }
+    navigateBetweenForms = (formType)=>{
+      this.props.setCurrentHomePage(formType);
+      this.props.navigateBetweenFormType(formType);
     }
     render() {
+        
         let orgName = localStorage.getItem('current-orgName');
-        let mspId='MSP'+orgName;
+        let mspId=orgName+'MSP';
         let caList = this.props.caList;
         var newCAlist=[];
         if(caList&&caList.length>0){
@@ -50,7 +72,21 @@ class OrgMSPform extends Component {
                         <Loader/>:''
                     }
                 <Grid.Row>
-                    <Grid.Column width={6}>
+                <Grid.Column width={5}>
+                            <Tab defaultActiveIndex={0} onTabChange={(activeIndex) => this.navigateBetweenForms(activeIndex)} activeIndex={this.props.currentFormType} >
+                                <Tab.Pane title="Org CA" >
+                                </Tab.Pane>
+                                <Tab.Pane title="Org MSP" >
+                                </Tab.Pane>
+                                <Tab.Pane title="Peer" >
+                                </Tab.Pane>
+                                <Tab.Pane title="Orderer" >
+                                </Tab.Pane>
+                            </Tab>
+                        </Grid.Column>
+                    </Grid.Row>
+                    <Grid.Row>
+                    <Grid.Column>
                         <h5>Org MSP Configuration Parameters</h5>
                     </Grid.Column>
                     </Grid.Row>
@@ -71,8 +107,8 @@ class OrgMSPform extends Component {
                            <Select 
                            placeholder="Select a State" 
                            defaultValue={newCAlist&&newCAlist.length>0?newCAlist[0].value:''}
-                           value={this.props.mspInputDeatils.ca}
-                            options={newCAlist} onChange={(value)=> this.getSelectedCa(value)}/>
+                        //    value={this.props.mspInputDeatils.ca}
+                            options={newCAlist} onChange={(value)=> this.getSelectedCa("ca",value)}/>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -80,7 +116,7 @@ class OrgMSPform extends Component {
                            <label>Org  Admin Enroll Id</label>
                         </Grid.Column>
                         <Grid.Column width={4}>
-                           <Input className="form-input" placeholder="Enroll Id"/>
+                           <Input onChange={(value)=>this.getUserInput("enrollId",value)} className="form-input" placeholder="Enroll Id"/>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -88,7 +124,7 @@ class OrgMSPform extends Component {
                            <label>Org  Admin Enroll Secret</label>
                         </Grid.Column>
                         <Grid.Column width={4}>
-                           <Input className="form-input" placeholder="Enroll Secret"/>
+                           <Input onChange={(value)=>this.getUserInput("enrollSecret",value)} className="form-input" placeholder="Enroll Secret"/>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -96,15 +132,16 @@ class OrgMSPform extends Component {
                            <label>Org  Admin Certificate</label>
                         </Grid.Column>
                         <Grid.Column width={4}>
-                           <Input className="form-input" placeholder="Admin Certificate"/>
+                           <Input   value={this.props.mspInputDeatils.adminCert} className="form-input" placeholder="Admin Certificate"/>
                         </Grid.Column>
                         <Grid.Column width={3}>
                             <div class="image-upload">
-                                <label for="file-input">
+                                <label for="file-input8">
                                     <img src={cloudUploadIcon} alt="" />
                                 </label>
-
-                                <input id="file-input" type="file" />
+                                   <input
+                                     onChange={(e)=>this.getOrgSelectedFile("adminCert",e.target.files[0])}
+                                     id="file-input8" type="file" />
                             </div>
                         </Grid.Column>
                     </Grid.Row>
@@ -113,15 +150,15 @@ class OrgMSPform extends Component {
                            <label>Org  Admin Key</label>
                         </Grid.Column>
                         <Grid.Column width={4}>
-                           <Input className="form-input" placeholder="Admin Key"/>
+                           <Input  value={this.props.mspInputDeatils.adminKey} className="form-input" placeholder="Admin Key"/>
                         </Grid.Column>
                         <Grid.Column width={3}>
                             <div class="image-upload">
-                                <label for="file-input">
+                                <label for="file-input7">
                                     <img src={cloudUploadIcon} alt="" />
                                 </label>
 
-                                <input id="file-input" type="file" />
+                                <input onChange={(e)=>this.getOrgSelectedFile("adminKey",e.target.files[0])} id="file-input7" type="file" />
                             </div>
                         </Grid.Column>
                     </Grid.Row>
@@ -130,7 +167,12 @@ class OrgMSPform extends Component {
                            <label>Select TLS CA Certificate</label>
                         </Grid.Column>
                         <Grid.Column width={4}>
-                           <Input className="form-input" placeholder="Admin Key"/>
+                           {/* <Input className="form-input" placeholder="Admin Key"/> */}
+                           <Select 
+                           placeholder="Select CA" 
+                           defaultValue={newCAlist&&newCAlist.length>0?newCAlist[0].value:''}
+                        //    value={this.props.mspInputDeatils.ca}
+                            options={newCAlist} onChange={(value)=> this.getSelectedCa("tlsCA",value)}/>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
@@ -144,7 +186,9 @@ export const mapStateToProps = state=>{
         errorResponse:state.orgMSP.errorResponse,
         loading:state.orgMSP.loading,
         caList:state.orgMSP.caList,
-        mspInputDeatils:state.orgMSP.mspInputDetails
+        mspInputDeatils:state.orgMSP.mspInputDetails,
+        currentFormType: state.orgSetUpMultipartFormReducer.currentFormType,
     }
 }
-export default connect(mapStateToProps,{getUserInputs,getCAList,getSelectedCAcertificate})(OrgMSPform);
+export default connect(mapStateToProps,{getUserInputs,getSelectedCAcertificate,
+    navigateBetweenFormType,getSelectedMSPFile})(OrgMSPform);

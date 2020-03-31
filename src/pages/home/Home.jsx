@@ -8,6 +8,7 @@ import "./Home.css";
 import {getSelectedSideNav,getSelectedSubmenuItem} from '../../actions/navigation';
 import {openManageRolesPopUp} from '../../actions/manageRoles';
 import {getCAList} from '../../actions/OrgSetUp/orgCA';
+import {signOutUser} from '../../actions/authentication';
 import ManageRoles from "../manageRoles/ManageRoles";
 const UserProfile = Header.UserProfile;
 const Sidebar = SidebarLayout.Sidebar;
@@ -30,7 +31,7 @@ class home extends Component {
   extractTheLastName = ()=>{
     let currentUserName = this.props.lastName?this.props.lastName:localStorage.getItem('LastName');
     let SplittedName = currentUserName?currentUserName.split(" "):[];
-    return SplittedName.length>1?SplittedName[0][0].toUpperCase():"";
+    return SplittedName.length>0?SplittedName[0][0].toUpperCase():"";
   }
   handleClickToggleMenu = ()=>{
     const { sidebarcollapsed } = this.state;
@@ -58,6 +59,14 @@ class home extends Component {
   openManageYourRolesPopUp = ()=>{
      this.props.openManageRolesPopUp()
   }
+  componentWillReceiveProps(nextProps){
+    if(nextProps.signoutDone){
+      this.props.history.push('/');
+    }
+  }
+  signOutUser = ()=>{
+    this.props.signOutUser();
+  }
   render() {
     const {
       sidebarcollapsed,
@@ -76,7 +85,7 @@ class home extends Component {
             <UserProfile.Item active={true}>Active Item</UserProfile.Item>
             <UserProfile.Item active={true} onClick={()=>{this.openManageYourRolesPopUp()}}
             >Manage Roles</UserProfile.Item>
-            <UserProfile.Item onClick={() => alert("Log Out")}>
+            <UserProfile.Item onClick={() =>alert('Logout')}>
               Log Out
             </UserProfile.Item>
           </UserProfile>
@@ -215,10 +224,11 @@ export const mapStateToProps=state=>{
   return {
     selectedItem:state.navigation.selectedItem,
     subMenu:state.navigation.subMenu,
+    signoutDone:state.authenticate.signoutDone,
     mangeRolesPopUpOpen:state.manageRoles.openManageRolesPopup,
     firstName: state.signUp.userDetails.firstname,
     lastName: state.signUp.userDetails.lastname,
   }
 }
 export default connect(mapStateToProps,
-  {getSelectedSideNav,getSelectedSubmenuItem,openManageRolesPopUp,getCAList})(home);
+  {getSelectedSideNav,getSelectedSubmenuItem,openManageRolesPopUp,getCAList,signOutUser})(home);

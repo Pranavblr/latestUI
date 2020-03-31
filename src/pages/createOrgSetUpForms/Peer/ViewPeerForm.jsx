@@ -1,12 +1,80 @@
 import React, { Component } from 'react';
-import { Grid, Card, Button, Input, Radio } from '@scuf/common';
+import { Grid, Card, Button, Input, Tab,Select} from '@scuf/common';
+import {connect} from 'react-redux';
+
+import {navigateBetweenFormType} from '../../../actions/orgSetUpMultipartFormNavigation';
+import exportIcon from '../../../assets/images/orgSetup/export.svg';
+import editIcon from '../../../assets/images/orgSetup/edit.svg';
+import Loader from '../../../components/Shared/Loader/Loader';
+import {getOrgPeerById,exportOrgPeer} from '../../../actions/OrgSetUp/orgConfiguration/orgPeer';
 
 class ViewPeerForm extends Component {
+    navigateBetweenForms = formType =>{
+        this.props.setCurrentHomePage(formType);
+        this.props.navigateBetweenFormType(formType);
+     }
+     handleClickExportOrgPeer = (response)=>{
+       this.props.exportOrgPeer(response);
+     }
+     handlePeerselectiOnChange = (Id)=>{
+       this.props.getOrgPeerById(Id);
+     }
     render() {
+        var peerList = [];
+        let peerDetails = this.props.peerDetails&&
+        this.props.peerDetails.currentOrgDetails[0].peers&&this.props.peerDetails.currentOrgDetails[0].peers.length>0?
+        this.props.peerDetails.currentOrgDetails[0].peers:null;
+        if(peerDetails!==null){
+           peerDetails.map((peer)=>{
+            peerList.push({text:peer.name,value:peer._id})
+           })
+        }
+        let response = this.props.response;
+        console.log('view-peer-form-response',response);
         return (
             <div>
+                {
+                    this.props.peerByIdLoading?
+                    <Loader/>:''
+                }
                 <Grid className="form-grid">
                   <Grid.Row>
+                  <Grid.Column width={5}>
+                            <Tab defaultActiveIndex={0} onTabChange={(activeIndex) => this.navigateBetweenForms(activeIndex)} activeIndex={this.props.currentFormType} >
+                                <Tab.Pane title="Org CA" >
+                                </Tab.Pane>
+                                <Tab.Pane title="Org MSP" >
+                                </Tab.Pane>
+                                <Tab.Pane title="Peer" >
+                                </Tab.Pane>
+                                <Tab.Pane title="Orderer" >
+                                </Tab.Pane>
+                            </Tab>
+                        </Grid.Column>
+                        <Grid.Column width={3}>
+                            <Select 
+                            className="view-form-select"
+                            placeholder="Select a State" defaultValue={peerList&&peerList.length>0?peerList[0].value:0} options={peerList}
+                                onChange={(value) => this.handlePeerselectiOnChange(value)} />
+                        </Grid.Column>
+                        <Grid.Column width={1} className="icon-div">
+                            <span className="icons">
+                                <img src={editIcon} alt="" />
+                            </span>
+
+                        </Grid.Column>
+                        <Grid.Column width={1} className="icon-div">
+
+                            <span className="icons" onClick={() => this.handleClickExportOrgPeer(response)}>
+                                <img src={exportIcon} alt="" />
+                            </span>
+                        </Grid.Column>
+                        <Grid.Column width={2}>
+                            <Button type="primary" className="view-top-icons" content="ADD PEER" 
+                                            onClick={()=>this.props.handleClickAddPeer('orgPeer')} />
+                        </Grid.Column>
+                        </Grid.Row>
+                    <Grid.Row>
                     <Grid.Column width={6}>
                         <h5>Peer Node Configuration</h5>
                     </Grid.Column>
@@ -16,7 +84,7 @@ class ViewPeerForm extends Component {
                             <label>Peer Name</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                             <p>Peer1-Org1</p>
+                               <p>{response.name?response.name:null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -24,7 +92,7 @@ class ViewPeerForm extends Component {
                             <label>FQDN</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                           <p>Peer1-Org1.blockchain.Honeywell.com</p>
+                           <p>{response.fqdn?response.fqdn:null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -32,7 +100,7 @@ class ViewPeerForm extends Component {
                             <label>Enroll Id</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                          <p>**********</p>
+                          <p>{response.enrollId?response.enrollId:null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -40,7 +108,7 @@ class ViewPeerForm extends Component {
                             <label>Enroll Secret</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                           <p>000000</p>
+                           <p>{response.enrollSecret?response.enrollSecret:null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -48,7 +116,7 @@ class ViewPeerForm extends Component {
                             <label>Peer Certificate</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                            <p>Certificate Name</p>
+                            <p>{response.serverCert?response.serverCert.substring(0, 100):null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -56,7 +124,7 @@ class ViewPeerForm extends Component {
                             <label>Peer Key</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                           <p>Key Value</p>
+                           <p>{response.serverKey?response.serverKey.substring(0, 100):null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -69,7 +137,7 @@ class ViewPeerForm extends Component {
                             <label>Peer Admin Certificate</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                          <p>Certificate Name</p>
+                          <p>{response.adminCert?response.adminCert.substring(0, 100):null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -77,7 +145,7 @@ class ViewPeerForm extends Component {
                             <label>Peer Admin Key</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                           <p>Key Name</p>
+                           <p>{response.adminKey?response.adminKey.substring(0, 100):null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -90,7 +158,7 @@ class ViewPeerForm extends Component {
                             <label>Peer Node IP Address</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                            <p>192.168.1.2</p>
+                            <p>{response.ipAddress?response.ipAddress:null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -98,7 +166,7 @@ class ViewPeerForm extends Component {
                             <label>Gossip Port</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                          <p>7051</p>
+                          <p>{response.gossipPort?response.gossipPort:null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -106,7 +174,7 @@ class ViewPeerForm extends Component {
                             <label>Eventhub Port</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                        <p>7053</p>
+                        <p>{response.eventHubPort?response.eventHubPort:null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -114,7 +182,7 @@ class ViewPeerForm extends Component {
                             <label>Operations Service Port</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                        <p>7443</p>
+                        <p>{response.opServicePort?response.opServicePort:null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -127,7 +195,7 @@ class ViewPeerForm extends Component {
                             <label>Enable TLS Authentication</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                        <p>ON</p>
+                        <p>{response.enableTLSAuth?'ON':'OFF'}</p>
 
                         </Grid.Column>
                     </Grid.Row>
@@ -136,7 +204,7 @@ class ViewPeerForm extends Component {
                             <label>Select TLS Server Root CA Certificate</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                        <p>None</p>
+                        <p>{response.tlsServerRootCAId?response.tlsServerRootCAId:null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -144,7 +212,7 @@ class ViewPeerForm extends Component {
                             <label>TLS Server Certificate</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                            <p>Certificate Name</p>
+                            <p>{response.tlsServerCert?response.tlsServerCert.substring(0, 100):null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -152,7 +220,7 @@ class ViewPeerForm extends Component {
                             <label>TLS Server key</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                             <p>Key value</p>
+                             <p>{response.tlsServerKey?response.tlsServerKey.substring(0, 100):null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -160,7 +228,7 @@ class ViewPeerForm extends Component {
                             <label>TLS Client Certificate</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                          <p>Certificate Name</p>
+                          <p>{response.tlsClientCert?response.tlsClientCert.substring(0, 100):null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -168,7 +236,7 @@ class ViewPeerForm extends Component {
                             <label>TLS Client Key</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                           <p>Key value</p>
+                           <p>{response.tlsClientKey?response.tlsClientKey.substring(0, 100):null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -176,8 +244,7 @@ class ViewPeerForm extends Component {
                             <label>Enable Client TLS Authentication</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                        <p>ON</p>
-
+                            <p>{response.enableClientTLSAuth?'ON':'OFF'}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -185,7 +252,7 @@ class ViewPeerForm extends Component {
                             <label>Select TLS Client Root CA Certificate</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                        <p>None</p>
+                        <p>{response.tlsClientRootCAId?response.tlsClientRootCAId:null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -193,7 +260,7 @@ class ViewPeerForm extends Component {
                             <label>Enable Operations TLS Authentication</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                        <p>ON</p>
+                        <p>{response.enableOpTLSAuth?'ON':'OFF'}</p>
 
                         </Grid.Column>
                     </Grid.Row>
@@ -202,7 +269,7 @@ class ViewPeerForm extends Component {
                             <label>Select TLS Ops Server Root Certificate</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                        <p>None</p>
+                        <p>{response.tlsOpsServerRootCAId?response.tlsOpsServerRootCAId:null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -210,7 +277,7 @@ class ViewPeerForm extends Component {
                             <label>TLS Ops Server Certificate</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                        <p>Certificate Name</p>
+                        <p>{response.tlsOpsServerCert?response.tlsOpsServerCert.substring(0, 100):null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -218,7 +285,7 @@ class ViewPeerForm extends Component {
                             <label>TLS Ops Server Key</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                         <p>Key Value</p>
+                         <p>{response.tlsOpsServerKey?response.tlsOpsServerKey.substring(0, 100):null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -226,7 +293,7 @@ class ViewPeerForm extends Component {
                             <label>Enable Operations Client TLS Authentication</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                        <p>ON</p>
+                        <p>{response.enableOpClientTLSAuth?'ON':'OFF'}</p>
 
                         </Grid.Column>
                     </Grid.Row>
@@ -235,7 +302,7 @@ class ViewPeerForm extends Component {
                             <label>TLS Ops Client Root Certificate</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                        <p>None</p>
+                        <p>{response.tlsOpsClientRootCAId?response.tlsOpsClientRootCAId:null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -243,22 +310,22 @@ class ViewPeerForm extends Component {
                         <h5>DB Configuration</h5>
                     </Grid.Column>
                     </Grid.Row>
-                    <Grid.Row>
+                    {/* <Grid.Row> */}
                         {/* <Grid.Row> */}
-                            <Grid.Column width={3}>
+                            {/* <Grid.Column width={3}>
                                 <label>StateDB</label>
                             </Grid.Column>
                             <Grid.Column width={5}>
                             <p>ON</p>
 
-                            </Grid.Column>
-                        </Grid.Row>
+                            </Grid.Column> */}
+                        {/* </Grid.Row> */}
                         <Grid.Row>
                         <Grid.Column width={3}>
                             <label>CouchDB Name</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                        <p>couchdb1</p>
+                        <p>{response.stateDB&&response.stateDB.name?response.stateDB.name:null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -266,7 +333,7 @@ class ViewPeerForm extends Component {
                             <label>CouchDB FQDN</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                        <p>couchdb1.blokchain.Honeywell.com</p>
+                        <p>{response.stateDB&&response.stateDB.fqdn?response.stateDB.fqdn:null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -274,7 +341,7 @@ class ViewPeerForm extends Component {
                             <label>CouchDB Port</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                        <p>5984</p>
+                        <p>{response.stateDB&&response.stateDB.port?response.stateDB.port:null}</p>
                         </Grid.Column>
                     </Grid.Row>
                     <Grid.Row>
@@ -282,7 +349,7 @@ class ViewPeerForm extends Component {
                             <label>CouchDB User</label>
                         </Grid.Column>
                         <Grid.Column width={5}>
-                        <p>5984</p>
+                        <p>{response.stateDB&&response.stateDB.dbUser?response.stateDB.dbUser:null}</p>
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
@@ -290,5 +357,12 @@ class ViewPeerForm extends Component {
         );
     }
 }
+export const mapStateToProps = state=>{
+    return {
+        currentFormType: state.orgSetUpMultipartFormReducer.currentFormType,
+        peerDetails:state.orgMSP,
+        peerByIdLoading:state.orgPeer.getPeerByIdrequestStarts
+    }
+}
 
-export default ViewPeerForm;
+export default connect(mapStateToProps,{navigateBetweenFormType,getOrgPeerById,exportOrgPeer})(ViewPeerForm);

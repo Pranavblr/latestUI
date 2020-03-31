@@ -1,72 +1,133 @@
+import {ADD_NEW_PEER,FETCH_ORG_PEER_INPUT_DETAILS,
+    SELECTED_PEER_FILE,GET_COUCH_DB_DATA,SELECTED_CHECKBOX_STATUS,
+    CREATE_PEER_REQUEST_STARTS,CREATE_PEER_REQUEST_SUCCESS,
+    CREATE_PEER_REQUEST_FAILED,GET_ORG_PEER_BY_ID_SUCCESS,GET_ORG_PEER_BY_ID_STARTS,
+    CLOSE_ORG_PEER_ERROR_POPUP
+} from '../../../constants/actiontypes';
+
 let initialState={
     loading:false,
-    peerInputDetails:[{
-        "name": "hongdtpeer1",
-        "fqdn": "hongdtpeer1.blockchain.honeywell.com",
-        "nodeType": 1,
-        "enrollId": "hongdtpeer1-admin",
-        "enrollSecret": "hongdtpeer1-adminpw",
-        "ipAddress": "10.10.1.198",
-        "gossipPort": 7053,
-        "enableTLSAuth": true,
-        "enableClientTLSAuth": true,
-        "enableOpTLSAuth": true,
-        "enableOpClientTLSAuth": true,
-        "eventHubPort": 7054,
-        "opServicePort": 7443,
-        "adminCert":"-----BEGIN CERTIFICATE-----\nMIICGjCCAcCgAwIBAgIRAIPRwJHVLhHK47XK0BbFZJswCgYIKoZIzj0EAwIwczEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzIuZXhhbXBsZS5jb20xHDAaBgNVBAMTE2Nh\nLm9yZzIuZXhhbXBsZS5jb20wHhcNMTcwNjIzMTIzMzE5WhcNMjcwNjIxMTIzMzE5\nWjBbMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN\nU2FuIEZyYW5jaXNjbzEfMB0GA1UEAwwWVXNlcjFAb3JnMi5leGFtcGxlLmNvbTBZ\nMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBd9SsEiFH1/JIb3qMEPLR2dygokFVKW\neINcB0Ni4TBRkfIWWUJeCANTUY11Pm/+5gs+fBTqBz8M2UzpJDVX7+2jTTBLMA4G\nA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMCsGA1UdIwQkMCKAIKfUfvpGproH\ncwyFD+0sE3XfJzYNcif0jNwvgOUFZ4AFMAoGCCqGSM49BAMCA0gAMEUCIQC8NIMw\ne4ym/QRwCJb5umbONNLSVQuEpnPsJrM/ssBPvgIgQpe2oYa3yO3USro9nBHjpM3L\nKsFQrpVnF8O6hoHOYZQ=\n-----END CERTIFICATE-----",
-        "adminKey":"-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgmHG6n4ZvwUeV4jCp\nkvAmGSQKZ+vOYsyzRZgYwORO+vChRANCAAQXfUrBIhR9fySG96jBDy0dncoKJBVS\nlniDXAdDYuEwUZHyFllCXggDU1GNdT5v/uYLPnwU6gc/DNlM6SQ1V+/t\n-----END PRIVATE KEY-----",
-        "serverCert":"-----BEGIN CERTIFICATE-----\nMIICGjCCAcCgAwIBAgIRAIPRwJHVLhHK47XK0BbFZJswCgYIKoZIzj0EAwIwczEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzIuZXhhbXBsZS5jb20xHDAaBgNVBAMTE2Nh\nLm9yZzIuZXhhbXBsZS5jb20wHhcNMTcwNjIzMTIzMzE5WhcNMjcwNjIxMTIzMzE5\nWjBbMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN\nU2FuIEZyYW5jaXNjbzEfMB0GA1UEAwwWVXNlcjFAb3JnMi5leGFtcGxlLmNvbTBZ\nMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBd9SsEiFH1/JIb3qMEPLR2dygokFVKW\neINcB0Ni4TBRkfIWWUJeCANTUY11Pm/+5gs+fBTqBz8M2UzpJDVX7+2jTTBLMA4G\nA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMCsGA1UdIwQkMCKAIKfUfvpGproH\ncwyFD+0sE3XfJzYNcif0jNwvgOUFZ4AFMAoGCCqGSM49BAMCA0gAMEUCIQC8NIMw\ne4ym/QRwCJb5umbONNLSVQuEpnPsJrM/ssBPvgIgQpe2oYa3yO3USro9nBHjpM3L\nKsFQrpVnF8O6hoHOYZQ=\n-----END CERTIFICATE-----",
-        "serverKey":"-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgmHG6n4ZvwUeV4jCp\nkvAmGSQKZ+vOYsyzRZgYwORO+vChRANCAAQXfUrBIhR9fySG96jBDy0dncoKJBVS\nlniDXAdDYuEwUZHyFllCXggDU1GNdT5v/uYLPnwU6gc/DNlM6SQ1V+/t\n-----END PRIVATE KEY-----",
-        "tlsServerCert":"-----BEGIN CERTIFICATE-----\nMIICGjCCAcCgAwIBAgIRAIPRwJH7LhHK47XK0BbFzJswCgYIKoZIzj0EAwIwczEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzIuZXhhbXBsZS5jb20xHDAaBgNVBAMTE2Nh\nLm9yZzIuZXhhbXBsZS5jb20wHhcNMTcwNjIzMTIzMzE5WhcNMjcwNjIxMTIzMzE5\nWjBbMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN\nU2FuIEZyYW5jaXNjbzEfMB0GA1UEAwwWVXNlcjFAb3JnMi5leGFtcGxlLmNvbTBZ\nMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBd9SsEiFH1/JIb3qMEPLR2dygokFVKW\neINcB0Ni4TBRkfIWWUJeCANTUY11Pm/+5gs+fBTqBz8M2UzpJDVX7+2jTTBLMA4G\nA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMCsGA1UdIwQkMCKAIKfUfvpGproH\ncwyFD+0sE3XfJzYNcif0jNwvgOUFZ4AFMAoGCCqGSM49BAMCA0gAMEUCIQC8NIMw\ne4ym/QRwCJb5umbONNLSVQuEpnPsJrM/ssBPvgIgQpe2oYa3yO3USro9nBHjpM3L\nKsFQrpVnF8O6hoHOYZQ=\n-----END CERTIFICATE-----",
-        "tlsServerKey":"-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgmHG6n4ZvwUeV4jCp\nkvAmGSQKZ+vOYsyzRZgYwORO+vChRANCAAQXfUrBIhR9fySG96jBDy0dncoKJBVS\nlniDXAdDYuEwUZHyFllCXggDU1GNdT5v/uYLPnwU6gc/DNlM6SQ1V+/t\n-----END PRIVATE KEY-----",
-        "tlsClientCert":"-----BEGIN CERTIFICATE-----\nMIICGjCCAcCgAwIBAgIRAIPRwJH7LhHK47XK0BbFzJswCgYIKoZIzj0EAwIwczEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzIuZXhhbXBsZS5jb20xHDAaBgNVBAMTE2Nh\nLm9yZzIuZXhhbXBsZS5jb20wHhcNMTcwNjIzMTIzMzE5WhcNMjcwNjIxMTIzMzE5\nWjBbMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN\nU2FuIEZyYW5jaXNjbzEfMB0GA1UEAwwWVXNlcjFAb3JnMi5leGFtcGxlLmNvbTBZ\nMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBd9SsEiFH1/JIb3qMEPLR2dygokFVKW\neINcB0Ni4TBRkfIWWUJeCANTUY11Pm/+5gs+fBTqBz8M2UzpJDVX7+2jTTBLMA4G\nA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMCsGA1UdIwQkMCKAIKfUfvpGproH\ncwyFD+0sE3XfJzYNcif0jNwvgOUFZ4AFMAoGCCqGSM49BAMCA0gAMEUCIQC8NIMw\ne4ym/QRwCJb5umbONNLSVQuEpnPsJrM/ssBPvgIgQpe2oYa3yO3USro9nBHjpM3L\nKsFQrpVnF8O6hoHOYZQ=\n-----END CERTIFICATE-----",
-        "tlsClientKey":"-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgmHG6n4ZvwUeV4jCp\nkvAmGSQKZ+vOYsyzRZgYwORO+vChRANCAAQXfUrBIhR9fySG96jBDy0dncoKJBVS\nlniDXAdDYuEwUZHyFllCXggDU1GNdT5v/uYLPnwU6gc/DNlM6SQ1V+/t\n-----END PRIVATE KEY-----",
-        "tlsOpsServerCert":"-----BEGIN CERTIFICATE-----\nMIICGjCCAcCgAwIBAgIRAIPRwJH7LhHK47XK0BbFzJswCgYIKoZIzj0EAwIwczEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzIuZXhhbXBsZS5jb20xHDAaBgNVBAMTE2Nh\nLm9yZzIuZXhhbXBsZS5jb20wHhcNMTcwNjIzMTIzMzE5WhcNMjcwNjIxMTIzMzE5\nWjBbMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN\nU2FuIEZyYW5jaXNjbzEfMB0GA1UEAwwWVXNlcjFAb3JnMi5leGFtcGxlLmNvbTBZ\nMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBd9SsEiFH1/JIb3qMEPLR2dygokFVKW\neINcB0Ni4TBRkfIWWUJeCANTUY11Pm/+5gs+fBTqBz8M2UzpJDVX7+2jTTBLMA4G\nA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMCsGA1UdIwQkMCKAIKfUfvpGproH\ncwyFD+0sE3XfJzYNcif0jNwvgOUFZ4AFMAoGCCqGSM49BAMCA0gAMEUCIQC8NIMw\ne4ym/QRwCJb5umbONNLSVQuEpnPsJrM/ssBPvgIgQpe2oYa3yO3USro9nBHjpM3L\nKsFQrpVnF8O6hOYZQ=\n-----END CERTIFICATE-----",
-        "tlsOpsServerKey":"-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgmHG6n4ZvwUeV4jCp\nkvAmGSQKZ+vOYsyzRZgYwORO+vChRANCAAQXfUrBIhR9fySG96jBDy0dncoKJBVS\nlniDXAdDYuEwUZHyFllCXggDU1GNdT5v/uYLPnwU6gc/DNlM6SQV+/t\n-----END PRIVATE KEY-----",
-        "tlsServerRootCAId": "5e54eb5fc4e9336a6bcd84bd",
-        "tlsClientRootCAId": "5e54eb8cc4e9336a6bcd84be",
-        "tlsOpsServerRootCAId": "5e54eb5fc4e9336a6bcd84bd",
-        "tlsOpsClientRootCAId": "5e54eb8cc4e9336a6bcd84be",
-        "stateDB":{
-            "name": "couchDBpeer1",
-            "fqdn": "couchDBpeer1.blockchain.honeywell.com",
-            "port": 5089,
-            "dbUser": "couchDBpeer1-admin",
-            "dbPassword": "couchDBpeer1-adminpw"
+    peerInputDetails:{
+        name: "",
+        fqdn: "",
+        nodeType: 1,
+        enrollId: "",
+        enrollSecret: "",
+        ipAddress: "",
+        gossipPort:"",
+        enableTLSAuth: false,
+        enableClientTLSAuth: false,
+        enableOpTLSAuth: false,
+        enableOpClientTLSAuth: false,
+        eventHubPort: "",
+        opServicePort: "",
+        adminCert:"",
+        adminKey:"",
+        serverCert:"",
+        serverKey:"",
+        tlsServerCert:"",
+        tlsServerKey:"",
+        tlsClientCert:"",
+        tlsClientKey:"",
+        tlsOpsServerCert:"",
+        tlsOpsServerKey:"",
+        tlsServerRootCAId: "",
+        tlsClientRootCAId: "",
+        tlsOpsServerRootCAId: "",
+        tlsOpsClientRootCAId: "",
+        stateDB:{
+            name: "",
+            fqdn: "",
+            port: '',
+            dbUser: "",
+            dbPassword: ""
         }
-    },{
-        "name": "hongdtpeer2",
-        "fqdn": "hongdtpeer2.blockchain.honeywell.com",
-        "nodeType": 1,
-        "enrollId": "hongdtpeer2-admin",
-        "enrollSecret": "hongdtpeer2-adminpw",
-        "ipAddress": "10.10.1.198",
-        "gossipPort": 7053,
-        "enableTLSAuth": true,
-        "enableClientTLSAuth": true,
-        "enableOpTLSAuth": true,
-        "enableOpClientTLSAuth": true,
-        "eventHubPort": 7054,
-        "opServicePort": 7443,
-        "adminCert":"-----BEGIN CERTIFICATE-----\nMIICGjCCAcCgAwIBAgIRAIPRwJHVLhHK47XK0BbFZJswCgYIKoZIzj0EAwIwczEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzIuZXhhbXBsZS5jb20xHDAaBgNVBAMTE2Nh\nLm9yZzIuZXhhbXBsZS5jb20wHhcNMTcwNjIzMTIzMzE5WhcNMjcwNjIxMTIzMzE5\nWjBbMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN\nU2FuIEZyYW5jaXNjbzEfMB0GA1UEAwwWVXNlcjFAb3JnMi5leGFtcGxlLmNvbTBZ\nMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBd9SsEiFH1/JIb3qMEPLR2dygokFVKW\neINcB0Ni4TBRkfIWWUJeCANTUY11Pm/+5gs+fBTqBz8M2UzpJDVX7+2jTTBLMA4G\nA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMCsGA1UdIwQkMCKAIKfUfvpGproH\ncwyFD+0sE3XfJzYNcif0jNwvgOUFZ4AFMAoGCCqGSM49BAMCA0gAMEUCIQC8NIMw\ne4ym/QRwCJb5umbONNLSVQuEpnPsJrM/ssBPvgIgQpe2oYa3yO3USro9nBHjpM3L\nKsFQrpVnF8O6hoHOYZQ=\n-----END CERTIFICATE-----",
-        "adminKey":"-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgmHG6n4ZvwUeV4jCp\nkvAmGSQKZ+vOYsyzRZgYwORO+vChRANCAAQXfUrBIhR9fySG96jBDy0dncoKJBVS\nlniDXAdDYuEwUZHyFllCXggDU1GNdT5v/uYLPnwU6gc/DNlM6SQ1V+/t\n-----END PRIVATE KEY-----",
-        "serverCert":"-----BEGIN CERTIFICATE-----\nMIICGjCCAcCgAwIBAgIRAIPRwJHVLhHK47XK0BbFZJswCgYIKoZIzj0EAwIwczEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzIuZXhhbXBsZS5jb20xHDAaBgNVBAMTE2Nh\nLm9yZzIuZXhhbXBsZS5jb20wHhcNMTcwNjIzMTIzMzE5WhcNMjcwNjIxMTIzMzE5\nWjBbMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN\nU2FuIEZyYW5jaXNjbzEfMB0GA1UEAwwWVXNlcjFAb3JnMi5leGFtcGxlLmNvbTBZ\nMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBd9SsEiFH1/JIb3qMEPLR2dygokFVKW\neINcB0Ni4TBRkfIWWUJeCANTUY11Pm/+5gs+fBTqBz8M2UzpJDVX7+2jTTBLMA4G\nA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMCsGA1UdIwQkMCKAIKfUfvpGproH\ncwyFD+0sE3XfJzYNcif0jNwvgOUFZ4AFMAoGCCqGSM49BAMCA0gAMEUCIQC8NIMw\ne4ym/QRwCJb5umbONNLSVQuEpnPsJrM/ssBPvgIgQpe2oYa3yO3USro9nBHjpM3L\nKsFQrpVnF8O6hoHOYZQ=\n-----END CERTIFICATE-----",
-        "serverKey":"-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgmHG6n4ZvwUeV4jCp\nkvAmGSQKZ+vOYsyzRZgYwORO+vChRANCAAQXfUrBIhR9fySG96jBDy0dncoKJBVS\nlniDXAdDYuEwUZHyFllCXggDU1GNdT5v/uYLPnwU6gc/DNlM6SQ1V+/t\n-----END PRIVATE KEY-----",
-        "tlsServerCert":"-----BEGIN CERTIFICATE-----\nMIICGjCCAcCgAwIBAgIRAIPRwJH7LhHK47XK0BbFzJswCgYIKoZIzj0EAwIwczEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzIuZXhhbXBsZS5jb20xHDAaBgNVBAMTE2Nh\nLm9yZzIuZXhhbXBsZS5jb20wHhcNMTcwNjIzMTIzMzE5WhcNMjcwNjIxMTIzMzE5\nWjBbMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN\nU2FuIEZyYW5jaXNjbzEfMB0GA1UEAwwWVXNlcjFAb3JnMi5leGFtcGxlLmNvbTBZ\nMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBd9SsEiFH1/JIb3qMEPLR2dygokFVKW\neINcB0Ni4TBRkfIWWUJeCANTUY11Pm/+5gs+fBTqBz8M2UzpJDVX7+2jTTBLMA4G\nA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMCsGA1UdIwQkMCKAIKfUfvpGproH\ncwyFD+0sE3XfJzYNcif0jNwvgOUFZ4AFMAoGCCqGSM49BAMCA0gAMEUCIQC8NIMw\ne4ym/QRwCJb5umbONNLSVQuEpnPsJrM/ssBPvgIgQpe2oYa3yO3USro9nBHjpM3L\nKsFQrpVnF8O6hoHOYZQ=\n-----END CERTIFICATE-----",
-        "tlsServerKey":"-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgmHG6n4ZvwUeV4jCp\nkvAmGSQKZ+vOYsyzRZgYwORO+vChRANCAAQXfUrBIhR9fySG96jBDy0dncoKJBVS\nlniDXAdDYuEwUZHyFllCXggDU1GNdT5v/uYLPnwU6gc/DNlM6SQ1V+/t\n-----END PRIVATE KEY-----",
-        "tlsClientCert":"-----BEGIN CERTIFICATE-----\nMIICGjCCAcCgAwIBAgIRAIPRwJH7LhHK47XK0BbFzJswCgYIKoZIzj0EAwIwczEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzIuZXhhbXBsZS5jb20xHDAaBgNVBAMTE2Nh\nLm9yZzIuZXhhbXBsZS5jb20wHhcNMTcwNjIzMTIzMzE5WhcNMjcwNjIxMTIzMzE5\nWjBbMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN\nU2FuIEZyYW5jaXNjbzEfMB0GA1UEAwwWVXNlcjFAb3JnMi5leGFtcGxlLmNvbTBZ\nMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBd9SsEiFH1/JIb3qMEPLR2dygokFVKW\neINcB0Ni4TBRkfIWWUJeCANTUY11Pm/+5gs+fBTqBz8M2UzpJDVX7+2jTTBLMA4G\nA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMCsGA1UdIwQkMCKAIKfUfvpGproH\ncwyFD+0sE3XfJzYNcif0jNwvgOUFZ4AFMAoGCCqGSM49BAMCA0gAMEUCIQC8NIMw\ne4ym/QRwCJb5umbONNLSVQuEpnPsJrM/ssBPvgIgQpe2oYa3yO3USro9nBHjpM3L\nKsFQrpVnF8O6hoHOYZQ=\n-----END CERTIFICATE-----",
-        "tlsClientKey":"-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgmHG6n4ZvwUeV4jCp\nkvAmGSQKZ+vOYsyzRZgYwORO+vChRANCAAQXfUrBIhR9fySG96jBDy0dncoKJBVS\nlniDXAdDYuEwUZHyFllCXggDU1GNdT5v/uYLPnwU6gc/DNlM6SQ1V+/t\n-----END PRIVATE KEY-----",
-        "tlsOpsServerCert":"-----BEGIN CERTIFICATE-----\nMIICGjCCAcCgAwIBAgIRAIPRwJH7LhHK47XK0BbFzJswCgYIKoZIzj0EAwIwczEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzIuZXhhbXBsZS5jb20xHDAaBgNVBAMTE2Nh\nLm9yZzIuZXhhbXBsZS5jb20wHhcNMTcwNjIzMTIzMzE5WhcNMjcwNjIxMTIzMzE5\nWjBbMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMN\nUFuIEZyYW5jaXNjbzEfMB0GA1UEAwwWVXNlcjFAb3JnMi5leGFtcGxlLmNvbTBZ\nMBMGByqGSM49AgEGCCqGSM49AwEHA0IABBd9SsEiFH1/JIb3qMEPLR2dygokFVKW\neINcB0Ni4TBRkfIWWUJeCANTUY11Pm/+5gs+fBTqBz8M2UzpJDVX7+2jTTBLMA4G\nA1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMCsGA1UdIwQkMCKAIKfUfvpGproH\ncwyFD+0sE3XfJzYNcif0jNwvgOUFZ4AFMAoGCCqGSM49BAMCA0gAMEUCIQC8NIMw\ne4ym/QRwCJb5umbONNLSVQuEpnPsJrM/ssBPvgIgQpe2oYa3yO3USro9nBHjpM3L\nKsFQrpVnF8O6hoHOYZQ=\n-----END CERTIFICATE-----",
-        "tlsOpsServerKey":"-----BEGIN PRIVATE KEY-----\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgmHG6n4ZvwUeV4jCp\nkvAmGSQKZ+vOYsyzRZgYwORO+vChRANCAAQXfUrBIhR9fySG96jBDy0dncoKJBVS\nlniDXAdDYuEwUZHyFllCXgg1GNdT5v/uYLPnwU6gc/DNlM6SQ1V+/t\n-----END PRIVATE KEY-----",
-        "tlsServerRootCAId": "5e54eb5fc4e9336a6bcd84bd",
-        "tlsClientRootCAId": "5e54eb8cc4e9336a6bcd84be",
-        "tlsOpsServerRootCAId": "5e54eb5fc4e9336a6bcd84bd",
-        "tlsOpsClientRootCAId": "5e54eb8cc4e9336a6bcd84be",
-        "stateDB":null
-    }],
-    requestResponse:''
+    },
+    requestResponse:'',
+    createOrgPeerLoading:false,
+    createOrgPeerErrorMessage:"",
+    getPeerByIdrequestStarts:false,
+    getPeerByIdrequestResponse:''
 }
 export default function orgPeersReducer(state=initialState,action){
-    return state;
+    
+    switch(action.type){
+       case ADD_NEW_PEER:
+           return {
+               ...state,
+               requestResponse:''
+           }
+        case FETCH_ORG_PEER_INPUT_DETAILS:
+            return {
+                ...state,
+                peerInputDetails:{
+                       ...state.peerInputDetails,
+                        [action.inputObject.key]:action.inputObject.value
+                    
+                }
+             }
+        case SELECTED_PEER_FILE:
+            return {
+                ...state,
+                peerInputDetails:{
+                    ...state.peerInputDetails,
+                   [action.inputFileObject.key]:action.inputFileObject.value
+                }
+            }
+        case GET_COUCH_DB_DATA:
+            return {
+                ...state,
+                peerInputDetails:{
+                    ...state.peerInputDetails,
+                    stateDB:{
+                        ...state.peerInputDetails.stateDB,
+                        [action.inputCouchDBData.key]:action.inputCouchDBData.value
+                    }
+                }
+            }
+        case SELECTED_CHECKBOX_STATUS:
+            return {
+                ...state,
+                peerInputDetails:{
+                    ...state.peerInputDetails,
+                    [action.InputObject.key]:action.InputObject.value
+                }
+            }
+        case CREATE_PEER_REQUEST_STARTS:
+            return {
+                ...state,
+                createOrgPeerLoading:true
+            }
+        case CREATE_PEER_REQUEST_SUCCESS:
+            return {
+                ...state,
+                createOrgPeerLoading:false,
+                requestResponse:action.res
+            }
+        case CREATE_PEER_REQUEST_FAILED:
+            return {
+                ...state,
+                createOrgPeerErrorMessage:action.error,
+                createOrgPeerLoading:false,
+            }
+        case GET_ORG_PEER_BY_ID_STARTS:
+            return {
+                ...state,
+                getPeerByIdrequestStarts:true
+            }
+        case GET_ORG_PEER_BY_ID_SUCCESS:
+            return {
+                ...state,
+                getPeerByIdrequestStarts:false,
+                getPeerByIdrequestResponse:action.response
+
+            }
+        case CLOSE_ORG_PEER_ERROR_POPUP:
+            return {
+                ...state,
+                createOrgPeerErrorMessage:''
+            }
+        default:
+            return state
+    }
 }

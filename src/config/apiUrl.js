@@ -8,6 +8,9 @@ const config = {
     //Login API URL
     authenticate: `${baseUrl.endpoint}/auth/signin`,
 
+    //signOUT API URL
+    signOut:`${baseUrl.endpoint}/auth/signout`,
+
     //SignUp API URL
     signUpNewUser:`${baseUrl.endpoint}/auth/signup`,
 
@@ -51,7 +54,10 @@ const config = {
     getCAlist:`${baseUrl.endpoint}/organization/`,
 
     //get CA by ID
-    getCAById:`${baseUrl.endpoint}/organization/`
+    getCAById:`${baseUrl.endpoint}/organization/`,
+
+    //get peer/orderer by id
+    getPeerOrdererById:`${baseUrl.endpoint}/organization/`
 
 }
 export default{

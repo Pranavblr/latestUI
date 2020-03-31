@@ -50,7 +50,7 @@ export const saveManageRolesCall = (selectedRole)=>{
      AbstractHttpService.generic_Api_call("get",manageRoelsUrl,{})
      .then((res)=>{
          if(res.status===200){
-             localStorage.setItem('role_token',res.data.role_token);
+             localStorage.setItem('roletoken',res.data.roletoken);
             dispatch(saveManageRoleRequestSuccess(res.data)) 
          }else{
              throw new Error('Failed to switch the role.')

@@ -146,11 +146,14 @@ h5{
     cursor: pointer !important;
 }
 .ui.button.view-top-icons{
-    padding-left: 1.9375rem !important;
-    padding-right: 3.0375rem !important;
+    padding-left: 1.2375rem !important;
+    padding-right: 2.0375rem !important;
     padding-top: 1.0075rem !important;
     padding-bottom: 1.0875rem !important;
     line-height: .5rem !important;
+}
+.ui.scuf-dropdown-wrapper.view-form-select{
+    width: 16.5rem !important;
 }
 /* .create-orgsetup p{
     color: #1274B7 !important;
@@ -159,9 +162,11 @@ h5{
 } */
 .form-grid .scuf-col.col-5 {
     padding-top: 10px !important;
+    padding-left: 0px !important;
 }
 .create-orgsetup h2{
     font-family: 'Honeywell Sans Extra_Bold' !important;
+    margin-top:15px !important;
 }
 .create-orgsetup h2 span{
     font-size: 16px !important;
@@ -186,6 +191,13 @@ h5{
 }
 .scuf-col.icon-div.col-1 {
     padding-top: 9px !important;
+}
+.ui.button.add-orderer{
+    padding-left: 1.2375rem !important;
+    padding-top: 1.0075rem !important;
+    padding-bottom: 1.0875rem !important;
+    line-height: .5rem !important;
+    padding-right: 1.0375rem !important;
 }
 
 /* toggle switch css starts */

@@ -1,7 +1,7 @@
 import {DEAFULT_ORG_CA_STATE,ORG_CA_REQUEST_STARTS,
     ORG_CA_REQUEST_SUCCESS,ORG_CA_REQUEST_FAILED,CLOSE_CA_ERROR_POPUP,
     FETCH_ORG_CA_INPUT_DETAILS,FETCH_ORG_CA_FILE_DATA,GET_SELECTED_CHECK_BOX,
-    GET_CA_BY_ID,ADD_NEW_CA} from '../../constants/actiontypes';
+    GET_CA_BY_ID,ADD_NEW_CA,GET_CA_BY_ID_STARTS} from '../../constants/actiontypes';
 
 let initialState={
     loading:false,
@@ -16,9 +16,9 @@ let initialState={
             enableClientTLSAuth: false,
             enableOpTLSAuth: false,
             enableOpClientTLSAuth: false,
-            rootCA: "null",
+            rootCA: null,
             opServicePort: '',
-            tlsOpsRootCertId: "5e54eb5fc4e9336a6bcd84bd",
+            tlsOpsRootCertId: null,
             adminCert:"",
             adminKey:"",
             serverCert:"",
@@ -28,12 +28,38 @@ let initialState={
     },
     orgCARequestResponse:'',
     errorResponse:'',
+    getCAByidresponseLoading:false,
     getCAByIdresponse:''
 }
 export default function orgCAreducer(state=initialState,action){
     switch(action.type){
         case DEAFULT_ORG_CA_STATE:
-            return initialState
+            return {
+                ...state,
+                CAinputDetails:{
+                    name: "",
+                    fqdn: "",
+                    enrollId: "",
+                    enrollSecret: "",
+                    ipAddress: "",
+                    serverPort: '',
+                    enableTLSAuth: false,
+                    enableClientTLSAuth: false,
+                    enableOpTLSAuth: false,
+                    enableOpClientTLSAuth: false,
+                    rootCA: null,
+                    opServicePort: '',
+                    tlsOpsRootCertId: null,
+                    adminCert:"",
+                    adminKey:"",
+                    serverCert:"",
+                    serverKey:"",
+                    tlsServerCert:"",
+                    tlsServerKey:""
+            },
+            orgCARequestResponse:''
+                
+            }
         case FETCH_ORG_CA_INPUT_DETAILS:
             return {
                 ...state,
@@ -85,9 +111,15 @@ export default function orgCAreducer(state=initialState,action){
                 ...state,
                 errorResponse:''
             }
+        case GET_CA_BY_ID_STARTS:
+            return {
+                ...state,
+                getCAByidresponseLoading:true
+            }
         case GET_CA_BY_ID:
             return {
                 ...state,
+                getCAByidresponseLoading:false,
                 getCAByIdresponse:action.res
             }
 

@@ -2,7 +2,7 @@ import * as JWT from 'jsonwebtoken';
 
 import {REQUEST_FOR_SIGN_IN,
     REQUEST_SIGNIN_SUCCESS,REQUEST_SIGNIN_FAILED,DEFAULT_SIGNIN_STATE,
-    UPDATE_NAME,FETCH_ORGNAME} from '../constants/actiontypes';
+    UPDATE_NAME,FETCH_ORGNAME,SIGN_OUT_USER_SUCCESS} from '../constants/actiontypes';
 import config  from '../config/apiUrl';
 import AbstractHttpService from '../services/AbstractHttpService';
 
@@ -86,7 +86,7 @@ export const authenticateuser=(code)=>{
                      localStorage.setItem('current-userRoleList',JSON.stringify(res.data.userDetails.userRoleList));
                  }
                  localStorage.setItem('access_token',res.data.access_token?res.data.access_token:'');
-                 localStorage.setItem('role_token',res.data.currentUserRole?res.data.currentUserRole:'');
+                 localStorage.setItem('roletoken',res.data.currentUserRole?res.data.currentUserRole:'');
                  localStorage.setItem('user-id',res.data.uid?res.data.uid:'');
                  if(res.data.currentUserRole!==null){
                    dispatch(getOrgDetails(res));
@@ -109,4 +109,25 @@ export const authenticateuser=(code)=>{
              console.log('authentication-error',error)
          })
   }
+}
+export const signOutUserSuceess = (res)=>{
+    return {
+        type:SIGN_OUT_USER_SUCCESS,
+        res
+    }
+}
+export const signOutUser = ()=>{
+    let signOutUrl = config.config.signOut;
+    return(dispatch)=>{
+        AbstractHttpService.generic_Api_call("get",signOutUrl,{})
+        .then((res)=>{
+            
+            dispatch(signOutUserSuceess(res.data))
+           localStorage.clear();
+        })
+        .catch((error)=>{
+            console.log('error is', error)
+        })
+    }
+    
 }
