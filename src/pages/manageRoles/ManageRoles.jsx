@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button, Select } from '@scuf/common';
+import { Modal, Button, Select,Grid} from '@scuf/common';
 import { connect } from 'react-redux';
 import * as JWT from 'jsonwebtoken';
 
@@ -101,17 +101,17 @@ class ManageRoles extends Component {
                                 this.props.manageRoleRequestResponse ?
                                     <p>Successfully switched the role</p> :
                                     <React.Fragment>
-                                        <Container className="view-admin-details-content">
-                                            <Row>
-                                                <Col md={4} sm={4}>
+                                        <Grid className="view-admin-details-content">
+                                            <Grid.Row>
+                                                <Grid.Column width={4}>
                                                     <ul class="name-value keys">
                                                         <li>
                                                             <label className="logbook-key">Select Role<span className="column-after-label"></span></label>
                                                         </li>
                                                     </ul>
-                                                </Col>
+                                                </Grid.Column>
 
-                                                <Col md={6} sm={6}>
+                                                <Grid.Column width={6}>
                                                     <ul className="name-value p-0 values">
 
                                                         <li>
@@ -125,9 +125,9 @@ class ManageRoles extends Component {
                                                         </li>
 
                                                     </ul>
-                                                </Col>
-                                            </Row>
-                                        </Container>
+                                                </Grid.Column>
+                                            </Grid.Row>
+                                        </Grid>
                                     </React.Fragment>
 
                             }

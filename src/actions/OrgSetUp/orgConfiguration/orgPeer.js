@@ -1,4 +1,4 @@
-import FileSaver from "file-saver";
+// import FileSaver from "file-saver";
 import AbstractHttpService from '../../../services/AbstractHttpService';
 import config from '../../../config/apiUrl';
 
@@ -135,7 +135,7 @@ export const exportOrgPeer = (Peerdetails)=>{
           return res.data;
         })
         .then(blob     => {
-          FileSaver.saveAs(blob);
+        //   FileSaver.saveAs(blob);
         })
         .catch(error=>{
             console.log('error is', error)

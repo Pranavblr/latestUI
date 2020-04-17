@@ -53,8 +53,8 @@
     width: 260px;
   }
   .action-buttons{
-    position: absolute;
-    right: 23%;
+    position: relative;
+    left: 50%;
   }
   li::before {
     content: "";
@@ -78,4 +78,7 @@
 }
 .disable{
   pointer-events: none !important;
+}
+button.ui.small.button.secondary.error-ok-button{
+  margin: 10px !important;
 }

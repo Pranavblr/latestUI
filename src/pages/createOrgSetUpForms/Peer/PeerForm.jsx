@@ -17,7 +17,8 @@ class peerForm extends Component {
         enableTLSAuth:false,
         enableClientTLSAuth:false,
         enableOpTLSAuth:false,
-        enableOpClientTLSAuth:false
+        enableOpClientTLSAuth:false,
+        stateDB:false
      }
     }
     navigateBetweenForms = formType =>{
@@ -101,6 +102,10 @@ class peerForm extends Component {
                 )
               })
 
+        }else if(key==='stateDB'){
+           this.setState({
+            stateDB:!this.state.stateDB
+           })
         }
     }
     render() {
@@ -537,7 +542,9 @@ class peerForm extends Component {
                             </Grid.Column>
                             <Grid.Column width={4}>
                                 <div className="button b2" id="button-18">
-                                    <input type="checkbox" className="checkbox" />
+                                    <input type="checkbox" 
+                                    onChange = {()=>this.handleClickCheckBoxStatus('stateDB')}
+                                    className="checkbox" />
                                     <div className="knobs">
                                         <span></span>
                                     </div>
@@ -546,56 +553,61 @@ class peerForm extends Component {
 
                             </Grid.Column>
                         </Grid.Row>
+                        {
+                            this.state.stateDB?
+                            <>
+                            <Grid.Row>
+                            <Grid.Column width={3}>
+                                <label>CouchDB Name</label>
+                            </Grid.Column>
+                            <Grid.Column width={4}>
+                                <Input
+                                 onChange={(value)=>this.getOrgPeerCouchDBdata('name',value)}
+                                 className="form-input" placeholder="CouchDB Name" />
+                            </Grid.Column>
+                        </Grid.Row>
                         <Grid.Row>
-                        <Grid.Column width={3}>
-                            <label>CouchDB Name</label>
-                        </Grid.Column>
-                        <Grid.Column width={4}>
-                            <Input
-                             onChange={(value)=>this.getOrgPeerCouchDBdata('name',value)}
-                             className="form-input" placeholder="CouchDB Name" />
-                        </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row>
-                        <Grid.Column width={3}>
-                            <label>CouchDB FQDN</label>
-                        </Grid.Column>
-                        <Grid.Column width={4}>
-                            <Input 
-                            onChange={(value)=>this.getOrgPeerCouchDBdata('fqdn',value)}
-                            className="form-input" placeholder="CouchDB FQDN" />
-                        </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row>
-                        <Grid.Column width={3}>
-                            <label>CouchDB Port</label>
-                        </Grid.Column>
-                        <Grid.Column width={4}>
-                            <Input
-                            onChange={(value)=>this.getOrgPeerCouchDBdata('port',value)} 
-                            className="form-input" placeholder="CouchDB Port" />
-                        </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row>
-                        <Grid.Column width={3}>
-                            <label>CouchDB User</label>
-                        </Grid.Column>
-                        <Grid.Column width={4}>
-                            <Input 
-                            onChange={(value)=>this.getOrgPeerCouchDBdata('dbUser',value)} 
-                            className="form-input" placeholder="CouchDB User" />
-                        </Grid.Column>
-                    </Grid.Row>
-                    <Grid.Row>
-                        <Grid.Column width={3}>
-                            <label>Couch DB Password</label>
-                        </Grid.Column>
-                        <Grid.Column width={4}>
-                            <Input 
-                            onChange={(value)=>this.getOrgPeerCouchDBdata('dbPassword',value)} 
-                            className="form-input" placeholder="CouchDB Password" />
-                        </Grid.Column>
-                    </Grid.Row>
+                            <Grid.Column width={3}>
+                                <label>CouchDB FQDN</label>
+                            </Grid.Column>
+                            <Grid.Column width={4}>
+                                <Input 
+                                onChange={(value)=>this.getOrgPeerCouchDBdata('fqdn',value)}
+                                className="form-input" placeholder="CouchDB FQDN" />
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column width={3}>
+                                <label>CouchDB Port</label>
+                            </Grid.Column>
+                            <Grid.Column width={4}>
+                                <Input
+                                onChange={(value)=>this.getOrgPeerCouchDBdata('port',value)} 
+                                className="form-input" placeholder="CouchDB Port" />
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column width={3}>
+                                <label>CouchDB User</label>
+                            </Grid.Column>
+                            <Grid.Column width={4}>
+                                <Input 
+                                onChange={(value)=>this.getOrgPeerCouchDBdata('dbUser',value)} 
+                                className="form-input" placeholder="CouchDB User" />
+                            </Grid.Column>
+                        </Grid.Row>
+                        <Grid.Row>
+                            <Grid.Column width={3}>
+                                <label>Couch DB Password</label>
+                            </Grid.Column>
+                            <Grid.Column width={4}>
+                                <Input 
+                                onChange={(value)=>this.getOrgPeerCouchDBdata('dbPassword',value)} 
+                                className="form-input" placeholder="CouchDB Password" />
+                            </Grid.Column>
+                        </Grid.Row></>:''
+                        }
+                     
                     <Grid.Row className="buttons">
                         <Grid.Column width={2}>
                             <Button

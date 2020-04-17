@@ -146,7 +146,6 @@ class CreateOrgSetUpForms extends Component {
         }
     }
     handleClickSave = () => {
-        debugger
         if (this.props.currentFormType === 0) {
             let caDetails = this.props.caReducer.CAinputDetails;
             if (caDetails.rootCA === null) {

@@ -5,7 +5,7 @@ import Signup from '../Signup/Signup';
 class CreateNewRequest extends Component {
     render() {
         return (
-            <div>
+            <div className="create-new-request">
               <Signup {...this.props}/>
             </div>
         );

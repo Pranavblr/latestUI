@@ -1,4 +1,4 @@
-import FileSaver from "file-saver";
+// import FileSaver from "file-saver";
 import config from  '../../config/apiUrl';
 import AbstractHttpService from '../../services/AbstractHttpService';
 import {DEAFULT_ORG_CA_STATE,ORG_CA_REQUEST_STARTS,
@@ -86,7 +86,7 @@ export const exportOrgCA = (CAdetails)=>{
           return res.data;
         })
         .then(blob     => {
-          FileSaver.saveAs(blob);
+        //   FileSaver.saveAs(blob);
         })
         .catch(error=>{
             console.log('error is', error)

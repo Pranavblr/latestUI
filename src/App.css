@@ -9,3 +9,8 @@
 .container-fluid{
     padding: 0 !important;
 }
+.create-new-request .scuf-col.signup-grid.col-7 {
+    overflow-y: scroll;
+    max-height: 80vh;
+    width: 65px;
+}

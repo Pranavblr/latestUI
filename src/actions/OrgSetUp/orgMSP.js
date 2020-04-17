@@ -1,4 +1,4 @@
-import FileSaver from "file-saver";
+// import FileSaver from "file-saver";
 import config from  '../../config/apiUrl';
 import AbstractHttpService from '../../services/AbstractHttpService';
 import {DEFAULT_ORG_MSP_STATE,ORG_MSP_REQUEST_STARTS
@@ -90,7 +90,7 @@ export const exportOrgMSPdetails =()=>{
           return res.data;
         })
         .then(blob     => {
-          FileSaver.saveAs(blob);
+        //   FileSaver.saveAs(blob);
         })
         .catch(error=>{
             console.log('error is', error)
@@ -109,7 +109,6 @@ export const getOrgnizationDetails = ()=>{
     return(dispatch)=>{
         AbstractHttpService.generic_Api_call("GET",organizationDetailsUrl,{})
         .then((res)=>{
-            
             // let response = res.data&&res.data[0]&&res.data[0].peers?res.data[0].peers[0]:{};
             dispatch(getOrgnizationDetailsSuccess(res.data));
             if( res.data&&res.data[0]&&res.data[0].peers&&res.data[0].peers.length>0){

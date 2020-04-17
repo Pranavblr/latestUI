@@ -88,8 +88,7 @@ class Signup extends Component {
     }
     render() {
         return (
-            // <div className="container-fluid signup-page">
-            <Grid className="signup-page">
+            <div className="container-fluid signup-page">
                 
                 {
                     this.props.loading ?
@@ -114,26 +113,16 @@ class Signup extends Component {
                         <ErrorMessage page="signup" open={true} title='Error' message={this.props.errorMessage} />
                         : ''
                 }
-                {/* <div className="row justify-content-center align-items-center h-100"> */}
-                <Grid.Row className="row justify-content-center align-items-center h-100">
-                    {/* <div className="col-11 col-sm-7 col-md-7 col-lg-9"> */}
-                    <Grid.Column width={.25}></Grid.Column>
-                    <Grid.Column width={7} className="signup-grid">
-                    <Grid.Row className="registration-form">
-                        {/* <div className="row registration-form"> */}
-                        <Grid.Column width={12} className="signup-col">
-                            {/* <div className="col-lg-12 col-md-12 col-12 signup-col"> */}
-                            <Grid.Row>
-                                <Grid.Column width={12}>
+                <div className="row justify-content-center align-items-center h-100">
+                    <div className="col-11 col-sm-7 col-md-7 col-lg-9">
+                        <div className="row registration-form">
+                            <div className="col-lg-12 col-md-12 col-12 signup-col">
                                 <div className="signup-header">
                                     <h3>Register</h3>
                                     <hr />
                                 </div>
-                                </Grid.Column>
-                            </Grid.Row>
-                             <br/>
-                                {/* <div className="row"> */}
-                                <Grid.Row>
+
+                                <div className="row">
                                     <ul class="list-group list-group-flush">
                                         <li>
                                             <div class="list-group-item-fixed">
@@ -168,6 +157,15 @@ class Signup extends Component {
                                                 </span>
                                             </div>
                                         </li>
+                                        {/* <li>
+                                            <div class="list-group-item-fixed">
+                                                <strong class="list-group-left">User Display Name:</strong>
+                                                <span class="list-group-right">
+                                                    <Input placeholder="user display name" onChange={(data) => this.handleChangeUserInput('display', data)} />
+                                                </span>
+
+                                            </div>
+                                        </li> */}
                                         <li>
                                             <div class="list-group-item-fixed">
                                                 <strong class="list-group-left">City:</strong>
@@ -213,6 +211,19 @@ class Signup extends Component {
 
                                             </div>
                                         </li>
+
+                                        {/* <li>
+                                            <div class="list-group-item-fixed">
+                                                <strong class="list-group-left">Select Network:</strong>
+                                                <span class="list-group-right">
+                                                    <Select
+                                                        defaultValue={1}
+                                                        placeholder="Select a State" options={stateOptions}
+                                                        onChange={(value) => (alert(value))} />
+                                                </span>
+
+                                            </div>
+                                        </li> */}
                                         <li>
                                             <div class="list-group-item-fixed">
                                                 <strong class="list-group-left">Role:</strong>
@@ -263,25 +274,18 @@ class Signup extends Component {
                                             </div>
                                         </li>
                                     </ul>
-                                    </Grid.Row>
-                                    <Grid.Row>
+                                </div>
                                 <div className="action-buttons">
-                                    <Button type="secondary" className="error-ok-button" size="small" content="CANCEL" />                                    
+                                    <Button type="secondary" className="error-ok-button" size="small" content="CANCEL" />
                                     <Button onClick={() => this.handleClickRegister()} type="primary" className="error-ok-button" size="small" content="SUBMIT" />
                                 </div>
-                                </Grid.Row>
-                            {/* </div> */}
-                            </Grid.Column>
+                            </div>
 
-                        {/* </div> */}
-                        </Grid.Row>
-                    {/* </div> */}
-                    </Grid.Column>
+                        </div>
+                    </div>
 
-                {/* </div> */}
-                </Grid.Row>
-            {/* </div> */}
-            </Grid>
+                </div>
+            </div>
         );
     }
 }

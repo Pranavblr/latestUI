@@ -50,7 +50,6 @@ let initialState={
     getPeerByIdrequestResponse:''
 }
 export default function orgPeersReducer(state=initialState,action){
-    
     switch(action.type){
        case ADD_NEW_PEER:
            return {
